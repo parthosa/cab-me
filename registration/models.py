@@ -17,3 +17,4 @@ class UserProfile(models.Model):
         return self.name
     class Meta:
         verbose_name_plural = "User Profiles"
+
