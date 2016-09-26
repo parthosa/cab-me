@@ -29,6 +29,7 @@ class Cab(models.Model):
 	Time = models.CharField(max_length = 10)
 	Type = models.CharField(max_length=20)	
 	cab_id = models.CharField(max_length = 1000, default = '')
+	price = models.IntegerField(default = 7, blank = False)
 
 	def __unicode__(self):
 		return self.id

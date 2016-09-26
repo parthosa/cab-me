@@ -47,16 +47,12 @@ def user_login(request):
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
 		if user:
-			if user.is_active:
-				if user.is_staff:
-					login(request, user)
-					return HttpResponseRedirect('../dashboard')	
-				else:
-					login(request, user)
-					return HttpResponseRedirect('../dashboard/')
+			if cache.get(request.user.id) is not None:
+				login(request, user)
+				return HttpResponseRedirect('../feedback/')	
 			else:
-				context = {'error_heading' : "Account Inactive", 'error_message' :  'Your account is currently INACTIVE.'}
-				return render(request, 'main/login.html', context)
+				login(request, user)
+				return HttpResponseRedirect('../dashboard/')
 		else:
 			context = {'error_heading' : "Invalid Login Credentials", 'error_message' :  'Invalid Login Credentials. Please try again'}
 			return render(request, 'main/login.html', context)
