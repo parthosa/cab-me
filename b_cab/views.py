@@ -17,14 +17,12 @@ def bookcab(request, user):
 	
 		cabs = Cab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)	
 		p_cabs = PostCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)
-		share_cabs = BookCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date, Sharing = True)	
 		
 		total_cabs = cab + p_cabs
 		D_name = []
 		Price = []
 		type_cab = []
 		cab_id = []
-		cust_names = []
 		if b_cab.OneWay == True and b_cab.Sharing == True:
 			for cab in p_cabs:
 				D_pcab = p_cabs.user
@@ -36,16 +34,7 @@ def bookcab(request, user):
 				type_cab.append(p_cabs.type)
 				cab_id.append(p_cab.cab_id) # not for display to users only for returning in the post request to backend
 				# pcab_id = p_cabs.id # not for display to users only for returning in the post request to backend
-				cust_names.append(D_pcabuserp.name)
-			for cab in share_cabs:
 
-				D_name.append(cab.DriverName)
-				Price.append(distance*cab.price)
-				# price_pcab = p_cab.price
-				type_cab.append(cab.Type) 
-				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
-				# pcab_id = p_cab.id # not for display to users only for returning in the post request to backend
-				cust_names = [customer.name for customer in cab.Cust]
 			for cab in cabs:
 
 				D_name.append(cab.DriverName)
@@ -54,9 +43,8 @@ def bookcab(request, user):
 				type_cab.append(cab.Type) 
 				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
 				# pcab_id = p_cab.id # not for display to users only for returning in the post request to backend
-				cust_names.append('none')
 
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names' = cust_names}
+			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id}
 
 		elif b_cab.OneWay == True and b_cab.Sharing == False:
 			D_name.append(cab.DriverName)

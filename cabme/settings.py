@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'registration',
     'cab',
+    'b_cab',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

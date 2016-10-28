@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from registration.models import *
+from b_cab.models import *
 
 
 cities = (
@@ -16,7 +17,7 @@ class BookCab(models.Model):
 	Price = models.IntegerField()
 	Type = models.CharField(max_length=20)
 	Sharing = models.BooleanField(default=False)
-	Cust = models.ManyToManyField(User) 
+	Cust = models.ManyToManyField('registration.UserProfile', related_name = 'userprofile') 
 
 	def __unicode__(self):
 		return self.id
@@ -50,5 +51,7 @@ class PostCab(models.Model):
 
 	def __unicode__(self):
 		return self.id		
+
+
 
 	

@@ -13,9 +13,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, SocialAccount, null=True)
     postedcabs = models.ManyToManyField(PostCab, blank = True, default = '')
     bookedcabs = models.ManyToManyField(BookCab, blank = True, default = '')
-    rating = models.DecimalField(max_digits = 3, decimal_places = 2)
+    rating = models.DecimalField(max_digits = 3, decimal_places = 2, null = True)
     def __unicode__(self):
         return self.name
-    class Meta:
-        verbose_name_plural = "User Profiles"
 
