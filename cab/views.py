@@ -3,6 +3,8 @@ from .models import *
 from registration.models import *
 from django.http import HttpResponseRedirect,Http404,HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
 
 @csrf_exempt
 def bookcab(request, user):
@@ -23,8 +25,11 @@ def bookcab(request, user):
 			p_cabs = PostCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)
 		except ObjectDoesNotExist:
 			pass
-		share_cabs = BookCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date, Sharing = True)	
-		
+		try:
+			share_cabs = BookCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date, Sharing = True)	
+		except ObjectDoesNotExist:
+			pass
+			
 		total_cabs = cab + p_cabs
 		D_name = []
 		Price = []
@@ -62,7 +67,7 @@ def bookcab(request, user):
 				# pcab_id = p_cab.id # not for display to users only for returning in the post request to backend
 				cust_names.append('none')
 
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names' = cust_names}
+			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names}
 
 		elif b_cab.OneWay == True and b_cab.Sharing == False:
 			D_name.append(cab.DriverName)
