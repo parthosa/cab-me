@@ -7,11 +7,13 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-	if request.user == None:
+	if request.user.id == None:
 		return render(request, 'cab/index.html')
+		print request.user
 	else:
 		user = request.user
-		customer = UserProfile.objects.get(email = user.username)
+		print user
+		customer = UserProfile.objects.get(email_id = user.username)
 		name = customer.name
 		context = {'name': name}
 		return render(request, 'cab/index.html', context)
