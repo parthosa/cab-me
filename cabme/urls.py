@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from 
 
 urlpatterns = patterns('',
     # Examples:
@@ -8,5 +9,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^accounts/', include('registration.urls', namespace='registration')),
-    # url(r'^/', include('cab.urls', namespace='cab')),
+    url(r'^/', include('cab.urls', namespace='cab')),
 )

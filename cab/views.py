@@ -15,8 +15,14 @@ def bookcab(request, user):
 		b_cab.OneWay = request.POST['OneWay']
 		b_cab.Sharing = request.POST['Sharing']
 	
-		cabs = Cab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)	
-		p_cabs = PostCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)
+		try:
+			cabs = Cab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)	
+		except ObjectDoesNotExist:
+			pass
+		try:
+			p_cabs = PostCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)
+		except ObjectDoesNotExist:
+			pass
 		share_cabs = BookCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date, Sharing = True)	
 		
 		total_cabs = cab + p_cabs
