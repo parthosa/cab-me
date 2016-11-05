@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+ {% load static from staticfiles %}
 	<html>
 
 	<head>
@@ -17,7 +17,7 @@
 	        <div class="nav">
 	            <div class="nav-inner">
 		        	<div class="logo">
-						<img src="img/logo.png">
+						<img src="{% static 'img/logo.png' %}">
 					</div>
 		        	<div class="menu">
 						<ul class="nav-menu">
@@ -189,9 +189,9 @@
 ">
 	          	<div class="left-pane">
     	          	<div id="owl-demo-1" class="owl-carousel owl-theme">
-                      <div class="item"><img src="img/slide1.jpg" alt="The Last of us"></div>
-                      <div class="item"><img src="img/slide2.jpg" alt="GTA V"></div>
-                      <div class="item"><img src="img/slide3.jpg" alt="Mirror Edge"></div>
+                      <div class="item"><img src="{% static 'img/slide1.jpg' %}" alt="The Last of us"></div>
+                      <div class="item"><img src="{% static 'img/slide2.jpg' %}" alt="GTA V"></div>
+                      <div class="item"><img src="{% static 'img/slide3.jpg' %}" alt="Mirror Edge"></div>
                     </div>
 	          	</div>
 	          	<div class="right-pane" style="    height: 76.5vh;">
@@ -216,9 +216,9 @@
                 </div>
                 <div class="row">
                     <div id="owl-demo-2" class="owl-carousel owl-theme">
-                      <div class="item"><img src="img/slide1.jpg" alt="The Last of us"></div>
-                      <div class="item"><img src="img/slide2.jpg" alt="GTA V"></div>
-                      <div class="item"><img src="img/slide3.jpg" alt="Mirror Edge"></div>
+                      <div class="item"><img src="{% static 'img/slide1.jpg' %}" alt="The Last of us"></div>
+                      <div class="item"><img src="{% static 'img/slide2.jpg' %}" alt="GTA V"></div>
+                      <div class="item"><img src="{% static 'img/slide3.jpg' %}" alt="Mirror Edge"></div>
                     </div>
                 </div>
               </div>
@@ -239,22 +239,22 @@
     height: 67%;
 ">
                         <div class="row logo-footer">
-                            <img src="img/logo.png" alt="">
+                            <img src="{% static 'img/logo.png' %}" alt="">
                         </div>
                         <div class="row follow">
                             <p>Follow Us</p>
                             <ul>
-                                <li><img src="img/fb.png"></li>
-                                <li><img src="img/twitter.png"></li>
-                                <li><img src="img/youtube.png"></li>
+                                <li><img src="{% static 'img/fb.png' %}"></li>
+                                <li><img src="{% static 'img/twitter.png' %}"></li>
+                                <li><img src="{% static 'img/youtube.png' %}"></li>
                             </ul>
                         </div>
                         <div class="row apps">
                             <div class="col">
-                                <img src="img/playstore.png" alt="">
+                                <img src="{% static 'img/playstore.png' %}" alt="">
                            </div>
                             <div class="col">
-                                <img src="img/applestore.png" alt="">
+                                <img src="{% static 'img/applestore.png' %}" alt="">
                             </div>
                         </div>
                     </div>
