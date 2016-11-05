@@ -140,3 +140,5 @@ EMAIL_HOST_USER = config.email_host_user
 EMAIL_HOST_PASSWORD = config.email_host_pass
 EMAIL_PORT = config.email_port
 EMAIL_USE_TLS = True
+
+#change settings
