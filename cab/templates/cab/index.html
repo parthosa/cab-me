@@ -1,0 +1,290 @@
+{% load static from staticfiles %}
+	<html>
+
+	<head>
+	    <li
+			nk rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
+	    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
+	    </script>
+
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	</head>
+
+	<body>
+	    <div class="landing-wrapper">
+	        <div class="nav">
+	            <div class="nav-inner">
+		        	<div class="logo">
+						<img src="img/logo.png">
+					</div>
+		        	<div class="menu">
+						<ul class="nav-menu">
+							<li>Deals </li>
+							<li>C Cash</li>
+							<li>CabMe Corporate</li>
+						</ul>
+						<ul class="account-menu">
+							<li>Sign In</li>
+						</ul>
+					</div>
+	            </div>
+	        </div>
+	        <div class="content">
+	          <div class="back-drop"> </div>
+	          <div class="card type-1">
+	          	<div class="headers">
+		          	<ul>
+		          		<li class="active"><a href="./index.html">Cabs</a></li>
+		          		<li><a href="./flights.html">Flights</a></li>
+		          		<li><a href="./buses.html">Buses</a></li>
+		          		<li><a href="./hotels.html">Hotels</a></li>
+		          		<li><a href="./holidays.html">Holidays</a></li>
+		          	</ul>
+	          	</div>
+	          	<div class="form-opts">
+	          		<div class="cab-opts">
+	          			<ul>
+			          		<li class="active" id="outstation">Outstation</li>
+			          		<li id="self-drive">Self-Drive</li>
+			          		<li id="book-seat">Book A Seat</li>
+			          		<li id="post-cab">Post A Cab</li>
+			          	</ul>
+	          		</div>
+	          		<div class="form-data" id="outstation-form">
+	          			<div class="input-row">
+	          				<div class="input-wrap-1">
+		          				<input type="radio" name="way-opts" value="One Way" checked="">One Way
+		          				<input type="radio" name="way-opts" value="Two Way">Two Way
+	          				</div>
+          				</div>
+	          			<div class="input-row">
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="From">
+	          				</div>
+	          				<div class="reverse-icon">
+	          					<span class="reverse"></span>
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="To">
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
+
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field"  type="text" class="form-control" placeholder="Return" onfocus="(this.type='date')"/>
+
+
+	          				</div>
+	          				<div class="input-wrap-3">
+	          				<select name="type" id="out-cab-class" class="cab-class">
+	          					<option value="Economoy">Economoy</option>
+	          					<option value="Business">Business</option>
+	          				</select>
+	          				</div>
+	          				<div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Search</button>
+	          				</div>
+	          			</div>
+	          			<!-- <div class="input-row-3">
+	          			</div> -->
+	          		</div>
+	          		<div class="form-data" id="self-drive-form">
+	          			<div class="input-row">
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="From">
+	          				</div>
+
+	          				<div class="input-wrap-2">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
+
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field"  type="text" class="form-control" placeholder="Return" onfocus="(this.type='date')"/>
+
+
+	          				</div>
+
+	          				<div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Search</button>
+	          				</div>
+	          			</div>
+	          		</div>
+	          		<div class="form-data" id="post-cab-form">
+	          			<div class="input-row">
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="From">
+	          				</div>
+	          				<div class="reverse-icon">
+	          					<span class="reverse"></span>
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="To">
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
+
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="calender"></span>
+	          					<input type="text" class="input-field" placeholder="Rates/Km">
+	          				</div>
+	          				<div class="input-wrap-3">
+	          				<select name="type" id="out-cab-class" class="cab-class">
+	          					<option value="Economoy">Economoy</option>
+	          					<option value="Business">Business</option>
+	          				</select>
+	          				</div>
+	          				<div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Post</button>
+	          				</div>
+	          			</div>
+	          		</div>
+	          		<div class="form-data" id="book-seat-form">
+	          			<div class="input-row">
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="From">
+	          				</div>
+	          				<div class="reverse-icon">
+	          					<span class="reverse"></span>
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="To">
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
+
+	          				</div>
+
+	          				<div class="input-wrap-3">
+	          				<select name="type" id="out-cab-class" class="cab-class">
+	          					<option value="Economoy">Economoy</option>
+	          					<option value="Business">Business</option>
+	          				</select>
+	          				</div>
+	          				<div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Search</button>
+	          				</div>
+	          			</div>
+	          		</div>
+	          	</div>
+	          </div>
+	          <div class="card type-2" style="
+    flex-direction: row;
+">
+	          	<div class="left-pane">
+    	          	<div id="owl-demo-1" class="owl-carousel owl-theme">
+                      <div class="item"><img src="img/slide1.jpg" alt="The Last of us"></div>
+                      <div class="item"><img src="img/slide2.jpg" alt="GTA V"></div>
+                      <div class="item"><img src="img/slide3.jpg" alt="Mirror Edge"></div>
+                    </div>
+	          	</div>
+	          	<div class="right-pane" style="    height: 76.5vh;">
+	          		<div class="row">
+	          			<div class="col-s2"></div>
+	          			<div class="col-s2"></div>
+	          		</div>
+	          		<div class="row">
+		          		<div class="col-s2"></div>
+		          		<div class="col-s2"></div>
+	          		</div>
+	          		<div class="row">
+	          			<div class="col-s2"></div>
+	          			<div class="col-s2"></div>
+	          		</div>
+
+	          	</div>
+	          </div>
+	          <div class="card type-2 banner">
+                <div class="row">
+                    <h3 class="card-label">Shop On CabMe <span>></span></h3>
+                </div>
+                <div class="row">
+                    <div id="owl-demo-2" class="owl-carousel owl-theme">
+                      <div class="item"><img src="img/slide1.jpg" alt="The Last of us"></div>
+                      <div class="item"><img src="img/slide2.jpg" alt="GTA V"></div>
+                      <div class="item"><img src="img/slide3.jpg" alt="Mirror Edge"></div>
+                    </div>
+                </div>
+              </div>
+              <div class="card type-2 banner">
+	          	<div class="row">
+	          		<h3 class="card-label">Interesting Offers <span>></span></h3>
+	          	</div>
+	          	<div class="row">
+	          		<div id="owl-demo-3" class="owl-carousel owl-theme">
+                    </div>
+                </div>
+              	</div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-s2 left-footer" style="
+    padding: 3% 4%;
+    height: 67%;
+">
+                        <div class="row logo-footer">
+                            <img src="img/logo.png" alt="">
+                        </div>
+                        <div class="row follow">
+                            <p>Follow Us</p>
+                            <ul>
+                                <li><img src="img/fb.png"></li>
+                                <li><img src="img/twitter.png"></li>
+                                <li><img src="img/youtube.png"></li>
+                            </ul>
+                        </div>
+                        <div class="row apps">
+                            <div class="col">
+                                <img src="img/playstore.png" alt="">
+                           </div>
+                            <div class="col">
+                                <img src="img/applestore.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-s2 right-footer" style="
+    padding: 3% 4%;
+    height: 67%;
+">
+                        <div class="col-s2">
+                            <h3>Company</h3>
+                            <ul>
+                                <li>About Us</li>
+                                <li>Media</li>
+                                <li>Terms of Service</li>
+                                <li>Privacy Policy</li>
+                                <li>FAQ</li>
+                                <li>Contact</li>
+                                <li>Site Map</li>
+                            </ul>
+                        </div>
+                        <div class="col-s2">
+                            <h3>Discover</h3>
+                            <ul>
+                                <li>Career</li>
+                                <li>Feedback</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	    </div>
+	    <script src="{% static 'js/script.js' %}"></script>
+	</body>
+</html>
