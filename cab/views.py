@@ -6,6 +6,19 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 
+def index(request):
+	if request.user == None:
+		return render(request, 'cab/index.html')
+	else:
+		user = request.user
+		customer = UserProfile.objects.get(email = user.username)
+		name = customer.name
+		context = {'name': name}
+		return render(request, 'cab/index.html', context)
+
+def hotels(request):
+	return render(request, 'cab/hotels.html')
+
 @csrf_exempt
 def bookcab(request, user):
 	if request.POST:
