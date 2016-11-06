@@ -22,7 +22,7 @@ def hotels(request):
 	return render(request, 'cab/hotels.html')
 
 @csrf_exempt
-def bookcab(request, user):
+def bookcab(request):
 	if request.POST:
 		b_cab = BookCab()
 		b_cab.From = request.POST['From']

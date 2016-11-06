@@ -32,7 +32,7 @@ $(document).ready(function(){
 		$('#'+id+'-form').show();
 	})
 
-	$('input[name="way-opts"').on('change',function(){
+	$('input[name="way-opts"]').on('change',function(){
 		if($(this).val()=='One Way'){
 			$(this).closest('.form-data').find('.return-date-data').attr('disabled','')
 		}
@@ -43,7 +43,22 @@ $(document).ready(function(){
 
 	$('#outstation-form button.form-submit').click(function(){
 		var data={
-			'From':$
+			'One Way':$(this).closest('.form-data').find('input[name="way-opts"]:checked').val(),
+			'From':$(this).closest('.form-data').find('.from-data').val(),
+			'To':$(this).closest('.form-data').find('.to-data').val(),
+			'Date':$(this).closest('.form-data').find('.date-data').val(),
+			'Return-Date':$(this).closest('.form-data').find('.return-date-data').val(),
+			'Class':$(this).closest('.form-data').find('.cab-class').val()
+
 		}
+		console.log(data);
+		$.ajax({
+			type:'POST',
+			url:'../bookcab/',
+			data:data,
+			success:function(response){
+				console.log(response);
+			}
+		})
 	})
 })
