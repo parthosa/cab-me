@@ -31,4 +31,19 @@ $(document).ready(function(){
 		$('.form-data').hide();
 		$('#'+id+'-form').show();
 	})
+
+	$('input[name="way-opts"').on('change',function(){
+		if($(this).val()=='One Way'){
+			$(this).closest('.form-data').find('.return-date-data').attr('disabled','')
+		}
+		else
+			$(this).closest('.form-data').find('.return-date-data').removeAttr('disabled','false')
+
+	})
+
+	$('#outstation-form button.form-submit').click(function(){
+		var data={
+			'From':$
+		}
+	})
 })
