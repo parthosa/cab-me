@@ -55,6 +55,10 @@ $(document).ready(function(){
       source: cityList
     });
 
+    $('.date-data,.return-date-data').datepicker({
+    	dateFormat: "dd/mm/yy"
+    });
+
 	$('#outstation-form button.form-submit').click(function(){
 		var data={
 			'One Way':$(this).closest('.form-data').find('input[name="way-opts"]:checked').val(),
