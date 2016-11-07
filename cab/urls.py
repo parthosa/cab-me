@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^bookcab/', views.bookcab, name='bookcab'),
     url(r'^main/', views.index, name='index'),
     url(r'^hotels/', views.hotels, name='hotels'),
+    url(r'^search/', views.search, name='search'),
 ]

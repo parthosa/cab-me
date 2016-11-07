@@ -21,6 +21,9 @@ def index(request):
 def hotels(request):
 	return render(request, 'cab/hotels.html')
 
+def search(request):
+	return render(request, 'cab/search.html')
+
 @csrf_exempt
 def bookcab(request):
 	if request.POST:
