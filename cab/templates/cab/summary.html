@@ -1,0 +1,213 @@
+
+{% load staticfiles %}
+<html>
+
+<head>
+ <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
+ <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
+ </script>
+ <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}">
+ </script>
+
+ <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+ <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+ <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+ <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+</head>
+
+<body>
+
+ <div class="landing-wrapper">
+     <div class="nav">
+         <div class="nav-inner">
+           <div class="logo">
+              <img src="{% static 'img/logo.png' %}">
+          </div>
+          <div class="menu">
+              <ul class="nav-menu">
+               <li>Deals </li>
+               <li>C Cash</li>
+               <li>CabMe Corporate</li>
+           </ul>
+           <ul class="account-menu">
+               <li>Sign In</li>
+           </ul>
+       </div>
+   </div>
+</div>
+<div class="content">
+  <div class="back-drop"> </div>
+  <div class="card type-1">
+      <div class="row">
+        <h3 class="card-label">Booking Summary <span>></span></h3>
+    </div>
+    <div class="row">
+        <div class="col-s1 summary-headers" id="outstation-summary">
+            <div class="col">
+                <img src="/static/img/cabs/INDIGO_OR_EQUIVALENT.png" alt="">
+
+                <h4 class="cab-type">
+                    HatchBack
+                </h4>
+            </div> 
+            <div class="col">
+
+                <h4 class="search-data">
+                    New Delhi
+                </h4>
+                <p> 14/11/2016</p>
+            </div>
+            <div class="arrow col-s6">
+
+                <h4 class="search-data">&#8644;</h4>
+
+            </div><div class="col">
+            <h4 class="search-data">
+                Mumbai
+            </h4>
+            <p> 14/11/2016</p>
+        </div> <div class="col-s4">
+        <div class="fare-detail">
+            <h3>Fare Detail</h3>
+            <div class="row"> <div class="col-s2">Car Category:</div><div class="col-s2">Indigo Or Equivalent</div></div>
+            <div class="row">
+                <div class="col-s2">Base Fare:</div>
+                <div class="col-s2"><span>&#8377; </span>27538.00</div></div>
+            <div class="row">
+                    <div class="col-s2">Service Tax(6%):</div>
+                    <div class="col-s2"><span>&#8377; </span>1653.00</div>
+            </div>
+            <div class="row"> 
+                <div class="col-s2">Total Price:</div>
+                    <div class="col-s2"><span>&#8377; </span>29191.00</div>
+            </div>
+             </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card type-2">
+       <div class="row">
+        <h3 class="card-label">Personal Information <span>></span></h3>
+    </div>
+    <div class="row">
+   <div class="form-opts personal-info">
+                
+                    <div class="form-data">
+                        <div class="input-row col-s2">
+                            <div class="input-wrap-2">
+                                <label class="p-label" name="">Name</label>
+                                <input type="text" class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="input-wrap-2">
+                                <label class="p-label" name="">Email</label>
+                                <input type="email" class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="input-wrap-2">
+                                <label class="p-label" name="">Phone</label>
+                                <input type="text" class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="input-row col-s2">
+                            <div class="input-wrap-2">
+                                <label class="p-label" name="">Pickup Time</label>
+                               <select class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="00">00</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="00">00</option>
+                                    <option value="01">15</option>
+                                    <option value="02">30</option>
+                                    <option value="03">45</option>
+                                </select>
+                                <select class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                            <div class="input-wrap-2">
+                                <label class="p-label" name="">Pickup Address</label>
+                                <textarea type="text" class="input-field from-data ui-autocomplete-input" placeholder="" rows="3" cols="35"></textarea>
+                            </div>
+                        </div>
+                            <div class="input-wrap-3" style="margin-left:25px;">
+                                <button type="submit" class="form-submit">Proceed</button>
+                            </div>
+                            <!-- <div class="input-row-3">
+                    </div> -->
+                    </div>
+    </div>
+    </div>
+</div>
+</div>
+<div class="footer">
+    <div class="row">
+        <div class="col-s2 left-footer" style="
+        padiving: 3% 4%;
+        height: 67%;
+        ">
+        <div class="row logo-footer">
+            <img src="{% static 'img/logo.png' %}" alt="">
+        </div>
+        <div class="row follow">
+            <p>Follow Us</p>
+            <ul>
+                <li><img src="{% static 'img/fb.png' %}"></li>
+                <li><img src="{% static 'img/twitter.png' %}"></li>
+                <li><img src="{% static 'img/youtube.png' %}"></li>
+            </ul>
+        </div>
+        <div class="row apps">
+            <div class="col">
+                <img src="{% static 'img/playstore.png' %}" alt="">
+            </div>
+            <div class="col">
+                <img src="{% static 'img/applestore.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="col-s2 right-footer" style="
+    padiving: 3% 4%;
+    height: 67%;
+    ">
+    <div class="col-s2">
+        <h3>Company</h3>
+        <ul>
+            <li>About Us</li>
+            <li>Media</li>
+            <li>Terms of Service</li>
+            <li>Privacy Policy</li>
+            <li>FAQ</li>
+            <li>Contact</li>
+            <li>Site Map</li>
+        </ul>
+    </div>
+    <div class="col-s2">
+        <h3>Discover</h3>
+        <ul>
+            <li>Career</li>
+            <li>Feedback</li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
