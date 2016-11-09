@@ -107,30 +107,27 @@
             <div class="col-s6">
                 <p>{{d_name}}</p>
             </div>
-        {% endfor %}
 
         {% for d_phone in D_phone %}
             <div class="col-s6">
                 <p>{{d_phone}}</p>
             </div>
-        {% endfor %}
 
         {% for c_type in Cab_type %}
         <div class="col-s6">
             <p>{{c_type}}</p>
         </div>
-        {% endfor %}
 
         {% for price in Price %}
         <div class="col-s6">
             <p>{{price}}</p>
         </div>
-        {% endfor %}
 
            <div class="col-s6 input-wrap-3">
                                 <button type="submit" class="form-submit">Book</button>
                             </div>
         </div>
+        {% endfor %}
     <!--      <div class="col-s1 search-results">
              <div class="col-s6">
             <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
