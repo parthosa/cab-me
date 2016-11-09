@@ -86,15 +86,17 @@ $(document).ready(function(){
 
 		}
 		console.log(data);
-		$.ajax({
-			type:'POST',
-			url:'../bookcab/',
-			data:data,
-			success:function(response){
-				console.log(response);
-				location.reload();
-			}
-		})
+		// $.ajax({
+		// 	type:'POST',
+		// 	url:'../bookcab/',
+		// 	data:data,
+		// 	success:function(response){
+		// 		console.log(response);
+		// 		location.reload();
+		// 	}
+		// })
+
+		sendData(data,'../bookcab/');
 	});
 
 	$('#post-cab-form button.form-submit').click(function(){
@@ -108,13 +110,32 @@ $(document).ready(function(){
 
 		}
 		console.log(data);
-		$.ajax({
-			type:'POST',
-			url:'../postcab/',
-			data:data,
-			success:function(response){
-				console.log(response);
-			}
-		})
+		// $.ajax({
+		// 	type:'POST',
+		// 	url:'../postcab/',
+		// 	data:data,
+		// 	success:function(response){
+		// 		console.log(response);
+		// 	}
+		// })
+		sendData(data,'../postcab/');
+
 	});
 });
+
+
+function sendData(data,url){
+	var xhr=new XMLHttpRequest();
+	var formData = new FormData();
+
+	for(key in data){
+		formData.append(key,data[key])
+	}
+
+	xhr.addEventListener('error',function(){
+		alert('Please Try Again');
+	})
+
+	xhr.open('POST',url);
+	xhr.send(formData);
+}
