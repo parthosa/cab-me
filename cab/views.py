@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect,Http404,HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import requests
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def index(request):
