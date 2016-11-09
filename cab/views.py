@@ -145,8 +145,10 @@ def bookcab(request):
 					Sharing.append(b_cab.Sharing)
 
 				resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+				return render(request, 'cab/search.html', resp)
 			except:
 				resp = {'status': 'No cabs Found'}
+				return JsonResponse(resp)
 
 		elif bool(b_cab.OneWay) == True and bool(b_cab.Sharing) == False:
 			try:
@@ -164,8 +166,10 @@ def bookcab(request):
 				OneWay.append(b_cab.OneWay)
 				Sharing.append(b_cab.Sharing)
 				resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+				return render(request, 'cab/search.html', resp)
 			except:
 				resp = {'status': 'No cabs Found'}
+				return JsonResponse(resp)
 		else:
 			days = request.POST['Days']
 			D_name.append(cab.DriverName)
