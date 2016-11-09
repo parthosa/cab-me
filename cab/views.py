@@ -34,8 +34,12 @@ def summary(request):
 
 def cab_cities(request):
 	cities = City.objects.all()
-
-	resp = {'cities': cities}
+	c_name = []
+	x = 0
+	for city in cities:
+		c_name.append(city.name)
+		x+=1
+	resp = {'cities': c_name}
 	return JsonResponse(resp)
 
 @csrf_exempt
