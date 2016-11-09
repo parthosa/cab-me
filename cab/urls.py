@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^hotels/', views.hotels, name='hotels'),
     url(r'^search/', views.search, name='search'),
     url(r'^summary/', views.summary, name='summary'),
+    url(r'^cab/cities/', views.cab_cities, name='cab_cities'),
 ]

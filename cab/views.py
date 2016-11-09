@@ -10,6 +10,9 @@ def index(request):
 	if request.user.id == None:
 		return render(request, 'cab/index.html')
 		print request.user
+	elif request.user.username == 'admin':
+		context = {'name': 'admin'}
+		return render(request, 'cab/index.html', context)
 	else:
 		user = request.user
 		print user
@@ -26,6 +29,12 @@ def search(request):
 
 def summary(request):
 	return render(request, 'cab/summary.html')
+
+def cab_cities(request):
+	cities = City.objects.all()
+
+	resp = {'cities': cities}
+	return JsonResponse(resp)
 
 @csrf_exempt
 def bookcab(request):
