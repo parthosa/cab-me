@@ -82,80 +82,90 @@ def bookcab(request):
 		Sharing = []
 
 		if bool(b_cab.OneWay) == True and bool(b_cab.Sharing) == True:
-			for cab in p_cabs:
-				D_pcab = p_cabs.user
-				D_pcabuserp = UserProfile.objects.get(user = D_pcab)
-				D_name.append(D_pcabuserp.name)
-				D_phone.append(D_pcabuserp.phone)
-				Price.append(p_cabs.price)
-				# price_pcab = p_cabs.price
-				# type_c = cab.Type 
-				type_cab.append(p_cabs.type)
-				cab_id.append(p_cab.cab_id) # not for display to users only for returning in the post request to backend
-				# pcab_id = p_cabs.id # not for display to users only for returning in the post request to backend
-				cust_names.append(D_pcabuserp.name)
-				From.append(b_cab.From)
-				To.append(b_cab.To)
-				Date.append(b_cab.Date)
-				Date_return.append(b_cab.Date_return)
-				# Time.append(b_cab.Time)
-				OneWay.append(b_cab.OneWay)
-				Sharing.append(b_cab.Sharing)
+			try:
+				for cab in p_cabs:
+					D_pcab = p_cabs.user
+					D_pcabuserp = UserProfile.objects.get(user = D_pcab)
+					D_name.append(D_pcabuserp.name)
+					D_phone.append(D_pcabuserp.phone)
+					Price.append(p_cabs.price)
+					# price_pcab = p_cabs.price
+					# type_c = cab.Type 
+					type_cab.append(p_cabs.type)
+					cab_id.append(p_cab.cab_id) # not for display to users only for returning in the post request to backend
+					# pcab_id = p_cabs.id # not for display to users only for returning in the post request to backend
+					cust_names.append(D_pcabuserp.name)
+					From.append(b_cab.From)
+					To.append(b_cab.To)
+					Date.append(b_cab.Date)
+					Date_return.append(b_cab.Date_return)
+					# Time.append(b_cab.Time)
+					OneWay.append(b_cab.OneWay)
+					Sharing.append(b_cab.Sharing)
+			except:
+				pass
 
-			for cab in share_cabs:
+			try:
+				for cab in share_cabs:
 
-				D_name.append(cab.DriverName)
-				D_phone.append('9982312111')
-				Price.append(distance*cab.price)
-				# price_pcab = p_cab.price
-				type_cab.append(cab.Type) 
-				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
-				# pcab_id = p_cab.id # not for display to users only for returning in the post request to backend
-				cust_names = [customer.name for customer in cab.Cust]
-				From.append(b_cab.From)
-				To.append(b_cab.To)
-				Date.append(b_cab.Date)
-				Date_return.append(b_cab.Date_return)
-				# Time.append(b_cab.Time)
-				OneWay.append(b_cab.OneWay)
-				Sharing.append(b_cab.Sharing)
+					D_name.append(cab.DriverName)
+					D_phone.append('9982312111')
+					Price.append(distance*cab.price)
+					# price_pcab = p_cab.price
+					type_cab.append(cab.Type) 
+					cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
+					# pcab_id = p_cab.id # not for display to users only for returning in the post request to backend
+					cust_names = [customer.name for customer in cab.Cust]
+					From.append(b_cab.From)
+					To.append(b_cab.To)
+					Date.append(b_cab.Date)
+					Date_return.append(b_cab.Date_return)
+					# Time.append(b_cab.Time)
+					OneWay.append(b_cab.OneWay)
+					Sharing.append(b_cab.Sharing)
+			except:
+				pass
+			try:
+				for cab in cabs:
 
-			for cab in cabs:
+					D_name.append(cab.DriverName)
+					D_phone.append('9982312111')
+					Price.append(distance*cab.price)
+					# price_pcab = p_cab.price
+					type_cab.append(cab.Type) 
+					cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
+					# pcab_id = p_cab.id # not for display to users only for returning in the post request to backend
+					cust_names.append('none')
+					From.append(b_cab.From)
+					To.append(b_cab.To)
+					Date.append(b_cab.Date)
+					Date_return.append(b_cab.Date_return)
+					# Time.append(b_cab.Time)
+					OneWay.append(b_cab.OneWay)
+					Sharing.append(b_cab.Sharing)
 
-				D_name.append(cab.DriverName)
-				D_phone.append('9982312111')
-				Price.append(distance*cab.price)
-				# price_pcab = p_cab.price
-				type_cab.append(cab.Type) 
-				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
-				# pcab_id = p_cab.id # not for display to users only for returning in the post request to backend
-				cust_names.append('none')
-				From.append(b_cab.From)
-				To.append(b_cab.To)
-				Date.append(b_cab.Date)
-				Date_return.append(b_cab.Date_return)
-				# Time.append(b_cab.Time)
-				OneWay.append(b_cab.OneWay)
-				Sharing.append(b_cab.Sharing)
-
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+				resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			except:
+				resp = {'status': 'No cabs Found'}
 
 		elif bool(b_cab.OneWay) == True and bool(b_cab.Sharing) == False:
-			D_name.append(cab.DriverName)
-			D_phone.append('9982312111')
-			Price.append(distance*cab.price)
-			# price_pcab = p_cab.price
-			type_cab.append(cab.Type) 
-			cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
-			From.append(b_cab.From)
-			To.append(b_cab.To)
-			Date.append(b_cab.Date)
-			Date_return.append(b_cab.Date_return)
-			# Time.append(b_cab.Time)
-			OneWay.append(b_cab.OneWay)
-			Sharing.append(b_cab.Sharing)
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
-		
+			try:
+				D_name.append(cab.DriverName)
+				D_phone.append('9982312111')
+				Price.append(distance*cab.price)
+				# price_pcab = p_cab.price
+				type_cab.append(cab.Type) 
+				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
+				From.append(b_cab.From)
+				To.append(b_cab.To)
+				Date.append(b_cab.Date)
+				Date_return.append(b_cab.Date_return)
+				# Time.append(b_cab.Time)
+				OneWay.append(b_cab.OneWay)
+				Sharing.append(b_cab.Sharing)
+				resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			except:
+				resp = {'status': 'No cabs Found'}
 		else:
 			days = request.POST['Days']
 			D_name.append(cab.DriverName)
