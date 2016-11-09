@@ -49,11 +49,27 @@ $(document).ready(function(){
 	];
 	
 	$('.from-data').autocomplete({
-      source: cityList
-    });
+      source: function( request, response ) {
+	        $.ajax( {
+	          url: "../cab/cities/",
+	          success: function( data ) {
+	            response( data.cities );
+	          }
+	        } );
+	    }
+    }
+    );
     $('.to-data').autocomplete({
-      source: cityList
-    });
+      source: function( request, response ) {
+	        $.ajax( {
+	           url: "../cab/cities/",
+	          success: function( data ) {
+	            response( data.cities );
+	          }
+	        } );
+	    }
+    }
+    );
 
     $('.date-data,.return-date-data').datepicker({
     	dateFormat: "dd/mm/yy"
@@ -76,6 +92,7 @@ $(document).ready(function(){
 			data:data,
 			success:function(response){
 				console.log(response);
+				location.reload();
 			}
 		})
 	});
