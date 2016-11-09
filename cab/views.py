@@ -45,7 +45,7 @@ def bookcab(request):
 		b_cab.To = request.POST['To']
 		b_cab.Date = request.POST['Date']
 		b_cab.Date_return = request.POST['Date_return']
-		b_cab.Time = request.POST['Time']
+		# b_cab.Time = request.POST['Time']
 		b_cab.OneWay = request.POST['OneWay']
 		b_cab.Sharing = request.POST['Sharing']
 	
@@ -64,6 +64,7 @@ def bookcab(request):
 			
 		total_cabs = cab + p_cabs
 		D_name = []
+		D_phone = []
 		Price = []
 		type_cab = []
 		cab_id = []
@@ -72,15 +73,16 @@ def bookcab(request):
 		To = []
 		Date = []
 		Date_return = []
-		Time = []
+		# Time = []
 		OneWay = []
 		Sharing = []
 
-		if b_cab.OneWay == True and b_cab.Sharing == True:
+		if bool(b_cab.OneWay) == True and b_cab.Sharing == True:
 			for cab in p_cabs:
 				D_pcab = p_cabs.user
 				D_pcabuserp = UserProfile.objects.get(user = D_pcab)
 				D_name.append(D_pcabuserp.name)
+				D_phone.append(D_pcabuserp.phone)
 				Price.append(p_cabs.price)
 				# price_pcab = p_cabs.price
 				# type_c = cab.Type 
@@ -92,13 +94,14 @@ def bookcab(request):
 				To.append(b_cab.To)
 				Date.append(b_cab.Date)
 				Date_return.append(b_cab.Date_return)
-				Time.append(b_cab.Time)
+				# Time.append(b_cab.Time)
 				OneWay.append(b_cab.OneWay)
 				Sharing.append(b_cab.Sharing)
 
 			for cab in share_cabs:
 
 				D_name.append(cab.DriverName)
+				D_phone.append('9982312111')
 				Price.append(distance*cab.price)
 				# price_pcab = p_cab.price
 				type_cab.append(cab.Type) 
@@ -109,13 +112,14 @@ def bookcab(request):
 				To.append(b_cab.To)
 				Date.append(b_cab.Date)
 				Date_return.append(b_cab.Date_return)
-				Time.append(b_cab.Time)
+				# Time.append(b_cab.Time)
 				OneWay.append(b_cab.OneWay)
 				Sharing.append(b_cab.Sharing)
 
 			for cab in cabs:
 
 				D_name.append(cab.DriverName)
+				D_phone.append('9982312111')
 				Price.append(distance*cab.price)
 				# price_pcab = p_cab.price
 				type_cab.append(cab.Type) 
@@ -126,14 +130,15 @@ def bookcab(request):
 				To.append(b_cab.To)
 				Date.append(b_cab.Date)
 				Date_return.append(b_cab.Date_return)
-				Time.append(b_cab.Time)
+				# Time.append(b_cab.Time)
 				OneWay.append(b_cab.OneWay)
 				Sharing.append(b_cab.Sharing)
 
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return,'Time': Time, 'OneWay': OneWay, 'Sharing': Sharing}
+			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 
-		elif b_cab.OneWay == True and b_cab.Sharing == False:
+		elif bool(b_cab.OneWay) == True and b_cab.Sharing == False:
 			D_name.append(cab.DriverName)
+			D_phone.append('9982312111')
 			Price.append(distance*cab.price)
 			# price_pcab = p_cab.price
 			type_cab.append(cab.Type) 
@@ -142,14 +147,15 @@ def bookcab(request):
 			To.append(b_cab.To)
 			Date.append(b_cab.Date)
 			Date_return.append(b_cab.Date_return)
-			Time.append(b_cab.Time)
+			# Time.append(b_cab.Time)
 			OneWay.append(b_cab.OneWay)
 			Sharing.append(b_cab.Sharing)
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return,'Time': Time, 'OneWay': OneWay, 'Sharing': Sharing}
+			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 		
 		else:
 			days = request.POST['Days']
 			D_name.append(cab.DriverName)
+			D_phone.append('9982312111')
 			Price.append(distance*cab.price)
 			# price_pcab = p_cab.price
 			type_cab.append(cab.Type) 
@@ -159,12 +165,12 @@ def bookcab(request):
 			To.append(b_cab.To)
 			Date.append(b_cab.Date)
 			Date_return.append(b_cab.Date_return)
-			Time.append(b_cab.Time)
+			# Time.append(b_cab.Time)
 			OneWay.append(b_cab.OneWay)
 			Sharing.append(b_cab.Sharing)
 
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return,'Time': Time, 'OneWay': OneWay, 'Sharing': Sharing}
-		return JsonResponse(resp)
+			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+		return render(request, 'cab/search.html', resp) #JsonResponse(resp)
 
 @login_required
 @csrf_exempt
@@ -198,7 +204,7 @@ def booknow(request, user):
 			b_cab.To = request.POST['To']
 			b_cab.Date = request.POST['Date']
 			b_cab.Date_return = request.POST['Date_return']
-			b_cab.Time = request.POST['Time']
+			# b_cab.Time = request.POST['Time']
 			b_cab.OneWay = request.POST['OneWay']
 			b_cab.Sharing = request.POST['Sharing']
 

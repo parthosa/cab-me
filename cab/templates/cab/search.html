@@ -45,30 +45,28 @@
                         <div class="col-s1 search-headers" id="outstation-search">
                             <div class="col-s5">
                                 <p>From</p>
-                                {for f_city in From}
-                                    <h4 class="search-data">
-                                        {{f_city}}
-                                    </h4>
-                                {endfor}
+                                <h4 class="search-data">
+                                    {{From}}
+                                </h4>
                             </div> 
                             <div class="col-s5">
                                 <p>To</p>
-                                {for t_city in To}
                                     <h4 class="search-data">
-                                        {{t_city}}
+                                        {{To}}
                                     </h4>
+
                             </div>
                             <div class="col-s5">
                                 <p>Date</p>
-                                <h4 class="search-data">
-                                    {{Date}}
-                                </h4>
+                                    <h4 class="search-data">
+                                        {{Date}}
+                                    </h4>
                             </div> 
                             <div class="col-s5">
                                 <p>Date</p>
-                                <h4 class="search-data">
-                                    {{Date}}
-                                </h4>
+                                    <h4 class="search-data">
+                                        {{Date}}
+                                    </h4>
                             </div>                    <div class="col-s5">
                                 <p>Class</p>
                                 <h4 class="search-data">
@@ -105,23 +103,35 @@
              <div class="col-s6">
             <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
         </div>
+        {% for d_name in D_name %}
+            <div class="col-s6">
+                <p>{{d_name}}</p>
+            </div>
+        {% endfor %}
+
+        {% for d_phone in D_phone %}
+            <div class="col-s6">
+                <p>{{d_phone}}</p>
+            </div>
+        {% endfor %}
+
+        {% for c_type in Cab_type %}
         <div class="col-s6">
-            <p>Simha</p>
+            <p>{{c_type}}</p>
         </div>
+        {% endfor %}
+
+        {% for price in Price %}
         <div class="col-s6">
-            <p>9982312111</p>
+            <p>Rs {{price}}</p>
         </div>
-        <div class="col-s6">
-            <p>Hatch Back</p>
-        </div>
-        <div class="col-s6">
-            <p>Rs <span>2311</span></p>
-        </div>
+        {% endfor %}
+
            <div class="col-s6 input-wrap-3">
                                 <button type="submit" class="form-submit">Book</button>
                             </div>
         </div>
-         <div class="col-s1 search-results">
+    <!--      <div class="col-s1 search-results">
              <div class="col-s6">
             <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
         </div>
@@ -140,7 +150,7 @@
            <div class="col-s6 input-wrap-3">
                                 <button type="submit" class="form-submit">Book</button>
                             </div>
-        </div>
+        </div> -->
     </div>
 	        </div>
 	        <div class="footer">
