@@ -25,16 +25,20 @@ def index(request):
 def hotels(request):
 	return render(request, 'cab/hotels.html')
 
-def search(request):
-	return render(request, 'cab/search.html')
+# def search(request):
+# 	return render(request, 'cab/search.html')
 
 def summary(request):
 	return render(request, 'cab/summary.html')
 
 def cab_cities(request):
 	cities = City.objects.all()
-
-	resp = {'cities': cities}
+	c_name = []
+	x = 0
+	for city in cities:
+		c_name.append(city.name)
+		x+=1
+	resp = {'cities': c_name}
 	return JsonResponse(resp)
 
 @csrf_exempt
@@ -164,7 +168,7 @@ def bookcab(request):
 			Sharing.append(b_cab.Sharing)
 
 			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return,'Time': Time, 'OneWay': OneWay, 'Sharing': Sharing}
-		return JsonResponse(resp)
+		return render(request, 'cab/search.html', resp) #JsonResponse(resp)
 
 @login_required
 @csrf_exempt
@@ -217,7 +221,7 @@ def booknow(request, user):
 			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body_cust)
 			
 			confirm_url = 'cabme.in'
-				sms_body_driver = '''Hi %s,
+			sms_body_driver = '''Hi %s,
 			%s has requested to pool in your car from %s to %s.
 			Kindly confirm his request by following the url %s, or logging in cabme portal.
 			User Contact Number: %s
