@@ -67,7 +67,6 @@ def bookcab(request):
 		except ObjectDoesNotExist:
 			pass
 			
-		total_cabs = cab + p_cabs
 		D_name = []
 		D_phone = []
 		Price = []
@@ -82,7 +81,7 @@ def bookcab(request):
 		OneWay = []
 		Sharing = []
 
-		if bool(b_cab.OneWay) == True and b_cab.Sharing == True:
+		if bool(b_cab.OneWay) == True and bool(b_cab.Sharing) == True:
 			for cab in p_cabs:
 				D_pcab = p_cabs.user
 				D_pcabuserp = UserProfile.objects.get(user = D_pcab)
@@ -141,7 +140,7 @@ def bookcab(request):
 
 			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 
-		elif bool(b_cab.OneWay) == True and b_cab.Sharing == False:
+		elif bool(b_cab.OneWay) == True and bool(b_cab.Sharing) == False:
 			D_name.append(cab.DriverName)
 			D_phone.append('9982312111')
 			Price.append(distance*cab.price)
