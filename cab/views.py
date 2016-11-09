@@ -25,20 +25,16 @@ def index(request):
 def hotels(request):
 	return render(request, 'cab/hotels.html')
 
-# def search(request):
-# 	return render(request, 'cab/search.html')
+def search(request):
+	return render(request, 'cab/search.html')
 
 def summary(request):
 	return render(request, 'cab/summary.html')
 
 def cab_cities(request):
 	cities = City.objects.all()
-	c_name = []
-	x = 0
-	for city in cities:
-		c_name.append(city.name)
-		x+=1
-	resp = {'cities': c_name}
+
+	resp = {'cities': cities}
 	return JsonResponse(resp)
 
 @csrf_exempt
@@ -168,7 +164,7 @@ def bookcab(request):
 			Sharing.append(b_cab.Sharing)
 
 			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return,'Time': Time, 'OneWay': OneWay, 'Sharing': Sharing}
-		return render(request, 'cab/search.html', resp) #JsonResponse(resp)
+		return JsonResponse(resp)
 
 @login_required
 @csrf_exempt
