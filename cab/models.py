@@ -35,7 +35,7 @@ class Cab(models.Model):
 	price = models.IntegerField(default = 7, blank = False)
 
 	def __unicode__(self):
-		return self.id
+		return self.cab_id
 
 class PostCab(models.Model):
 	From = models.CharField(max_length = 100, choices=cities, blank = False)

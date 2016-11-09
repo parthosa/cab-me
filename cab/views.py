@@ -53,7 +53,17 @@ def bookcab(request):
 		# b_cab.Time = request.POST['Time']
 		b_cab.OneWay = request.POST['OneWay']
 		b_cab.Sharing = request.POST['Sharing']
-	
+		
+		if request.POST['OneWay'] == 'True':
+			b_cab.OneWay = True
+		else: 
+			b_cab.OneWay = False
+
+		if request.POST['Sharing'] == 'True':
+			b_cab.OneWay = True
+		else: 
+			b_cab.OneWay = False
+
 		try:
 			cabs = Cab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)	
 		except ObjectDoesNotExist:
@@ -81,7 +91,7 @@ def bookcab(request):
 		OneWay = []
 		Sharing = []
 
-		if bool(b_cab.OneWay) == True and bool(b_cab.Sharing) == True:
+		if b_cab.OneWay == True and b_cab.Sharing == True:
 			try:
 				for cab in p_cabs:
 					D_pcab = p_cabs.user
@@ -150,7 +160,7 @@ def bookcab(request):
 				resp = {'status': 'No cabs Found'}
 				return JsonResponse(resp)
 
-		elif bool(b_cab.OneWay) == True and bool(b_cab.Sharing) == False:
+		elif b_cab.OneWay == True and b_cab.Sharing == False:
 			try:
 				D_name.append(cab.DriverName)
 				D_phone.append('9982312111')
