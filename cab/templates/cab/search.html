@@ -45,26 +45,29 @@
                         <div class="col-s1 search-headers" id="outstation-search">
                             <div class="col-s5">
                                 <p>From</p>
-                                <h4 class="search-data">
-                                    Delhi
-                                </h4>
+                                {for f_city in From}
+                                    <h4 class="search-data">
+                                        {{f_city}}
+                                    </h4>
+                                {endfor}
                             </div> 
                             <div class="col-s5">
                                 <p>To</p>
-                                <h4 class="search-data">
-                                    Mumbai
-                                </h4>
+                                {for t_city in To}
+                                    <h4 class="search-data">
+                                        {{t_city}}
+                                    </h4>
                             </div>
                             <div class="col-s5">
                                 <p>Date</p>
                                 <h4 class="search-data">
-                                    14/11/2016
+                                    {{Date}}
                                 </h4>
                             </div> 
                             <div class="col-s5">
                                 <p>Date</p>
                                 <h4 class="search-data">
-                                    14/11/2016
+                                    {{Date}}
                                 </h4>
                             </div>                    <div class="col-s5">
                                 <p>Class</p>
