@@ -6,36 +6,51 @@ def Init_Reg(request):
 	if request.POST:
 
 		name = request.POST['Name']
+		last_name = request.POST['Lname']
 		email = request.POST['Email']
-		phone = int(request.POST['Phone'])
+		contact = int(request.POST['Contact'])
 		password = request.POST['Password']
 		password_confirm = request.POST['Password_confirm']
-		if (password = password_confirm):
-			user_c = User()
-			member = UserProfile()
-			member.email_id = email
-			member.phone = phone
-			member.name = name
-			registered_members = InitialRegistration.objects.all()
-			user_c.username = email
-			user.set_password = password
-		user.save()
-		member.save()	
+		if (password == password_confirm):
 
-			list_of_registered_emails = [x.email_id for x in registered_members]
-			if ema in list_of_registered_emails: #check for already registered emails....no need to check if valid as we are using email field on fronted side
-				status = '{ "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }'
+			registered_members = UserProfile.objects.all()			
+			list_of_registered_emails = [x.email for x in registered_members]
+			if email in list_of_registered_emails:
+				status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
+				return JsonResponse(status)	
+				# return HttpResponseRedirect('../../../register')
+
+			elif len(str(contact)) < 10: 
+				resp = {"status": 0, "message": 'Please enter a valid conatct number'}	
+				return JsonResponse(resp)					
+			# user_c = User()
+			
+			else:
+				member = UserProfile()
+				member.email = email
+				member.contact = contact
+				member.name = name
+
+				if len(str(contact)) < 10: 
+					pass
+				# member.save()				
+				user = User.objects.create_user(
+					username=email,
+					password=password)				
+				# user_c.save()	
+				member.user = user
+				member.save()
+
+				status = { "registered" : True , "id" : user.id }
+
 				return JsonResponse(status)
-			if len(str(pho)) < 10: #checking lenth of phone number
-				pass
-			member.save()
-
-			status = '{ "status" : 1 , "message" : "Successfully Registered !" }'
-
-			return JsonResponse(status)
+				# return HttpResponseRedirect('../../../login')
 
 		else:
-			status = '{ "status": 0 , "message": "Passwords do not match"}'
+			status = { "status": 0 , "message": "Passwords do not match"}
+
+			return JsonResponse(status)
+			# return HttpResponseRedirect('../../../register')
 
 
 def user_login(request):
