@@ -60,20 +60,21 @@ def bookcab(request):
 			b_cab.OneWay = False
 
 		if request.POST['Sharing'] == 'True':
-			b_cab.OneWay = True
+			b_cab.Sharing = True
 		else: 
-			b_cab.OneWay = False
+			b_cab.Sharing = False
 
 		try:
-			cabs = Cab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)	
+			cabs = Cab.objects.filter(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)	
+			print cabs
 		except ObjectDoesNotExist:
 			pass
 		try:
-			p_cabs = PostCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)
+			p_cabs = PostCab.objects.filter(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)
 		except ObjectDoesNotExist:
 			pass
 		try:
-			share_cabs = BookCab.objects.get(From = b_cab.From, To = b_cab.To, Date = b_cab.Date, Sharing = True)	
+			share_cabs = BookCab.objects.filter(From = b_cab.From, To = b_cab.To, Date = b_cab.Date, Sharing = True)	
 		except ObjectDoesNotExist:
 			pass
 			
@@ -155,16 +156,16 @@ def bookcab(request):
 					Sharing.append(b_cab.Sharing)
 
 				resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
-				return render(request, 'cab/search.html', resp)
+				return JsonResponse(resp) #render(request, 'cab/search.html', resp)
 			except:
 				resp = {'status': 'No cabs Found'}
 				return JsonResponse(resp)
 
 		elif b_cab.OneWay == True and b_cab.Sharing == False:
-			try:
+			for cab in cabs:# try:
 				D_name.append(cab.DriverName)
 				D_phone.append('9982312111')
-				Price.append(distance*cab.price)
+				Price.append(200*cab.price)
 				# price_pcab = p_cab.price
 				type_cab.append(cab.Type) 
 				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
@@ -175,11 +176,12 @@ def bookcab(request):
 				# Time.append(b_cab.Time)
 				OneWay.append(b_cab.OneWay)
 				Sharing.append(b_cab.Sharing)
-				resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
-				return render(request, 'cab/search.html', resp)
-			except:
-				resp = {'status': 'No cabs Found'}
-				return JsonResponse(resp)
+			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			return render(request, 'cab/search.html', resp)
+			# except:
+			# 	print 'some'
+			# 	resp = {'status': 'No cabs Found'}
+			# 	return JsonResponse(resp)
 		else:
 			days = request.POST['Days']
 			D_name.append(cab.DriverName)
