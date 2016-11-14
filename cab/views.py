@@ -32,6 +32,9 @@ def search(request):
 def summary(request):
 	return render(request, 'cab/summary.html')
 
+def blog(request):
+	return render(request, 'cab/blog.html')
+
 def cab_cities(request):
 	cities = City.objects.all()
 	c_name = []
