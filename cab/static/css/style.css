@@ -18,7 +18,7 @@ html,body{
   background: white;
   z-index: 999;
       display: flex;
-    align-items: center;
+    align-items: center; 
 }
 
 .nav-inner{
@@ -376,7 +376,7 @@ button.form-submit {
     color: #212f4c;
   }
 
-  .card-label span{
+  .card-label span.caret{
         color: white;
     background: #212f4c;
     border-radius: 50%;
@@ -1021,6 +1021,7 @@ label.p-label {
     color: #717171;
     font-family: Helvetica;
     letter-spacing: 0.8px;
+    display: block;
 }
 
 .text-content {
@@ -1059,3 +1060,77 @@ label.p-label {
 
 
 /*   END BLOG PAGE    */
+
+
+/*    START ROUTES PAGE     */
+.place1,.place2{
+
+}
+
+.map-wrapper{
+  height: 50vh;
+  width:80%;
+  margin:0 auto;
+}
+
+.map-data h3{
+    margin:5px 0px;
+}
+
+h3.map-heading {
+    font-family: sans-serif;
+    color: #333;
+    margin: 7px auto;
+    font-size: 1.4em;
+    font-weight: lighter;
+}
+
+
+
+.cab-header {
+    display: flex;
+    font-family: sans-serif;
+    font-size: 0.9em;
+        margin: 5px 0 25px 0;
+}
+
+.cab-header div {
+    width: 25%;
+    text-align: center;
+    color: #777;
+}
+
+
+.cab-list {
+    margin: 10px 0;
+}
+
+.cab-item {
+    display: flex;
+    font-size: 1.2em;
+    font-family: sans-serif;
+    margin: 11px 0px;
+}
+
+.cab-item div {
+    width: 25%;
+    text-align: center;
+    /* font-size: 1em; */
+}
+
+.cab-details button.form-submit {
+    background: #212f4c;
+   float: right;
+   position: relative;
+   right: 50px;
+}
+
+p.map-page-desc {
+    font-size: 1em;
+    font-family: sans-serif;
+    margin-left: 3%;
+    margin-top: 0px;
+}
+
+
+/*    END ROUTES PAGE */

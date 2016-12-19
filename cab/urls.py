@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^main/', views.index, name='index'),
     url(r'^hotels/', views.hotels, name='hotels'),
     url(r'^blog/', views.blog, name='blog'),
+    url(r'^routes/', views.routes, name='routes'),
     # url(r'^search/', views.search, name='search'),
     url(r'^summary/', views.summary, name='summary'),
     url(r'^cab/cities/', views.cab_cities, name='cab_cities'),

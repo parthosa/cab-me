@@ -35,6 +35,9 @@ def summary(request):
 def blog(request):
 	return render(request, 'cab/blog.html')
 
+def routes(request):
+	return render(request, 'cab/routes.html')
+
 def cab_cities(request):
 	cities = City.objects.all()
 	c_name = []

@@ -6,6 +6,9 @@
    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
    </script>
+   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6BapCW5Hy7dB-gpx-JxKy0OohaRm5aX0&region=GB"></script>
+   
+    <script src="https://cdn.jsdelivr.net/gmap3/7.0.0/gmap3.min.js">  </script>
    <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}">
    </script>
 
@@ -42,25 +45,46 @@
           <div class="card type-1">
           <div class="headers">
                     <ul>
-                        <li class="active"><a href="{% url 'cab:index' %}">Blog</a></li> 
+                        <li class="active"><a href="{% url 'cab:index' %}">Routes</a></li> 
                     </ul>
                 </div>
               <div class="row">
-                <h3 class="card-label blog-title">Thanking America’s Veterans, Today and Every Day</h3>
+                <h3 class="card-label blog-title"><span class="place1">Delhi</span> to <span class="place2">Jaipur </h3>
             </div>
             <div class="row blog-details">
                 <div class="col-s1 blog-image">
-                    <img src="/static/img/blog/blog1.png" alt="">
+                    <div class="map-wrapper">
+                    </div>
                 </div>
                 <div class="row blog-content">
                     <div class="col-s6-5">
-                        <div class="small-details">
-                        <span class="blog-date">November 11, 2016 </span> | Posted by 
-                        <span class="blog-author">Emil Michael, Chief Business Officer and Executive Sponsor of UberMILITARY
+                        <div class="small-details map-data row"><h3>Distance
+                        <span class="map-distance"></span> 
+                        </h3>
+                        <h3>Duration
+                        <span class="map-duration">
                         </span>
+                        </h3>
                         </div>
-                        <div class="text-content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga itaque odio impedit suscipit at laborum veniam iusto facilis aspernatur rem, sequi repellendus, autem quia pariatur assumenda voluptas minus, voluptates!
+                        <div class="row">
+                        <h3 class="map-heading"> Fare Chart </h3>
+                         </div>
+                        <div class="cab-details">
+                        <div class="cab-header">
+                          <div class="vehicle-type">Vehicle-Type</div>
+                          <div class="km-rate">Per Km Rate</div>
+                          <div class="other-charges">Other Charges</div>
+                          <div class="min-km-day">Min Kms/Day</div>
+                        </div>
+                        <div class="cab-list">
+                          <div class="cab-item" style="display: none">
+                            <div class="vehicle-type">Tata Indigo Ac 4 Seater</div>
+                          <div class="km-rate">10.00</div>
+                          <div class="other-charges">200.00</div>
+                          <div class="min-km-day">250</div>
+                          </div>
+                        </div>
+                        <button type="submit" class="form-submit">Book</button>
                         </div>
                     </div>
                 </div>
@@ -70,20 +94,29 @@
     <div class="blog-featured">
       <div class="card type-1">
           <div class="row">
-            <h3 class="card-label">Featured Articles <span>&gt;</span></h3>
+            <h3 class="card-label">Popular Destinations <span>&gt;</span></h3>
         </div>
         <div class="row">
-        <div class="col-s1 featured-list">
-          <ul>
-              <li>Let’s take care of each other</li>
-              <li>9 Things to Know About the Uber Driver App for iOS</li>
-              <li>Let’s take care of each other</li>
-              <li>9 Things to Know About the Uber Driver App for iOS</li>
+        <div class="col-s1 featured-list destinations">
+          <ul class="places-list">
+              <li style="display: none"><span class="place1"></span> to <span class="other-place"></span></li>
+              
           </ul>
         </div>
         </div>
     </div>
-</div>
+    <div class="card type-1">
+          <div class="row">
+            <h3 class="card-label"><span class="place1"></span> to <span class="place2"></span> Taxi Fare & <span class="place1"></span> Cab Rates</h3>
+        </div>
+        <div class="row">
+        <div class="col-s1 featured-list destinations">
+         <p class="map-page-desc">We offer a wide range of air conditioned vehicles including Indica, Innova, Indigo and luxury cabs depending on your group size and budget. Our well trained and experienced drivers will guide you to best places in and around <span class="place1"></span>.</p>
+        </div>
+        </div>
+    </div>
+   
+  </div>
 </div>
 </div>
 <div class="footer">
