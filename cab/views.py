@@ -49,17 +49,20 @@ def bookcab(request):
 		b_cab.From = request.POST['From']
 		b_cab.To = request.POST['To']
 		b_cab.Date = request.POST['Date']
-		b_cab.Date_return = request.POST['Date_return']
+		try:
+			b_cab.Date_return = request.POST['Date_return']
+		except:
+			b_cab.Date_return = b_cab.Date
 		# b_cab.Time = request.POST['Time']
 		b_cab.OneWay = request.POST['OneWay']
 		b_cab.Sharing = request.POST['Sharing']
 		
-		if request.POST['OneWay'] == 'True':
+		if request.POST['OneWay'] == 'One Way':
 			b_cab.OneWay = True
 		else: 
 			b_cab.OneWay = False
 
-		if request.POST['Sharing'] == 'True':
+		if request.POST['Sharing'] == 'Sharing':
 			b_cab.Sharing = True
 		else: 
 			b_cab.Sharing = False
