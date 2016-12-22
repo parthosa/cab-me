@@ -722,6 +722,11 @@ button.form-submit {
     line-height: 25px;
 }
 
+.right-footer a {
+    text-decoration: none;
+    color: inherit;
+}
+
 /*            SEARCH PAGE              */
 
 
@@ -1062,6 +1067,11 @@ label.p-label {
     cursor: pointer;
 }
 
+.featured-list a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .featured-list li:hover {
     color: #212f4c;
 }
@@ -1205,3 +1215,88 @@ ol.terms-list {
 
 /* END TERMS PAGE*/
 
+
+/* START FAQ   PAGE*/
+
+.faq-text h2 {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.faq-text h3 {
+    margin: 0.5em 0;
+    font-size: 1.1em;
+    color: #4e505d;
+}
+
+.faq-text p {
+    margin: 0em 0 1.3em 0;
+}
+
+/* END  FAQ  PAGE*/
+
+
+/* START PRIVACy POLICY PAGE*/
+.privacy-list h2 {
+    margin: 0;
+    font-size: 1em;
+    margin-bottom: 0.2em;
+}
+
+.privacy-list li {
+    margin-bottom: 1.1em;
+}
+
+/* END PRIVACY POLICY PAGE*/
+
+
+
+/*  START CAREER PAGE   */
+
+.career-panel{
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1em;
+}
+
+.career-text h3 {
+    text-align: center;
+    margin: 0.5em 0;
+    font-size: 1.1em;
+    color: #4e505d;
+}
+
+.career-text p {
+    text-align: justify;
+}
+
+.career-details {
+    flex-direction: column;
+    
+}
+
+.career-apply h3 {
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: normal;
+    margin: 0;
+    display: inline;
+    padding: 9px 16px;
+    border: 1px solid #212f4c;
+    color: white;
+    border-radius: 1.1px;
+    font-size: 1em;
+    background: #212f4c;
+    cursor: pointer;
+}
+
+.career-apply {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5em;
+}
+/*  END CAREER PAGE*/

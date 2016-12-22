@@ -38,6 +38,19 @@ def blog(request):
 def about(request):
 	return render(request, 'cab/about.html')
 
+def faq(request):
+	return render(request, 'cab/faq.html')
+
+
+def career(request):
+	return render(request, 'cab/career.html')
+
+
+
+def privacy_policy(request):
+	return render(request, 'cab/privacy_policy.html')
+
+
 def press_release(request):
 	return render(request, 'cab/press_release.html')
 

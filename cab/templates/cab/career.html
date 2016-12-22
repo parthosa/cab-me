@@ -38,99 +38,103 @@
  <div class="content">
   <div class="back-drop"> </div>
  <div class="row">
-      <div class="blog-panel">
+      <div class="career-panel">
+          <div class="col-s3">
           <div class="card type-1">
           <div class="headers">
                     <ul>
-                        <li class="active"><a href="{% url 'cab:about' %}">About Us</a></li> 
+                        <li class="active"><a href="{% url 'cab:index' %}">Career</a></li> 
                     </ul>
                 </div>
               <div class="row">
-                <h3 class="card-label about-title">About CabMe</h3>
+        
             </div>
-            <div class="row blog-details">
+            <div class="row career-details">
                 
-                <div class="row about-content">
-                    <div class="col-s1">
-                        
-                        <div class="text-content"><p>
-                            CabMe is different from other cab services. We empower our customers by letting them choose from what we provide them best. You can customize your entire ride, even the road you want to travel on! Furthermore, CabMe brings you the innovative option of sharing the ride, where you can post about your travel plans and carpool with others to reduce individual travel costs.</p>
-
-                            <p>Our objective is to make travelling an enjoyable and comfortable experience, and our priority is to make this experience safe and worthwhile.</p>
+                <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content career-text"><h3>Internship</h3>
+                            <p>
+                           We are providing Internship to students who are dedicated and want to get a on ground experience. We are looking for no excellent resume but for dedication which they can show towards the company.
+</p>
                         </div>
                     </div>
                 </div>
+                   <div class="career-apply">
+                    <h3 id="internship-apply">APPLY</h3>
+                </div>
+                     
+                 
+              
             </div>
         </div>
+      
+    </div>
+           <div class="col-s3">
           <div class="card type-1">
         
               <div class="row">
-                <h3 class="card-label about-title">
-                            Who We Are</h3>
-            </div>
-            <div class="row blog-details">
-                
-                <div class="row about-content">
-                    <div class="col-s1">
-                        
-                        <div class="text-content"><p>
-                            We are a group of sapient BITSians who based CabMe on one simple idea – You’re the one who’s travelling, so you should get to choose how. Being students at the remote setting of Pilani, we know the set of troubles one faces when planning a journey. So our aim is to solve it for you!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="card type-1">
         
-              <div class="row">
-                <h3 class="card-label about-title">
-                            What We Do</h3>
             </div>
-            <div class="row blog-details">
+            <div class="row career-details">
                 
-                <div class="row about-content">
-                    <div class="col-s1">
+              
+                    <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content career-text"><h3>Content Writers</h3>
                         
-                        <div class="text-content"><p>
-                          
-We at CabMe are working full time to make your journeys safe, comfortable, and perhaps most importantly, affordable. We aim to create a single platform for intercity cab journeys where you can book, share and create travel packages through a simple click on our website.</p>
-                            <div class="row">
-                                <div class="col-s2">
-                                    <ul>
-    <li>One way cabs</li>
+                            <p>Job Responsibilities:<br>
 
-    <li>Two way cabs</li>
-    <li>Share your cabs
-</li>
-    <li>Get the shared cab
-</li>
-                                    </ul>
-                                </div>
-                                <div class="col-s2">
-                                    <ul>
-                                        <li>Pilani</li>
-    <li>Kanpur</li>
-    <li>Kharagpur</li>
-    <li>Bangalore</li>
-    
-
-
-                                    </ul>
-                                </div>
-                            
-
-    
-
-
-
-                            </div>
-                                
+We want people who want to show their talent in writing blogs and We are open for inexperienced but who are willing to dedicate 1-2 hours everyday on creating blogs for CabMe. </p>
                         </div>
                     </div>
                 </div>
+                     
+                  <div class="career-apply">
+                    <h3 id="content-writer-apply">APPLY</h3>
+                </div>
+              
             </div>
         </div>
+      
     </div>
+           <div class="col-s3">
+          <div class="card type-1">
+         
+              <div class="row">
+        
+            </div>
+            <div class="row career-details">
+                
+              
+                      <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content career-text"><h3>Video Making</h3>
+                     
+                            <p>Job Responsibilities:<br>
+
+Good video makers with enough knowledge of graphic designing and video editing are required.
+
+We would basically want enough hardwork and dedication from those who apply.</p>
+
+                        </div>
+                    </div>
+                </div>
+                 
+                 <div class="career-apply">
+                    <h3 id="video-apply">APPLY</h3>
+                </div>
+                 
+              
+            </div>
+        </div>
+      
+    </div>
+    </div>
+          
     <div class="blog-featured">
       <div class="card type-1">
           <div class="row">
@@ -139,8 +143,8 @@ We at CabMe are working full time to make your journeys safe, comfortable, and p
         <div class="row">
         <div class="col-s1 featured-list">
           <ul>
+              <li><a href="{% url 'cab:about' %}">About</a></li>
               <li><a href="{% url 'cab:blog' %}">Blog</a></li>
-              <li><a href="{% url 'cab:career' %}">Careers</a></li>
               <li><a href="{% url 'cab:faq' %}">FAQ</a></li>
               <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
               <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions</a></li>

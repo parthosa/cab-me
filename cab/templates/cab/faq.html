@@ -1,0 +1,204 @@
+
+{% load staticfiles %}
+<html>
+
+<head>
+   <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
+   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
+   </script>
+   <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}">
+   </script>
+
+   <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+   <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+   <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+   <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+</head>
+
+<body>
+
+   <div class="landing-wrapper">
+       <div class="nav">
+           <div class="nav-inner">
+             <div class="logo">
+              <img src="{% static 'img/logo.png' %}">
+          </div>
+          <div class="menu">
+              <ul class="nav-menu">
+                 <li>Deals </li>
+                 <li>C Cash</li>
+                 <li>CabMe Corporate</li>
+             </ul>
+             <ul class="account-menu">
+                 <li>Sign In</li>
+             </ul>
+         </div>
+     </div>
+ </div>
+ <div class="content">
+  <div class="back-drop"> </div>
+ <div class="row">
+      <div class="blog-panel">
+          <div class="card type-1">
+          <div class="headers">
+                    <ul>
+                        <li class="active"><a href="{% url 'cab:index' %}">FAQ</a></li> 
+                    </ul>
+                </div>
+              <div class="row">
+        
+            </div>
+            <div class="row blog-details">
+                
+                <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content faq-text"><h3>General</h3>
+                        <h2>What is CabMe.in?</h2>    
+                            <p>
+                           CabMe.in is an intercity cab service provider. We provide you a wide range of cars for selection (Sedan, SUV, hatchback, Luxury) to suit your needs. So if you want car for Outstation / CabSharing /Cab-Booking, One Way Drop, just visit CabMe.in and book it in 3 simple steps. </p>
+                            <h2>
+                             Cities -where we operate?</h2><p>
+                           
+We are currently offering our services in Pilani, Kanpur, Bangalore, Kharagpur, Bhubaneshwar. We provide Inter-city Car service to corporate in these cities.
+</p>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content faq-text"><h3>Booking Related</h3>
+                        
+<h2>How do I book on CabMe.in?</h2>
+                            <p>You can either book online through our website www.cabme.in or may call at +91 8890605392.</p>
+<h2>How do I cancel my booking?</h2>
+                           <p> You can call us at +91 8890605392. Please read our terms and conditions for clarity on the same.</p>
+                        </div>
+                    </div>
+                </div>
+                      <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content faq-text"><h3>Pricing Related</h3>
+                       <h2>How is the total fare/price calculated for an Outstation / Multi-city return trip (Inter-city) cab service?</h2>
+                            <p>Intercity car fares constitute of various components as below:
+                            <ol><li>Per KM Rate: This is base rate which will be charged on every km travelled. The rate varies with car model and city.</li>
+                                <li> Minimum KM charged per day: We charge minimum distance of 250 kms per day for each city. Example for clarity: If you are using the vehicle for 4 days the minimum we will charge you is 4*250=1000 km, in case your actual usage for the three days (combined) is less (say 800 km) we will still charge you for 1000 km and in case your usage is higher (say 1150), we will charge you for your actual km used.</li>
+                                <li>Daily Driver allowances: For intercity travel customers, you need to pay driver allowance. The allowance amount might vary cab or city wise but ranges from Rs 200 to 500. Apart from it night allowance also charged if driver runs the vehicle during night hours (10pm to 5am).</li>
+                                <li>Toll, parking and state taxes: These will be charged on actual basis during/at end of the journey. You may askdriverto provide the relevant receipts if possible</li>
+                                <li>Definition of a day: Day is defined as calendar day i.e. 12 midnight to next day 12 midnight for all the calculation purposes.</li>
+                                <li> Service Tax: We charge service tax as per Govt rules, its 5.6% of total trip cost now-a-days.</li></ol></p>
+                           <h2> How is the total fare/price calculated for a One Way Drop?</h2>
+<p>For One Way Drop, we charge fixed cost for the trip as mentioned on our website exclusive of state, toll and service tax.</p>
+
+                        </div>
+                    </div>
+                </div>
+                      <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content faq-text"><h3>Registration Related</h3>
+                       
+                            <h2>Do I need to register to avail the service?</h2>
+                            <p>Yes you are required to register yourself for booking a cab because we need your contact number, pick up address and other basic details to serve you better .</p>
+
+                        </div>
+                    </div>
+                </div>
+                      <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content faq-text"><h3> Payments Related</h3>
+                      
+                            <h2>How do I pay for the service ?</h2>
+                            <p>We are taking cash as of now. You need to pay full amount to the driver.</p>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+      
+    </div>
+    <div class="blog-featured">
+      <div class="card type-1">
+          <div class="row">
+            <h3 class="card-label">Quick Links <span>&gt;</span></h3>
+        </div>
+        <div class="row">
+        <div class="col-s1 featured-list">
+          <ul>
+             <li><a href="{% url 'cab:about' %}">About</a></li>
+              <li><a href="{% url 'cab:career' %}">Career</a></li>
+              <li><a href="{% url 'cab:blog' %}">Blog</a></li>
+              <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
+              <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions</a></li>
+              <li><a href="{% url 'cab:index' %}">Feedback</a></li>
+              <li><a href="{% url 'cab:press_release' %}">Press Release</a></li>
+              <li><a href="{% url 'cab:index' %}">Testimonials</a></li>
+              
+          </ul>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="footer">
+    <div class="row">
+        <div class="col-s2 left-footer" style="
+        padding: 3% 4%;
+        height: 67%;
+        ">
+        <div class="row logo-footer">
+            <img src="{% static 'img/logo.png' %}" alt="">
+        </div>
+        <div class="row follow">
+            <p>Follow Us</p>
+            <ul>
+                <li><img src="{% static 'img/fb.png' %}"></li>
+                <li><img src="{% static 'img/twitter.png' %}"></li>
+                <li><img src="{% static 'img/youtube.png' %}"></li>
+            </ul>
+        </div>
+        <div class="row apps">
+            <div class="col">
+                <img src="{% static 'img/playstore.png' %}" alt="">
+            </div>
+            <div class="col">
+                <img src="{% static 'img/applestore.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="col-s2 right-footer" style="
+    padding: 3% 4%;
+    height: 67%;
+    ">
+    <div class="col-s2">
+            <h3>Company</h3>
+            <ul>
+                <li><a href="{% url 'cab:about' %}">About</a></li>
+              <li><a href="{% url 'cab:faq' %}">FAQ</a></li>
+              <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
+              <li><a href="{% url 'cab:press_release' %}">Press Release</a></li>
+              <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-s2">
+            <h3>Discover</h3>
+            <ul>
+              <li><a href="{% url 'cab:blog' %}">Blog</a></li>
+              <li><a href="{% url 'cab:career' %}">Career</a></li>
+              <li><a href="{% url 'cab:index' %}">Testimonials</a></li>
+              <li><a href="{% url 'cab:index' %}">Feedback</a></li>
+            </ul>
+        </div>
+</div>
+</div>
+</div>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
