@@ -1,41 +1,6 @@
-
-{% load staticfiles %}
-<html>
-
-<head>
- <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
- <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
- </script>
- <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}">
- </script>
-
- <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
- <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
- <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
- <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-</head>
-
-<body>
-
- <div class="landing-wrapper">
-     <div class="nav">
-         <div class="nav-inner">
-           <div class="logo">
-              <img src="{% static 'img/logo.png' %}">
-          </div>
-          <div class="menu">
-              <ul class="nav-menu">
-               <li>Deals </li>
-               <li>C Cash</li>
-               <li>CabMe Corporate</li>
-           </ul>
-           <ul class="account-menu">
-               <li>Sign In</li>
-           </ul>
-       </div>
-   </div>
-</div>
-<div class="content">
+{% extends 'cab/base.html' %}
+{% block content %}
+ {% load staticfiles %}
   <div class="back-drop"> </div>
   <div class="card type-1">
       <div class="row">
@@ -154,61 +119,4 @@
     </div>
     </div>
 </div>
-</div>
-<div class="footer">
-    <div class="row">
-        <div class="col-s2 left-footer" style="
-        padiving: 3% 4%;
-        height: 67%;
-        ">
-        <div class="row logo-footer">
-            <img src="{% static 'img/logo.png' %}" alt="">
-        </div>
-        <div class="row follow">
-            <p>Follow Us</p>
-            <ul>
-                <li><img src="{% static 'img/fb.png' %}"></li>
-                <li><img src="{% static 'img/twitter.png' %}"></li>
-                <li><img src="{% static 'img/youtube.png' %}"></li>
-            </ul>
-        </div>
-        <div class="row apps">
-            <div class="col">
-                <img src="{% static 'img/playstore.png' %}" alt="">
-            </div>
-            <div class="col">
-                <img src="{% static 'img/applestore.png' %}" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="col-s2 right-footer" style="
-    padiving: 3% 4%;
-    height: 67%;
-    ">
-    <div class="col-s2">
-            <h3>Company</h3>
-            <ul>
-                <li><a href="{% url 'cab:about' %}">About</a></li>
-              <li><a href="{% url 'cab:faq' %}">FAQ</a></li>
-              <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
-              <li><a href="{% url 'cab:press_release' %}">Press Release</a></li>
-              <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions</a></li>
-                
-            </ul>
-        </div>
-        <div class="col-s2">
-            <h3>Discover</h3>
-            <ul>
-              <li><a href="{% url 'cab:blog' %}">Blog</a></li>
-              <li><a href="{% url 'cab:career' %}">Career</a></li>
-              <li><a href="{% url 'cab:index' %}">Testimonials</a></li>
-              <li><a href="{% url 'cab:index' %}">Feedback</a></li>
-            </ul>
-        </div>
-</div>
-</div>
-</div>
-</div>
-<script src="{% static 'js/script.js' %}"></script>
-</body>
-</html>
+{% endblock %}

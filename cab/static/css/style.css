@@ -62,6 +62,7 @@ ul.account-menu {
     color: white;
     border-radius: 3px;
     font-family: Verdana,sans-serif;
+    cursor:pointer;
 }
 
 .nav-menu li,.account-menu li{
