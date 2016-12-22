@@ -32,7 +32,7 @@ $(document).ready(function(){
 		$('#'+id+'-form').show();
 	})
 
-	$('input[name="way-opts"]').on('change',function(){
+	$('input[name="OneWay"]').on('change',function(){
 		if($(this).val()=='One Way'){
 			$(this).closest('.form-data').find('.return-date-data').attr('disabled','')
 		}
