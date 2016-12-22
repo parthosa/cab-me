@@ -1,0 +1,208 @@
+
+{% load staticfiles %}
+<html>
+
+<head>
+   <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
+   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
+   </script>
+   <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}">
+   </script>
+
+   <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+   <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+   <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+   <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+</head>
+
+<body>
+
+   <div class="landing-wrapper">
+       <div class="nav">
+           <div class="nav-inner">
+             <div class="logo">
+              <img src="{% static 'img/logo.png' %}">
+          </div>
+          <div class="menu">
+              <ul class="nav-menu">
+                 <li>Deals </li>
+                 <li>C Cash</li>
+                 <li>CabMe Corporate</li>
+             </ul>
+             <ul class="account-menu">
+                 <li>Sign In</li>
+             </ul>
+         </div>
+     </div>
+ </div>
+ <div class="content">
+  <div class="back-drop"> </div>
+ <div class="row">
+      <div class="blog-panel">
+          <div class="card type-1">
+          <div class="headers">
+                    <ul>
+                        <li class="active"><a href="{% url 'cab:index' %}">About Us</a></li> 
+                    </ul>
+                </div>
+              <div class="row">
+                <h3 class="card-label about-title">About CabMe</h3>
+            </div>
+            <div class="row blog-details">
+                
+                <div class="row about-content">
+                    <div class="col-s1">
+                        
+                        <div class="text-content"><p>
+                            CabMe is different from other cab services. We empower our customers by letting them choose from what we provide them best. You can customize your entire ride, even the road you want to travel on! Furthermore, CabMe brings you the innovative option of sharing the ride, where you can post about your travel plans and carpool with others to reduce individual travel costs.</p>
+
+                            <p>Our objective is to make travelling an enjoyable and comfortable experience, and our priority is to make this experience safe and worthwhile.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <div class="card type-1">
+        
+              <div class="row">
+                <h3 class="card-label about-title">
+                            Who We Are</h3>
+            </div>
+            <div class="row blog-details">
+                
+                <div class="row about-content">
+                    <div class="col-s1">
+                        
+                        <div class="text-content"><p>
+                            We are a group of sapient BITSians who based CabMe on one simple idea – You’re the one who’s travelling, so you should get to choose how. Being students at the remote setting of Pilani, we know the set of troubles one faces when planning a journey. So our aim is to solve it for you!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="card type-1">
+        
+              <div class="row">
+                <h3 class="card-label about-title">
+                            What We Do</h3>
+            </div>
+            <div class="row blog-details">
+                
+                <div class="row about-content">
+                    <div class="col-s1">
+                        
+                        <div class="text-content"><p>
+                          
+We at CabMe are working full time to make your journeys safe, comfortable, and perhaps most importantly, affordable. We aim to create a single platform for intercity cab journeys where you can book, share and create travel packages through a simple click on our website.</p>
+                            <div class="row">
+                                <div class="col-s2">
+                                    <ul>
+    <li>One way cabs</li>
+
+    <li>Two way cabs</li>
+    <li>Share your cabs
+</li>
+    <li>Get the shared cab
+</li>
+                                    </ul>
+                                </div>
+                                <div class="col-s2">
+                                    <ul>
+                                        <li>Pilani</li>
+    <li>Kanpur</li>
+    <li>Kharagpur</li>
+    <li>Bangalore</li>
+    
+
+
+                                    </ul>
+                                </div>
+                            
+
+    
+
+
+
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-featured">
+      <div class="card type-1">
+          <div class="row">
+            <h3 class="card-label">Quick Links <span>&gt;</span></h3>
+        </div>
+        <div class="row">
+        <div class="col-s1 featured-list">
+          <ul>
+              <li>Careers</li>
+              <li>Press Release</li>
+              <li>Testimonials</li>
+              <li>Blog</li>
+          </ul>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="footer">
+    <div class="row">
+        <div class="col-s2 left-footer" style="
+        padding: 3% 4%;
+        height: 67%;
+        ">
+        <div class="row logo-footer">
+            <img src="{% static 'img/logo.png' %}" alt="">
+        </div>
+        <div class="row follow">
+            <p>Follow Us</p>
+            <ul>
+                <li><img src="{% static 'img/fb.png' %}"></li>
+                <li><img src="{% static 'img/twitter.png' %}"></li>
+                <li><img src="{% static 'img/youtube.png' %}"></li>
+            </ul>
+        </div>
+        <div class="row apps">
+            <div class="col">
+                <img src="{% static 'img/playstore.png' %}" alt="">
+            </div>
+            <div class="col">
+                <img src="{% static 'img/applestore.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="col-s2 right-footer" style="
+    padding: 3% 4%;
+    height: 67%;
+    ">
+    <div class="col-s2">
+        <h3>Company</h3>
+        <ul>
+            <li>About Us</li>
+            <li>Media</li>
+            <li>Terms of Service</li>
+            <li>Privacy Policy</li>
+            <li>FAQ</li>
+            <li>Contact</li>
+            <li>Site Map</li>
+        </ul>
+    </div>
+    <div class="col-s2">
+        <h3>Discover</h3>
+        <ul>
+            <li>Career</li>
+            <li>Feedback</li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

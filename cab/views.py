@@ -35,6 +35,15 @@ def summary(request):
 def blog(request):
 	return render(request, 'cab/blog.html')
 
+def about(request):
+	return render(request, 'cab/about.html')
+
+def press_release(request):
+	return render(request, 'cab/press_release.html')
+
+def terms_and_conditions(request):
+	return render(request, 'cab/terms_and_conditions.html')
+
 def routes(request):
 	return render(request, 'cab/routes.html')
 

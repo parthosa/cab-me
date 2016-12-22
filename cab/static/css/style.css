@@ -345,6 +345,14 @@ button.form-submit {
   width:80%;
 }
 
+.col-s6-4{
+    width:60%;
+}
+
+.col-s6-3{
+    width:40%;
+}
+
 .right-pane .row{
   height: 33.33%;
   display: flex;
@@ -1025,11 +1033,12 @@ label.p-label {
 }
 
 .text-content {
-    font-size: 0.875em;
+    font-size: 0.975em;
     line-height: 1.71429;
     font-family: Helvetica;
     color: #222231;
     font-weight: 400;
+    margin: 0 0.5em;
 }
 
 
@@ -1134,3 +1143,65 @@ p.map-page-desc {
 
 
 /*    END ROUTES PAGE */
+
+
+
+/*  START ABOUT PAGE   */
+
+.about-title {
+    font-weight: 100;
+    font-size: 1.5em;
+    margin: 0.6em 0.5em 0.1em 0.5em;
+  }
+
+.about-content li{
+        list-style-image: url(../img/send.svg);
+    list-style-position: initial;
+}
+
+/*  END ABOUT PAGE*/
+
+
+
+/* START PRESS RELEASE PAGE  */
+.press-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.press-img img {
+    width: 85%;
+}
+
+.text-content.press-text {
+    font-size: 0.9em;
+}
+
+.row.press-content {
+    border-bottom: 1px solid #ddd;
+}
+/* END PRESS RELEASE PAGE  */
+
+
+/* START TERMS PAGE  */
+.terms-list li{
+    font-weight: normal;
+    text-align: justify !important;
+}
+
+.terms-list ul li {
+    list-style-type: initial;
+}
+
+.other-terms {
+    margin: 0 1em;
+    text-align: justify;
+}
+
+ol.terms-list {
+    margin-right: 1em;
+}
+
+/* END TERMS PAGE*/
+
