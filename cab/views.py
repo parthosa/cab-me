@@ -184,8 +184,9 @@ def bookcab(request):
 					Sharing.append(b_cab.Sharing)
 
 				cab_response = []
-				for name,price,cab_type,cab_id,cust_name in D_name, Price, type_cab ,cab_id, cust_names:
-					cab_response.append({'Driver_name': name, 'Price': price, 'Cab_type': cab_type, 'cab_id': cab_id, 'cust_names': cust_name})
+				for x in range(0, len(D_name)):
+					cab_response.append({'Driver_name': D_name[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
+					x+=1
 					# cab_response_dict['Driver_name': name]
 					# cab_response_dict['Price': name]
 					# cab_response_dict['Cab_type': name]
@@ -213,9 +214,10 @@ def bookcab(request):
 				# Time.append(b_cab.Time)
 				OneWay.append(b_cab.OneWay)
 				Sharing.append(b_cab.Sharing)
-			cab_response = []
-			for name,price,cab_type,cab_id,cust_name in D_name, Price, type_cab ,cab_id, cust_names:
-				cab_response.append({'Driver_name': name, 'Price': price, 'Cab_type': cab_type, 'cab_id': cab_id, 'cust_names': cust_name})
+				cab_response = []
+			for x in range(0, len(D_name)):
+				cab_response.append({'Driver_name': D_name[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
+				x+=1
 				# cab_response_dict['Driver_name': name]
 				# cab_response_dict['Price': name]
 				# cab_response_dict['Cab_type': name]
@@ -246,8 +248,9 @@ def bookcab(request):
 			OneWay.append(b_cab.OneWay)
 			Sharing.append(b_cab.Sharing)
 			cab_response = []
-			for name,price,cab_type,cab_id in D_name, Price, type_cab ,cab_id:
-				cab_response.append({'Driver_name': name, 'Price': price, 'Cab_type': cab_type, 'cab_id': cab_id, 'cust_names': cust_name})
+			for x in range(0, len(D_name)):
+				cab_response.append({'Driver_name': D_name[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
+				x+=1
 				# cab_response_dict['Driver_name': name]
 				# cab_response_dict['Price': name]
 				# cab_response_dict['Cab_type': name]
