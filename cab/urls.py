@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^bookcab/', views.bookcab, name='bookcab'),
     url(r'^main/', views.index, name='index'),
     url(r'^hotels/', views.hotels, name='hotels'),
+    url(r'^flights/', views.flights, name='flights'),
     url(r'^blog/', views.blog, name='blog'),
     url(r'^about/', views.about, name='about'),
     url(r'^routes/', views.routes, name='routes'),

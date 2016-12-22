@@ -91,21 +91,21 @@ $(document).ready(function(){
 		sendData(data,'../bookcab/');
 	});
 
-	$('#post-cab-form button.form-submit').click(function(){
-		var data={
-			'OneWay':($(this).closest('.form-data').find('input[name="way-opts"]:checked').val()=="One Way")?'True':'False',
-			'From':$(this).closest('.form-data').find('.from-data').val(),
-			'To':$(this).closest('.form-data').find('.to-data').val(),
-			'Date':$(this).closest('.form-data').find('.date-data').val(),
-			'Date_return':($(this).closest('.form-data').find('.return-date-data').val().length==0)?$(this).closest('.form-data').find('.date-data').val():$(this).closest('.form-data').find('.return-date-data').val(),
-			'Class':$(this).closest('.form-data').find('.cab-class').val()
-
-		}
-		console.log(data);
-		
-		sendData(data,'../postcab/');
-
-	});
+//	$('#post-cab-form button.form-submit').click(function(){
+//		var data={
+//			'OneWay':($(this).closest('.form-data').find('input[name="way-opts"]:checked').val()=="One Way")?'True':'False',
+//			'From':$(this).closest('.form-data').find('.from-data').val(),
+//			'To':$(this).closest('.form-data').find('.to-data').val(),
+//			'Date':$(this).closest('.form-data').find('.date-data').val(),
+//			'Date_return':($(this).closest('.form-data').find('.return-date-data').val().length==0)?$(this).closest('.form-data').find('.date-data').val():$(this).closest('.form-data').find('.return-date-data').val(),
+//			'Class':$(this).closest('.form-data').find('.cab-class').val()
+//
+//		}
+//		console.log(data);
+//		
+//		sendData(data,'../postcab/');
+//
+//	});
 });
 
 
@@ -123,4 +123,7 @@ function sendData(data,url){
 	}
 	form.submit();
 }
+
+
+//
 

@@ -1,0 +1,191 @@
+{% extends 'cab/base.html' %}
+{% block content %}
+ {% load staticfiles %}
+	          <div class="back-drop"> </div>
+	          <div class="card type-1">
+	          	<div class="headers">
+		          	<ul>
+		          		<li><a href="../main/">Cabs</a></li>
+		          		<li><a href="../flights/">Flights</a></li>
+		          		<li><a href="../buses/">Buses</a></li>
+		          		<li class="active"><a href="../hotels/">Hotels</a></li>
+		          		<li><a href="../holidays/">Holidays</a></li>
+		          	</ul>
+	          	</div>
+	          	<div class="row">
+                    <h3 class="card-label">Fly With  CabMe </h3>
+                </div>
+	          	<div class="form-opts">
+
+	          		    		<div class="form-data" id="outstation-form">
+	          			<div class="input-row">
+	          				<div class="input-wrap-2">
+		          				<input class="way-type-data" type="radio" name="OneWay" value="One Way" checked="">One Way
+		          				<input class="way-type-data" type="radio" name="OneWay" value="Two Way">Two Way
+	          				</div>
+	          				
+          				</div>
+	          			<div class="input-row">
+	          				<div class="input-wrap-2 ui-widget">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field from-data" name="From" placeholder="From">
+	          				</div>
+	          				<div class="reverse-icon">
+	          					<span class="reverse"></span>
+	          				</div>
+	          				<div class="input-wrap-2 ui-widget">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field to-data" name="To" placeholder="To">
+	          				</div>
+	          				<div class="input-wrap-2
+	          				ui-widget">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field form-control date-data" name="Date" type="text" placeholder="Depart" />
+
+	          				</div>
+	          				<div class="input-wrap-2
+	          				ui-widget">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field return-date-data form-control" name="Date_return" type="text" placeholder="Return" value="" disabled="" />
+
+
+	          				</div>
+	          				<div class="input-wrap-3">
+	          				<select name="Class" id="out-cab-class" class="cab-class">
+	          					<option value="Economoy">Economy</option>
+	          					<option value="Business">Business</option>
+	          				</select>
+	          				</div>
+                            <div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Search</button>
+	          				</div>
+                                    </div>
+                                    <div class="input-row" style="    margin-left: 1.8em;">
+                            <div class="input-wrap-3">
+	          					<!-- <span class="calender"></span> -->
+	          					<input required="" class="input-field" type="text" placeholder="Adults" style="
+    width: 100%;
+">
+	          				</div>
+	          				<div class="input-wrap-3">
+	          					<!-- <span class="calender"></span> -->
+	          					<input required="" class="input-field" type="text" placeholder="Children" style="
+    width: 100%;
+">
+	          				</div>
+	          				
+	          			</div>
+	          			<!-- <div class="input-row-3">
+	          			</div> -->
+	          		</div>
+
+	          	</div>
+	          </div>
+	          <div class="card-2 type-2 offers">
+	          	 <div class="row" style="
+    justify-content: center;
+">
+                    <h3 class="card-label type-2">Offers</h3>
+                </div>
+                <div class="row" style="
+    margin-bottom: 17vh;
+    top: -8vh;
+    position: relative;
+">
+                	<div class="col-s3">
+                		<div class="card">
+                		</div>
+                	</div>
+                	<div class="col-s3">
+                		<div class="card">
+                		</div>
+                	</div>
+                	<div class="col-s3">
+                		<div class="card">
+                		</div>
+                	</div>
+                </div>
+	          </div>
+
+	          <div class="card type-2 dest">
+                <div class="row">
+                    <h3 class="card-label">Top Routes<span class="caret">></span></h3>
+                </div>
+                <div class="row">
+                   <div class="col-s2">
+                   	<div class="flight-routes">
+                        <div><p><span class="city-1">Pune</span>-<span class="city-2">Dubai</span></p></div>
+                        <div class="book-flight">Book Now</div>
+                   	</div>
+                    	<div class="flight-routes">
+                        <div><span class="city-1">Pune</span>-<span class="city-2">Dubai</span></div>
+                        <div class="book-flight">Book Now</div>
+                   	</div>
+                  	<div class="flight-routes">
+                        <div><span class="city-1">Pune</span>-<span class="city-2">Dubai</span></div>
+                        <div class="book-flight">Book Now</div>
+                   	</div>
+                   </div>
+                   <div class="col-s2">
+                     	<div class="flight-routes">
+                        <div><span class="city-1">Pune</span>-<span class="city-2">Dubai</span></div>
+                        <div class="book-flight">Book Now</div>
+                   	</div>
+                   </div>
+                </div>
+               
+
+              </div>
+              <div class="card type-2 testimonial">
+	          	<div class="row">
+	          		<h3 class="card-label">Testimonials <span class="caret">></span></h3>
+	          	</div>
+	          	<div class="row" style="
+    margin-top: 6vh;
+    margin-bottom: 6vh;
+">
+	          		<div class="col-s3">
+	          			<div class="testimonial-detail">
+	          				<div class="{% static 'img">
+	          				<img src="{% static 'img/user1.png' %}" alt="">
+	          				</div>
+	          				<div class="text">
+	          				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore laudantium, tempore provident cupiditate dolorem iste explicabo.
+	          				<div class="head">
+	          					Martin Luther
+	          				</div>
+	          				</div>
+	          			</div>
+	          		</div>
+	          		<div class="col-s3">
+	          			<div class="testimonial-detail">
+	          				<div class="{% static 'img">
+	          				<img src="{% static 'img/user2.jpg' %}" alt="">
+	          				</div>
+	          				<div class="text">
+
+	          				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore laudantium, tempore provident cupiditate dolorem iste explicabo.
+	          				<div class="head">
+	          					Martin Luther
+	          				</div>
+
+	          				</div>
+	          			</div>
+	          		</div>
+	          		<div class="col-s3">
+	          			<div class="testimonial-detail">
+	          				<div class="{% static 'img">
+	          				<img src="{% static 'img/user3.jpg' %}" alt="">
+	          				</div>
+	          				<div class="text">
+	          				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore laudantium, tempore provident cupiditate dolorem iste explicabo.
+	          				<div class="head">
+	          					Martin Luther
+	          				</div>
+	          				</div>
+	          			</div>
+	          		</div>
+                </div>
+	          </div>
+            </div>
+ {% endblock %}

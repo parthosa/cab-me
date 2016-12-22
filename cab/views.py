@@ -26,6 +26,10 @@ def index(request):
 def hotels(request):
 	return render(request, 'cab/hotels.html')
 
+def flights(request):
+	return render(request, 'cab/flights.html')
+
+
 def search(request):
 	return render(request, 'cab/search.html')
 
