@@ -183,11 +183,20 @@ def bookcab(request):
 					OneWay.append(b_cab.OneWay)
 					Sharing.append(b_cab.Sharing)
 
-				resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
-				return JsonResponse(resp) #render(request, 'cab/search.html', resp)
+				cab_response = []
+				for name,price,cab_type,cab_id,cust_name in D_name, Price, type_cab ,cab_id, cust_names:
+					cab_response.append({'Driver_name': name, 'Price': price, 'Cab_type': cab_type, 'cab_id': cab_id, 'cust_names': cust_name})
+					# cab_response_dict['Driver_name': name]
+					# cab_response_dict['Price': name]
+					# cab_response_dict['Cab_type': name]
+					# cab_response_dict['cab_id': name]
+					# cab_response_dict['cust_names': name]
+				# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+				resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
+				return render(request, 'cab/search.html', resp)
 			except:
 				resp = {'status': 'No cabs Found'}
-				return JsonResponse(resp)
+				return render(request, 'cab/search.html', resp)
 
 		elif b_cab.OneWay == True and b_cab.Sharing == False:
 			for cab in cabs:# try:
@@ -204,7 +213,17 @@ def bookcab(request):
 				# Time.append(b_cab.Time)
 				OneWay.append(b_cab.OneWay)
 				Sharing.append(b_cab.Sharing)
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			cab_response = []
+			for name,price,cab_type,cab_id,cust_name in D_name, Price, type_cab ,cab_id, cust_names:
+				cab_response.append({'Driver_name': name, 'Price': price, 'Cab_type': cab_type, 'cab_id': cab_id, 'cust_names': cust_name})
+				# cab_response_dict['Driver_name': name]
+				# cab_response_dict['Price': name]
+				# cab_response_dict['Cab_type': name]
+				# cab_response_dict['cab_id': name]
+				# cab_response_dict['cust_names': name]
+			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}			
+			# resp = {'Driver_name': D_name, 'D_phone': D_phone, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			return render(request, 'cab/search.html', resp)
 			# except:
 			# 	print 'some'
@@ -226,8 +245,17 @@ def bookcab(request):
 			# Time.append(b_cab.Time)
 			OneWay.append(b_cab.OneWay)
 			Sharing.append(b_cab.Sharing)
-
-			resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			cab_response = []
+			for name,price,cab_type,cab_id in D_name, Price, type_cab ,cab_id:
+				cab_response.append({'Driver_name': name, 'Price': price, 'Cab_type': cab_type, 'cab_id': cab_id, 'cust_names': cust_name})
+				# cab_response_dict['Driver_name': name]
+				# cab_response_dict['Price': name]
+				# cab_response_dict['Cab_type': name]
+				# cab_response_dict['cab_id': name]
+				# cab_response_dict['cust_names': name]
+			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
+			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 		return render(request, 'cab/search.html', resp) #JsonResponse(resp)
 
 @login_required
