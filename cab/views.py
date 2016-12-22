@@ -216,7 +216,7 @@ def bookcab(request):
 				Sharing.append(b_cab.Sharing)
 				cab_response = []
 			for x in range(0, len(D_name)):
-				cab_response.append({'Driver_name': D_name[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
+				cab_response.append({'Driver_name': D_name[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x]})
 				x+=1
 				# cab_response_dict['Driver_name': name]
 				# cab_response_dict['Price': name]
