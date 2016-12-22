@@ -77,28 +77,17 @@ $(document).ready(function(){
 
 	$('#outstation-form button.form-submit').click(function(){
 		var data={
-			'OneWay':($(this).closest('.form-data').find('input[name="way-opts"]:checked').val()=="One Way")?'True':'False',
-			'Sharing':($(this).closest('.form-data').find('.sharing-data').val().length==0)?'False':$(this).closest('.form-data').find('.sharing-data').val(),
+			'OneWay':'True',
+			'Sharing':'False',
 			'From':$(this).closest('.form-data').find('.from-data').val(),
 			'To':$(this).closest('.form-data').find('.to-data').val(),
 			'Date':$(this).closest('.form-data').find('.date-data').val(),
-			'Date_return':($(this).closest('.form-data').find('.return-date-data').val().length==0)?$(this).closest('.form-data').find('.date-data').val():$(this).closest('.form-data').find('.return-date-data').val(),
+			'Date_return':$(this).closest('.form-data').find('.return-date-data').val(),
 			'Class':$(this).closest('.form-data').find('.cab-class').val(),
 
 
 		}
-		console.log(data);
-		// $.ajax({
-		// 	type:'POST',
-		// 	url:'../bookcab/',
-		// 	async:false,
-		// 	data:data,
-		// 	success:function(response){
-		// 		console.log(response);
-		// 		location.reload();
-		// 	}
-		// })
-
+		
 		sendData(data,'../bookcab/');
 	});
 
@@ -113,14 +102,7 @@ $(document).ready(function(){
 
 		}
 		console.log(data);
-		// $.ajax({
-		// 	type:'POST',
-		// 	url:'../postcab/',
-		// 	data:data,
-		// 	success:function(response){
-		// 		console.log(response);
-		// 	}
-		// })
+		
 		sendData(data,'../postcab/');
 
 	});
@@ -128,17 +110,17 @@ $(document).ready(function(){
 
 
 function sendData(data,url){
-	var xhr=new XMLHttpRequest();
-	var formData = new FormData();
-
+	var form=document.createElement('form');
+	form.method="POST";
+	form.action=url;
+	var input;
 	for(key in data){
-		formData.append(key,data[key])
+		input=document.createElement('input');
+		input.name=key;
+		input.value=data[key];
+		input.type='hidden';
+		form.appendChild(input)
 	}
-
-	xhr.addEventListener('error',function(){
-		alert('Please Try Again');
-	})
-
-	xhr.open('POST',url);
-	xhr.send(formData);
+	form.submit();
 }
+

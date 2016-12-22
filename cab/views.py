@@ -32,6 +32,34 @@ def search(request):
 def summary(request):
 	return render(request, 'cab/summary.html')
 
+def blog(request):
+	return render(request, 'cab/blog.html')
+
+def about(request):
+	return render(request, 'cab/about.html')
+
+def faq(request):
+	return render(request, 'cab/faq.html')
+
+
+def career(request):
+	return render(request, 'cab/career.html')
+
+
+
+def privacy_policy(request):
+	return render(request, 'cab/privacy_policy.html')
+
+
+def press_release(request):
+	return render(request, 'cab/press_release.html')
+
+def terms_and_conditions(request):
+	return render(request, 'cab/terms_and_conditions.html')
+
+def routes(request):
+	return render(request, 'cab/routes.html')
+
 def cab_cities(request):
 	cities = City.objects.all()
 	c_name = []
@@ -49,20 +77,17 @@ def bookcab(request):
 		b_cab.From = request.POST['From']
 		b_cab.To = request.POST['To']
 		b_cab.Date = request.POST['Date']
-		try:
-			b_cab.Date_return = request.POST['Date_return']
-		except:
-			b_cab.Date_return = b_cab.Date
+		b_cab.Date_return = request.POST['Date_return']
 		# b_cab.Time = request.POST['Time']
 		b_cab.OneWay = request.POST['OneWay']
 		b_cab.Sharing = request.POST['Sharing']
 		
-		if request.POST['OneWay'] == 'One Way':
+		if request.POST['OneWay'] == 'True':
 			b_cab.OneWay = True
 		else: 
 			b_cab.OneWay = False
 
-		if request.POST['Sharing'] == 'Sharing':
+		if request.POST['Sharing'] == 'True':
 			b_cab.Sharing = True
 		else: 
 			b_cab.Sharing = False
@@ -319,8 +344,6 @@ def feedback(request):
 	cache.delete(request.user.id)
 
 	return HttpResponseRedirect('../dashboard/')
-
-
 
 
 

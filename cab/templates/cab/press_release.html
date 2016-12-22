@@ -1,0 +1,75 @@
+{% extends 'cab/base.html' %}
+{% block content %}
+ {% load staticfiles %}
+
+  <div class="back-drop"> </div>
+ <div class="row">
+      <div class="blog-panel">
+          <div class="card type-1">
+          <div class="headers">
+                    <ul>
+                        <li class="active"><a href="{% url 'cab:index' %}">Press Release</a></li> 
+                    </ul>
+                </div>
+              <div class="row">
+                <h3 class="card-label about-title">Featured In</h3>
+            </div>
+            <div class="row blog-details">
+                
+                <div class="row press-content">
+                    <div class="col-s6-3 press-img">
+                        <img src="{% static 'img/press_release/mypower.png' %}">
+                    </div>
+                        <div class="col-s6-4">
+                        <div class="text-content press-text"><h3>MyPower</h3><p>
+                            "Necessity is the mother of invention" All students who studied or are studying at institutes with little or no proper connectivity face many hardships while going home for vacations and again while coming back. You depend on cab guys or auto guys to get you to the desired point. Cabme founder Reddy Kumara Simha faced the same problem and instead of cursing the cab drivers or the place, he started CABME to help students like him escape the erratic rates, bad service and having to deal with cab drivers who would sometimes be very difficult to deal with.   The story started in BITS PILANI where Mr. Reddy is pursuing his studies. CabMe is a startup which aims to unify the cab market of India. There are 50 bright young guys working for CabMe now to provide their services in a smooth way. They have already expanded to thirteen new locations - Kharagpur, Lakshmanpur, Kanpur, Bhubaneshwar, Delhi, Chandigarh, Jaipur, Pune, Nagpur, Bangalore, Mysore, Mumbai and Warangal. </p>
+                        </div>
+                    </div>
+                </div>
+                  <div class="row press-content">
+                    <div class="col-s6-3 press-img">
+                        <img src="{% static 'img/press_release/startuptalky.png' %}">
+                    </div>
+                        <div class="col-s6-4">
+                        <div class="text-content press-text"><h3>Startup Talky</h3><p>
+                           About CABME   We all know that a journey of thousand miles begin with a single step; and we are here to help make you an easier step towards your destination. CABME, making journeys is a start-up that troves a group of sapient BITSIANS who are up to making travel a worthy experience. We are working full time to make your journeys safe and sound within a budget bucket. CABME offers you to build and reduce your own travelling costs via the concept of SHARING, where people can post about their cabs and reduce individual travel costs. After all, journeys are made by the people you travel with! No group is too large no destination is too far, we always â€˜go the extra mile for youâ€™ here at CABME. We aim at creating a single platform for intercity, interstate and intrastate to book, share and create travel packages. We want to empower our customers and decide the road they want to travel, basically how they want to travel. We will not just take them to new landscapes but also to newer and better experience.  CABME will definitely give a new definition to the pulchritude of travelling.</p>
+                        </div>
+                    </div>
+                </div>
+                  <div class="row press-content">
+                    <div class="col-s6-3 press-img">
+                        <img src="{% static 'img/press_release/indianceo.jpg' %}">
+                    </div>
+                        <div class="col-s6-4">
+                        <div class="text-content press-text"><h3>Indian CEO</h3><p>
+                          CabMe was never about the money. Our aim was to tackle a central issue that existed in the society. We wanted to give people a choice to choose and get the best services possible at the economical rates. When I was a Hostel Representative in BITS Pilani, I was handling all the student union cabs and what I saw led to the inception of CabMe. The prices used to differ, the rates used to depend on the mindset of the cab drivers at that point of time. Even I had to face the same situation where I paid exorbitant prices for traveling as we had no other choice. I felt that I needed to change this. I am no coder, nor had any idea what a startup is, I just knew I could get this right. So I started CabMe with just a name. I wanted a technical Co-founder but I could not find one, so I just launched CabMe with a phone number and gave cabs at the cheapest possible prices at that time. I had no product so I just got a freelancer who helped me with my website for just Rs 1,000 and I got my first beta version. Soon I started getting a huge response. My only medium of commencing was Facebook where I tried to reach the students of BITS Pilani. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+    <div class="blog-featured">
+      <div class="card type-1">
+          <div class="row">
+            <h3 class="card-label">Quick Links <span>&gt;</span></h3>
+        </div>
+        <div class="row">
+        <div class="col-s1 featured-list">
+          <ul>
+              <li><a href="{% url 'cab:about' %}">About</a></li>
+              <li><a href="{% url 'cab:career' %}">Career</a></li>
+              <li><a href="{% url 'cab:blog' %}">Blog</a></li>
+              <li><a href="{% url 'cab:faq' %}">FAQ</a></li>
+              <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
+              <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions</a></li>
+              <li><a href="{% url 'cab:index' %}">Feedback</a></li>
+              <li><a href="{% url 'cab:index' %}">Testimonials</a></li>
+          </ul>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'cab/base.html' %}
+
+
+{% block content %}
+  <div class="back-drop"> </div>
+ <div class="row">
+      <div class="blog-panel">
+          <div class="card type-1">
+          <div class="headers">
+                    <ul>
+                        <li class="active"><a href="{% url 'cab:about' %}">About Us</a></li> 
+                    </ul>
+                </div>
+              <div class="row">
+                <h3 class="card-label about-title">About CabMe</h3>
+            </div>
+            <div class="row blog-details">
+                
+                <div class="row about-content">
+                    <div class="col-s1">
+                        
+                        <div class="text-content"><p>
+                            CabMe is different from other cab services. We empower our customers by letting them choose from what we provide them best. You can customize your entire ride, even the road you want to travel on! Furthermore, CabMe brings you the innovative option of sharing the ride, where you can post about your travel plans and carpool with others to reduce individual travel costs.</p>
+
+                            <p>Our objective is to make travelling an enjoyable and comfortable experience, and our priority is to make this experience safe and worthwhile.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <div class="card type-1">
+        
+              <div class="row">
+                <h3 class="card-label about-title">
+                            Who We Are</h3>
+            </div>
+            <div class="row blog-details">
+                
+                <div class="row about-content">
+                    <div class="col-s1">
+                        
+                        <div class="text-content"><p>
+                            We are a group of sapient BITSians who based CabMe on one simple idea – You’re the one who’s travelling, so you should get to choose how. Being students at the remote setting of Pilani, we know the set of troubles one faces when planning a journey. So our aim is to solve it for you!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="card type-1">
+        
+              <div class="row">
+                <h3 class="card-label about-title">
+                            What We Do</h3>
+            </div>
+            <div class="row blog-details">
+                
+                <div class="row about-content">
+                    <div class="col-s1">
+                        
+                        <div class="text-content"><p>
+                          
+We at CabMe are working full time to make your journeys safe, comfortable, and perhaps most importantly, affordable. We aim to create a single platform for intercity cab journeys where you can book, share and create travel packages through a simple click on our website.</p>
+                            <div class="row">
+                                <div class="col-s2">
+                                    <ul>
+    <li>One way cabs</li>
+
+    <li>Two way cabs</li>
+    <li>Share your cabs
+</li>
+    <li>Get the shared cab
+</li>
+                                    </ul>
+                                </div>
+                                <div class="col-s2">
+                                    <ul>
+                                        <li>Pilani</li>
+    <li>Kanpur</li>
+    <li>Kharagpur</li>
+    <li>Bangalore</li>
+    
+
+
+                                    </ul>
+                                </div>
+                            
+
+    
+
+
+
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-featured">
+      <div class="card type-1">
+          <div class="row">
+            <h3 class="card-label">Quick Links <span>&gt;</span></h3>
+        </div>
+        <div class="row">
+        <div class="col-s1 featured-list">
+          <ul>
+              <li><a href="{% url 'cab:blog' %}">Blog</a></li>
+              <li><a href="{% url 'cab:career' %}">Careers</a></li>
+              <li><a href="{% url 'cab:faq' %}">FAQ</a></li>
+              <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
+              <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions</a></li>
+              <li><a href="{% url 'cab:index' %}">Feedback</a></li>
+              <li><a href="{% url 'cab:press_release' %}">Press Release</a></li>
+              <li><a href="{% url 'cab:index' %}">Testimonials</a></li>
+          </ul>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'cab/base.html' %}
+{% block content %}
+  <div class="back-drop"> </div>
+ <div class="row">
+      <div class="career-panel">
+          <div class="col-s3">
+          <div class="card type-1">
+          <div class="headers">
+                    <ul>
+                        <li class="active"><a href="{% url 'cab:index' %}">Career</a></li> 
+                    </ul>
+                </div>
+              <div class="row">
+        
+            </div>
+            <div class="row career-details">
+                
+                <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content career-text"><h3>Internship</h3>
+                            <p>
+                           We are providing Internship to students who are dedicated and want to get a on ground experience. We are looking for no excellent resume but for dedication which they can show towards the company.
+</p>
+                        </div>
+                    </div>
+                </div>
+                   <div class="career-apply">
+                    <h3 id="internship-apply">APPLY</h3>
+                </div>
+                     
+                 
+              
+            </div>
+        </div>
+      
+    </div>
+           <div class="col-s3">
+          <div class="card type-1">
+        
+              <div class="row">
+        
+            </div>
+            <div class="row career-details">
+                
+              
+                    <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content career-text"><h3>Content Writers</h3>
+                        
+                            <p>Job Responsibilities:<br>
+
+We want people who want to show their talent in writing blogs and We are open for inexperienced but who are willing to dedicate 1-2 hours everyday on creating blogs for CabMe. </p>
+                        </div>
+                    </div>
+                </div>
+                     
+                  <div class="career-apply">
+                    <h3 id="content-writer-apply">APPLY</h3>
+                </div>
+              
+            </div>
+        </div>
+      
+    </div>
+           <div class="col-s3">
+          <div class="card type-1">
+         
+              <div class="row">
+        
+            </div>
+            <div class="row career-details">
+                
+              
+                      <div class="row press-content">
+                  
+                        <div class="col-s1">
+                        <div class="text-content career-text"><h3>Video Making</h3>
+                     
+                            <p>Job Responsibilities:<br>
+
+Good video makers with enough knowledge of graphic designing and video editing are required.
+
+We would basically want enough hardwork and dedication from those who apply.</p>
+
+                        </div>
+                    </div>
+                </div>
+                 
+                 <div class="career-apply">
+                    <h3 id="video-apply">APPLY</h3>
+                </div>
+                 
+              
+            </div>
+        </div>
+      
+    </div>
+    </div>
+          
+    <div class="blog-featured">
+      <div class="card type-1">
+          <div class="row">
+            <h3 class="card-label">Quick Links <span>&gt;</span></h3>
+        </div>
+        <div class="row">
+        <div class="col-s1 featured-list">
+          <ul>
+              <li><a href="{% url 'cab:about' %}">About</a></li>
+              <li><a href="{% url 'cab:blog' %}">Blog</a></li>
+              <li><a href="{% url 'cab:faq' %}">FAQ</a></li>
+              <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
+              <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions</a></li>
+              <li><a href="{% url 'cab:index' %}">Feedback</a></li>
+              <li><a href="{% url 'cab:press_release' %}">Press Release</a></li>
+              <li><a href="{% url 'cab:index' %}">Testimonials</a></li>
+          </ul>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

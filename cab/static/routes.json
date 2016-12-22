@@ -1,0 +1,91 @@
+{
+	"response":[
+		{
+			"place1":"Delhi",
+			"place2":"Jaipur",
+			"cabs":[
+				{
+					"vehicle":"Tata Indigo Ac 4 Seater",
+					"kmRate":"13.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				},
+				{
+					"vehicle":"Toyota Innova Ac 6 Seater",
+					"kmRate":"13.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				},
+				{
+					"vehicle":"Toyota Innova Ac 6 Seater",
+					"kmRate":"13.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				}
+			],
+			"places":[
+					"Pilani",
+					"Agra",
+					"Ahmedabad"
+			]
+		},
+		{
+			"place1":"Delhi",
+			"place2":"Agra",
+			"cabs":[
+				{
+					"vehicle":"Maruti Dezire 4 Seater",
+					"kmRate":"13.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				},
+				{
+					"vehicle":"Tata Indigo Ac 4 Seater",
+					"kmRate":"13.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				},
+				{
+					"vehicle":"Toyota Innova Ac 6 Seater",
+					"kmRate":"13.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				}
+			],
+			"places":[
+					"Pilani",
+					"Jaipur",
+					"Dehradun"
+			]
+		},
+		{
+			"place1":"Delhi",
+			"place2":"Pilani",
+			"cabs":[
+				{
+					"vehicle":"Toyota Altis 4 Seater",
+					"kmRate":"13.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				},
+				{
+					"vehicle":"Tata Indigo Ac 4 Seater",
+					"kmRate":"11.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				},
+				{
+					"vehicle":"Tata Indica Ac 4 Seater",
+					"kmRate":"9.50",
+					"otherCharges":"200.00",
+					"minKmDay":"250"
+				}
+			],
+			"places":[
+					"Pilani",
+					"Jaipur",
+					"Dehradun"
+			]
+		}
+]
+}

@@ -1,40 +1,6 @@
-{% load staticfiles %}
-	<html>
-
-	<head>
-	    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
-	    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
-	    </script>
-<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}">
-	    </script>
-
-<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-<link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
-<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
-<script src="{% static 'js/owl.carousel.min.js' %}"></script>
-	</head>
-
-	<body>
-   
-	    <div class="landing-wrapper">
-	        <div class="nav">
-	            <div class="nav-inner">
-		        	<div class="logo">
-						<img src="{% static 'img/logo.png' %}">
-					</div>
-		        	<div class="menu">
-						<ul class="nav-menu">
-							<li>Deals </li>
-							<li>C Cash</li>
-							<li>CabMe Corporate</li>
-						</ul>
-						<ul class="account-menu">
-							<li>Sign In</li>
-						</ul>
-					</div>
-	            </div>
-	        </div>
-	        <div class="content">
+{% extends 'cab/base.html' %}
+{% block content %}
+ {% load staticfiles %}
 	          <div class="back-drop"> </div>
 	          <div class="card type-1">
 	          	<div class="headers">
@@ -56,38 +22,42 @@
 	          		</div>
 	          		<div class="form-data" id="outstation-form">
 	          			<div class="input-row">
-	          				<div class="input-wrap-1">
-		          				<input class="way-type-data" type="radio" name="way-opts" value="One Way" checked="">One Way
-		          				<input class="way-type-data" type="radio" name="way-opts" value="Two Way">Two Way
+	          				<div class="input-wrap-2">
+		          				<input class="way-type-data" type="radio" name="OneWay" value="One Way" checked="">One Way
+		          				<input class="way-type-data" type="radio" name="OneWay" value="Two Way">Two Way
+	          				</div>
+	          				<div class="input-wrap-2">
+		          				<input class="sharing-type-data" type="radio" name="Sharing" value="Sharing" checked="">Sharing
+		          				<input class="sharing-type-data" type="radio" name="Sharing" value="No Sharing">No Sharing
 	          				</div>
           				</div>
 	          			<div class="input-row">
 	          				<div class="input-wrap-2 ui-widget">
 	          					<span class="city"></span>
-	          					<input type="text" class="input-field from-data" placeholder="From">
+	          					<input type="text" class="input-field from-data" name="From" placeholder="From">
 	          				</div>
 	          				<div class="reverse-icon">
 	          					<span class="reverse"></span>
 	          				</div>
 	          				<div class="input-wrap-2 ui-widget">
 	          					<span class="city"></span>
-	          					<input type="text" class="input-field to-data" placeholder="To">
+	          					<input type="text" class="input-field to-data" name="To" placeholder="To">
 	          				</div>
 	          				<div class="input-wrap-2
 	          				ui-widget">
 	          					<span class="calender"></span>
-	          					<input required="" class="input-field form-control date-data" type="text" placeholder="Depart" />
+	          					<input required="" class="input-field form-control date-data" name="Date" type="text" placeholder="Depart" />
 
 	          				</div>
 	          				<div class="input-wrap-2
 	          				ui-widget">
 	          					<span class="calender"></span>
-	          					<input required="" class="input-field return-date-data form-control"  type="text" placeholder="Return"  disabled="" />
+	          					<input required="" class="input-field return-date-data form-control" name="Date_return" type="text" placeholder="Return" value="" disabled="" />
 
 
 	          				</div>
 	          				<div class="input-wrap-3">
-	          				<select name="type" id="out-cab-class" class="cab-class">
+	          				<select name="Class" id="out-cab-class" class="cab-class">
 	          					<option value="Economoy">Economy</option>
 	          					<option value="Business">Business</option>
 	          				</select>
@@ -127,26 +97,26 @@
 	          			<div class="input-row">
 	          				<div class="input-wrap-2">
 	          					<span class="city"></span>
-	          					<input type="text" class="input-field" placeholder="From">
+	          					<input type="text" class="input-field" name="From" placeholder="From">
 	          				</div>
 	          				<div class="reverse-icon">
 	          					<span class="reverse"></span>
 	          				</div>
 	          				<div class="input-wrap-2">
 	          					<span class="city"></span>
-	          					<input type="text" class="input-field" placeholder="To">
+	          					<input type="text" class="input-field" name="To" placeholder="To">
 	          				</div>
 	          				<div class="input-wrap-2">
 	          					<span class="calender"></span>
-	          					<input required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
+	          					<input name="Date" required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
 
 	          				</div>
 	          				<div class="input-wrap-2">
 	          					<span class="calender"></span>
-	          					<input type="text" class="input-field" placeholder="Rates/Km">
+	          					<input name="Date_return" type="text" class="input-field" placeholder="Rates/Km">
 	          				</div>
 	          				<div class="input-wrap-3">
-	          				<select name="type" id="out-cab-class" class="cab-class">
+	          				<select name="Class" id="out-cab-class" class="cab-class">
 	          					<option value="Economoy">Economoy</option>
 	          					<option value="Business">Business</option>
 	          				</select>
@@ -215,7 +185,7 @@
 	          </div>
 	          <div class="card type-2 banner">
                 <div class="row">
-                    <h3 class="card-label">Shop On CabMe <span>></span></h3>
+                    <h3 class="card-label">Shop On CabMe <span class="caret">></span></h3>
                 </div>
                 <div class="row">
                     <div id="owl-demo-2" class="owl-carousel owl-theme">
@@ -227,67 +197,11 @@
               </div>
               <div class="card type-2 banner">
 	          	<div class="row">
-	          		<h3 class="card-label">Interesting Offers <span>></span></h3>
+	          		<h3 class="card-label">Interesting Offers <span class="caret">></span></h3>
 	          	</div>
 	          	<div class="row">
 	          		<div id="owl-demo-3" class="owl-carousel owl-theme">
                     </div>
                 </div>
               	</div>
- </div>
-	        <div class="footer">
-                <div class="row">
-                    <div class="col-s2 left-footer" style="
-    padding: 3% 4%;
-    height: 67%;
-">
-                        <div class="row logo-footer">
-                            <img src="{% static 'img/logo.png' %}" alt="">
-                        </div>
-                        <div class="row follow">
-                            <p>Follow Us</p>
-                            <ul>
-                                <li><img src="{% static 'img/fb.png' %}"></li>
-                                <li><img src="{% static 'img/twitter.png' %}"></li>
-                                <li><img src="{% static 'img/youtube.png' %}"></li>
-                            </ul>
-                        </div>
-                        <div class="row apps">
-                            <div class="col">
-                                <img src="{% static 'img/playstore.png' %}" alt="">
-                           </div>
-                            <div class="col">
-                                <img src="{% static 'img/applestore.png' %}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-s2 right-footer" style="
-    padding: 3% 4%;
-    height: 67%;
-">
-                        <div class="col-s2">
-                            <h3>Company</h3>
-                            <ul>
-                                <li>About Us</li>
-                                <li>Media</li>
-                                <li>Terms of Service</li>
-                                <li>Privacy Policy</li>
-                                <li>FAQ</li>
-                                <li>Contact</li>
-                                <li>Site Map</li>
-                            </ul>
-                        </div>
-                        <div class="col-s2">
-                            <h3>Discover</h3>
-                            <ul>
-                                <li>Career</li>
-                                <li>Feedback</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-	    </div>
-	    <script src="{% static 'js/script.js' %}"></script>
-	</body>
-</html>
+ {% endblock%}
