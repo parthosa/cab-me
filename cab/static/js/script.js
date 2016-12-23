@@ -125,5 +125,3 @@ function sendData(data,url){
 }
 
 
-//
-
