@@ -33,7 +33,9 @@ def flights(request):
 def search(request):
 	return render(request, 'cab/search.html')
 
+@csrf_exempt
 def summary(request):
+	print request.POST['cab_id']
 	return render(request, 'cab/summary.html')
 
 def blog(request):
@@ -83,19 +85,15 @@ def bookcab(request):
 		b_cab.Date = request.POST['Date']
 		b_cab.Date_return = request.POST['Date_return']
 		# b_cab.Time = request.POST['Time']
-		b_cab.OneWay = request.POST['OneWay']
-		b_cab.Sharing = request.POST['Sharing']
-		
-		if request.POST['OneWay'] == 'True':
+		if request.POST['OneWay'] == 'One Way':
 			b_cab.OneWay = True
 		else: 
 			b_cab.OneWay = False
 
-		if request.POST['Sharing'] == 'True':
+		if request.POST['Sharing'] == 'Sharing':
 			b_cab.Sharing = True
 		else: 
 			b_cab.Sharing = False
-
 		try:
 			cabs = Cab.objects.filter(From = b_cab.From, To = b_cab.To, Date = b_cab.Date)	
 			print cabs
@@ -189,7 +187,7 @@ def bookcab(request):
 
 				cab_response = []
 				for x in range(0, len(D_name)):
-					cab_response.append({'Driver_name': D_name[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
+					cab_response.append({'Driver_name': D_name[x],'Driver_phone':D_phone[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
 					x+=1
 					# cab_response_dict['Driver_name': name]
 					# cab_response_dict['Price': name]
@@ -198,9 +196,11 @@ def bookcab(request):
 					# cab_response_dict['cust_names': name]
 				# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 				resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
+				print 1
 				return render(request, 'cab/search.html', resp)
 			except:
 				resp = {'status': 'No cabs Found'}
+				print 2
 				return render(request, 'cab/search.html', resp)
 
 		elif b_cab.OneWay == True and b_cab.Sharing == False:
@@ -220,7 +220,7 @@ def bookcab(request):
 				Sharing.append(b_cab.Sharing)
 				cab_response = []
 			for x in range(0, len(D_name)):
-				cab_response.append({'Driver_name': D_name[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x]})
+				cab_response.append({'Driver_name': D_name[x],'Driver_phone':D_phone[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x]})
 				x+=1
 				# cab_response_dict['Driver_name': name]
 				# cab_response_dict['Price': name]
@@ -230,13 +230,14 @@ def bookcab(request):
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}			
 			# resp = {'Driver_name': D_name, 'D_phone': D_phone, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			print resp
 			return render(request, 'cab/search.html', resp)
 			# except:
 			# 	print 'some'
 			# 	resp = {'status': 'No cabs Found'}
 			# 	return JsonResponse(resp)
 		else:
-			days = request.POST['Days']
+			# days = request.POST['Days']
 			D_name.append(cab.DriverName)
 			D_phone.append('9982312111')
 			Price.append(distance*cab.price)
@@ -253,7 +254,7 @@ def bookcab(request):
 			Sharing.append(b_cab.Sharing)
 			cab_response = []
 			for x in range(0, len(D_name)):
-				cab_response.append({'Driver_name': D_name[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
+				cab_response.append({'Driver_name': D_name[x],'Driver_phone':D_phone[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
 				x+=1
 				# cab_response_dict['Driver_name': name]
 				# cab_response_dict['Price': name]
@@ -263,7 +264,8 @@ def bookcab(request):
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
-		return render(request, 'cab/search.html', resp) #JsonResponse(resp)
+			print 4
+			return render(request, 'cab/search.html', resp) #JsonResponse(resp)
 
 @login_required
 @csrf_exempt

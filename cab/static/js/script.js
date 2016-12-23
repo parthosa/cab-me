@@ -34,10 +34,12 @@ $(document).ready(function(){
 
 	$('input[name="OneWay"]').on('change',function(){
 		if($(this).val()=='One Way'){
+			$(this).closest('.form-data').find('.return-date-data').val('');
 			$(this).closest('.form-data').find('.return-date-data').attr('disabled','')
 		}
-		else
+		else{
 			$(this).closest('.form-data').find('.return-date-data').removeAttr('disabled','false')
+		}
 	});
 
 
@@ -77,8 +79,8 @@ $(document).ready(function(){
 
 	$('#outstation-form button.form-submit').click(function(){
 		var data={
-			'OneWay':'True',
-			'Sharing':'False',
+			'OneWay':$(this).closest('.form-data').find('input[name=OneWay]:checked').val(),
+			'Sharing':$(this).closest('.form-data').find('input[name=Sharing]:checked').val(),
 			'From':$(this).closest('.form-data').find('.from-data').val(),
 			'To':$(this).closest('.form-data').find('.to-data').val(),
 			'Date':$(this).closest('.form-data').find('.date-data').val(),
@@ -125,3 +127,12 @@ function sendData(data,url){
 }
 
 
+
+//  select cab from search page 
+
+$('.cab-select-submit').click(function(){
+	var data={
+		'cab_id':$(this).attr('cab-id')
+	};
+	sendData(data,'../summary/');
+})

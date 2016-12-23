@@ -1,6 +1,7 @@
 {% extends 'cab/base.html' %}
 {% block content %}
  {% load staticfiles %}
+<script> console.log("{{cabs}}"+'8')</script>
 		        <div class="back-drop"> </div>
               <div class="card type-1">
                   <div class="row">
@@ -64,38 +65,35 @@
         
     </div>
     <div class="row search-results-wrap">
+        {% for cab in cabs %}
         <div class="col-s1 search-results">
              <div class="col-s6">
             <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
         </div>
-        {% for d_name in Driver_name %}
+        
+       
             <div class="col-s6">
-                <p>{{d_name}}</p>
+                <p>{{cab.Driver_name}}</p>
             </div>
-        {% endfor %}
+      
         
-        {% for d_phone in D_phone %}
             <div class="col-s6">
-                <p>{{d_phone}}</p>
+                <p>{{cab.Driver_phone}}</p>
             </div>
-        {% endfor %}
         
-        {% for c_type in Cab_type %}
         <div class="col-s6">
-            <p>{{c_type}}</p>
+            <p>{{cab.Cab_type}}</p>
         </div>
-        {% endfor %}
         
-        {% for price in Price %}
         <div class="col-s6">
-            <p>Rs {{price}}</p>
+            <p>Rs {{cab.Price}}</p>
         </div>
-        {% endfor %}
 
            <div class="col-s6 input-wrap-3">
-                                <button type="submit" class="form-submit" id="cab-select-submit">Book</button>
+                                <button type="submit" class="form-submit cab-select-submit" cab-id="{{cab.cab_id}}">Book</button>
                             </div>
         </div>
+        {% endfor %}
     <!--      <div class="col-s1 search-results">
              <div class="col-s6">
             <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
