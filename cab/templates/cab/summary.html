@@ -12,15 +12,15 @@
                 <img src="/static/img/cabs/INDIGO_OR_EQUIVALENT.png" alt="">
 
                 <h4 class="cab-type">
-                    HatchBack
+                    {{cab_type}}
                 </h4>
             </div> 
             <div class="col">
 
                 <h4 class="search-data">
-                    New Delhi
+                    {{From}}
                 </h4>
-                <p> 14/11/2016</p>
+                <p> {{Date}}</p>
             </div>
             <div class="arrow col-s6">
 
@@ -28,23 +28,23 @@
 
             </div><div class="col">
             <h4 class="search-data">
-                Mumbai
+                {{To}}
             </h4>
-            <p> 14/11/2016</p>
+            <p> {{Date_return}}</p>
         </div> <div class="col-s4">
         <div class="fare-detail">
             <h3>Fare Detail</h3>
             <div class="row"> <div class="col-s2">Car Category:</div><div class="col-s2">Indigo Or Equivalent</div></div>
             <div class="row">
                 <div class="col-s2">Base Fare:</div>
-                <div class="col-s2"><span>&#8377; </span>27538.00</div></div>
+                <div class="col-s2"><span>&#8377; </span>{{Price}}</div></div>
             <div class="row">
                     <div class="col-s2">Service Tax(6%):</div>
-                    <div class="col-s2"><span>&#8377; </span>1653.00</div>
+                    <div class="col-s2"><span>&#8377; </span>{{Service_Tax}}</div>
             </div>
             <div class="row"> 
                 <div class="col-s2">Total Price:</div>
-                    <div class="col-s2"><span>&#8377; </span>29191.00</div>
+                    <div class="col-s2"><span>&#8377; </span>{{Total_Price}}</div>
             </div>
              </div>
 

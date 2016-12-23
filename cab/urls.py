@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     url(r'^bookcab/', views.bookcab, name='bookcab'),
     url(r'^booknow/', views.booknow, name='booknow'),
+    url(r'^postcab/', views.postcab, name = 'postcab'),
     url(r'^main/', views.index, name='index'),
     url(r'^hotels/', views.hotels, name='hotels'),
     url(r'^flights/', views.flights, name='flights'),
