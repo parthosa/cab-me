@@ -199,7 +199,7 @@ def bookcab(request):
 				print 1
 				return render(request, 'cab/search.html', resp)
 			except:
-				resp = {'status': 'No cabs Found'}
+				resp = {'status': 'No cabs Found', 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 				print 2
 				return render(request, 'cab/search.html', resp)
 
@@ -218,7 +218,7 @@ def bookcab(request):
 				# Time.append(b_cab.Time)
 				OneWay.append(b_cab.OneWay)
 				Sharing.append(b_cab.Sharing)
-				cab_response = []
+			cab_response = []
 			for x in range(0, len(D_name)):
 				cab_response.append({'Driver_name': D_name[x],'Driver_phone':D_phone[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x]})
 				x+=1
@@ -237,24 +237,25 @@ def bookcab(request):
 			# 	resp = {'status': 'No cabs Found'}
 			# 	return JsonResponse(resp)
 		else:
+			for cab in cabs:
 			# days = request.POST['Days']
-			D_name.append(cab.DriverName)
-			D_phone.append('9982312111')
-			Price.append(distance*cab.price)
-			# price_pcab = p_cab.price
-			type_cab.append(cab.Type) 
-			cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
-			
-			From.append(b_cab.From)
-			To.append(b_cab.To)
-			Date.append(b_cab.Date)
-			Date_return.append(b_cab.Date_return)
-			# Time.append(b_cab.Time)
-			OneWay.append(b_cab.OneWay)
-			Sharing.append(b_cab.Sharing)
+				D_name.append(cab.DriverName)
+				D_phone.append('9982312111')
+				Price.append(cab.price)
+				# price_pcab = p_cab.price
+				type_cab.append(cab.Type) 
+				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
+				
+				From.append(b_cab.From)
+				To.append(b_cab.To)
+				Date.append(b_cab.Date)
+				Date_return.append(b_cab.Date_return)
+				# Time.append(b_cab.Time)
+				OneWay.append(b_cab.OneWay)
+				Sharing.append(b_cab.Sharing)
 			cab_response = []
 			for x in range(0, len(D_name)):
-				cab_response.append({'Driver_name': D_name[x],'Driver_phone':D_phone[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x], 'cust_names': cust_names[x]})
+				cab_response.append({'Driver_name': D_name[x],'Driver_phone':D_phone[x], 'Price': Price[x], 'Cab_type': type_cab[x], 'cab_id': cab_id[x]})
 				x+=1
 				# cab_response_dict['Driver_name': name]
 				# cab_response_dict['Price': name]
