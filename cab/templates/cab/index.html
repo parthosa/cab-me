@@ -5,10 +5,11 @@
 	          <div class="card type-1">
 	          	<div class="headers">
 		          	<ul>
-		          		<li class="active"><a href="{% url 'cab:index' %}">Cabs</a></li> <li><a href="{% url 'cab:index' %}">Flights</a></li>
-		          		<li><a href="{% url 'cab:index' %}">Buses</a></li>
-		          		<li><a href="{% url 'cab:hotels' %}">Hotels</a></li>
-		          		<li><a href="{% url 'cab:index' %}">Holidays</a></li>
+		          		<li class="active"><a href="../main/">Cabs</a></li>
+		          		<li><a href="../flights/">Flights</a></li>
+		          		<li><a href="../buses/">Buses</a></li>
+		          		<li><a href="../hotels/">Hotels</a></li>
+		          		<li><a href="../holidays/">Holidays</a></li>
 		          	</ul>
 	          	</div>
 	          	<div class="form-opts">
@@ -97,27 +98,28 @@
 	          			<div class="input-row">
 	          				<div class="input-wrap-2">
 	          					<span class="city"></span>
-	          					<input type="text" class="input-field" name="From" placeholder="From">
+	          					<input type="text" class="input-field from-data" name="From" placeholder="From">
 	          				</div>
 	          				<div class="reverse-icon">
 	          					<span class="reverse"></span>
 	          				</div>
 	          				<div class="input-wrap-2">
 	          					<span class="city"></span>
-	          					<input type="text" class="input-field" name="To" placeholder="To">
+	          					<input type="text" class="input-field to-data" name="To" placeholder="To">
 	          				</div>
-	          				<div class="input-wrap-2">
+	          				<div class="input-wrap-2
+	          				ui-widget">
 	          					<span class="calender"></span>
-	          					<input name="Date" required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
+	          					<input required="" class="input-field form-control date-data" name="Date" type="text" placeholder="Depart" />
 
 	          				</div>
 	          				<div class="input-wrap-2">
 	          					<span class="calender"></span>
-	          					<input name="Date_return" type="text" class="input-field" placeholder="Rates/Km">
+	          					<input name="Date_return" type="text" class="input-field rate-data" placeholder="Rates/Km">
 	          				</div>
 	          				<div class="input-wrap-3">
 	          				<select name="Class" id="out-cab-class" class="cab-class">
-	          					<option value="Economoy">Economoy</option>
+	          					<option value="Economoy">Economy</option>
 	          					<option value="Business">Business</option>
 	          				</select>
 	          				</div>
