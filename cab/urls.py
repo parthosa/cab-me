@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^booknow/', views.booknow, name='booknow'),
     url(r'^main/', views.index, name='index'),
     url(r'^hotels/', views.hotels, name='hotels'),
+    url(r'^buses/', views.bus, name='bus'),
     url(r'^flights/', views.flights, name='flights'),
     url(r'^blog/', views.blog, name='blog'),
     url(r'^about/', views.about, name='about'),

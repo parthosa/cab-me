@@ -134,3 +134,15 @@ $('.cab-select-submit').click(function(){
 	};
 	sendData(data,'../summary/');
 })
+
+
+// final submit
+$('#final-submit').click(function () {
+	var data={
+			'Sharing':$(this).closest('.form-data').find('input[name=Sharing]:checked').val(),
+			'Phone':$(this).closest('.form-data').find('.phone-data').val(),
+			'Pickup Time':$(this).closest('.form-data').find('.time-hr-data').val() + ' '+ $(this).closest('.form-data').find('.time-min-data').val() +' '+$(this).closest('.form-data').find('.time-type-data').val(),
+			'Pickup Address':$(this).closest('.form-data').find('.pickup-address-data').val(),
+		}	
+	sendData(data,'../booknow/');
+})

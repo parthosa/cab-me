@@ -29,6 +29,9 @@ def hotels(request):
 def flights(request):
 	return render(request, 'cab/flights.html')
 
+def bus(request):
+	return render(request, 'cab/bus.html')
+
 
 def search(request):
 	return render(request, 'cab/search.html')

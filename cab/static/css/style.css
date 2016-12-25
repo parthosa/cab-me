@@ -981,6 +981,15 @@ label.p-label {
     font-family: sans-serif;
 }
 
+
+p.p-label {
+    margin: 0.5em 0;
+}
+
+.input-radio-opts{
+  margin: 0.5em 1em;
+}
+
 .personal-info input {
     /* display: inline-block; */
     width: auto;

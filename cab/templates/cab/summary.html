@@ -63,23 +63,23 @@
                 
                     <div class="form-data">
                         <div class="input-row col-s2">
-                            <div class="input-wrap-2">
-                                <label class="p-label" name="">Name</label>
-                                <input type="text" class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                            <div class="input-wrap-2 summary-input-opts">
+                                <p class="p-label" name="">Do you want to share cab?</p>
+                                <div class="input-radio-opts">
+                                <input type="radio" class="input-field from-data " name="Sharing" value="Yes" placeholder="" >Yes</input>
+                                <input type="radio" class="input-field from-data " name="Sharing" value="No" placeholder="" >No</input>
+                                </div>
                             </div>
-                            <div class="input-wrap-2">
-                                <label class="p-label" name="">Email</label>
-                                <input type="email" class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
-                            </div>
+                            
                             <div class="input-wrap-2">
                                 <label class="p-label" name="">Phone</label>
-                                <input type="text" class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                <input type="text" class="input-field phone-data ui-autocomplete-input" placeholder="" autocomplete="off">
                             </div>
                         </div>
                         <div class="input-row col-s2">
                             <div class="input-wrap-2">
                                 <label class="p-label" name="">Pickup Time</label>
-                               <select class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                               <select class="input-field time-hr-data ui-autocomplete-input" placeholder="" autocomplete="off">
                                     <option value="00">00</option>
                                     <option value="01">01</option>
                                     <option value="02">02</option>
@@ -94,24 +94,24 @@
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </select>
-                                <select class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                <select class="input-field time-min-data ui-autocomplete-input" placeholder="" autocomplete="off">
                                     <option value="00">00</option>
-                                    <option value="01">15</option>
-                                    <option value="02">30</option>
-                                    <option value="03">45</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
                                 </select>
-                                <select class="input-field from-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                <select class="input-field time-type-data ui-autocomplete-input" placeholder="" autocomplete="off">
                                     <option value="AM">AM</option>
                                     <option value="PM">PM</option>
                                 </select>
                             </div>
                             <div class="input-wrap-2">
                                 <label class="p-label" name="">Pickup Address</label>
-                                <textarea type="text" class="input-field from-data ui-autocomplete-input" placeholder="" rows="3" cols="35"></textarea>
+                                <textarea type="text" class="input-field pickup-address-data ui-autocomplete-input" placeholder="" rows="3" cols="35"></textarea>
                             </div>
                         </div>
                             <div class="input-wrap-3" style="margin-left:25px;">
-                                <button type="submit" class="form-submit">Proceed</button>
+                                <button type="submit" class="form-submit" id="final-submit">Proceed</button>
                             </div>
                             <!-- <div class="input-row-3">
                     </div> -->
