@@ -253,6 +253,7 @@ input.input-field {
     font-size: 1em;
     color: #b8b8b8;
     font-family: sans-serif;
+    background: none;
 }
 
 select#out-cab-class:focus,button.form-submit:focus, 
@@ -736,7 +737,11 @@ button.form-submit {
 
 .col:nth-of-type(1) {}
 
-.col-s2 {}
+.login-form-wrapper .col-s2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .left-footer {
     display: flex;
@@ -1372,3 +1377,197 @@ ol.terms-list {
     color:#212f4c;
 }
 /* END FLIGHT PAGE */
+
+
+
+/* START LIGHTBOX  */
+
+
+.lightbox-wrapper {
+  display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+}
+
+.close {
+  cursor: pointer;
+    color: white;
+    font-size: 3em;
+    position: absolute;
+    right: 0.6em;
+}
+
+.lightbox-overlay{
+    background: rgba(0,0,0,0.4);
+
+}
+
+.lightbox-inner-wrapper,.lightbox-overlay{
+
+   position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+
+}
+
+.lightbox-inner {
+    width: 50vw;
+    min-height: 63vh;
+    background: white;
+    min-width: 620px;
+    /* min-height: 410px; */
+    display: flex;
+    flex-direction: column;
+    box-shadow: -3px 3px 20px 0px black;
+}
+
+
+.lightbox-inner.center{
+  position: relative;
+  top:0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+.lightbox-inner.login-reg{
+  background-color: #212f4c;
+  
+}
+
+.back-head{
+    position: relative;
+    min-height: 10vh;
+    top: 0;
+}
+
+
+.lightbox-inner .headers{
+  top:0;
+  position: relative;
+  margin: 10px 6px;
+  }
+
+.lightbox-inner .headers li{
+  cursor: pointer;
+}
+
+
+.form-inner form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+/*.login-form-wrapper input {
+    margin: 0.6em 0;
+    font-size: 1em;
+    padding: 5px 8px;
+    border-radius: 2px;
+    border: none;
+}
+*/
+.login-form-wrapper button[type=submit] {
+    border: none;
+    font-size: 1em;
+    padding: 7px 10px;
+    border-radius: 0px;
+    background: none;
+    margin-top: 1.1em;
+    color: #f0f09a;
+    border: 1px solid #f0f09a;
+}
+
+.login-form-wrapper.row {
+    min-height: 49vh;
+    position: relative;
+    top: 0;
+}
+
+
+p.forgot-pass {
+    color: #f0f09a;
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.foot-note {
+    margin-top: 2vh;
+}
+
+.login-form-wrapper input.input-field {
+    color: black;
+    border-bottom-color: #f0f09a;
+    width: 177px;
+    font-size: 0.9em;
+}
+
+.login-form-wrapper input.input-field::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: white;
+}
+.login-form-wrapper input.input-field::-moz-placeholder { /* Firefox 19+ */
+  color: white;
+}
+.login-form-wrapper input.input-field:-ms-input-placeholder { /* IE 10+ */
+  color: white;
+}
+.login-form-wrapper input.input-field:-moz-placeholder { /* Firefox 18- */
+  color: white;
+}
+
+.login-form-wrapper .input-wrap-2 {
+    margin: 0.3em 0;
+}
+
+
+.logo-sm img {
+    width: 120px;
+    padding: 10px 22px;
+}
+
+.logo-sm {
+    background: white;
+    margin-bottom: 15px;
+}
+
+.form-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-wrapper{
+  justify-content: flex-start !important;
+  flex-direction: column;
+}
+
+.social-wrapper p {
+    font-size: 1em;
+    font-family: sans-serif;
+    color: #f0f09a;
+}
+
+
+.social-button {
+    margin: 2em 0;
+}
+
+/* END LIGHTBOX*/

@@ -167,3 +167,36 @@ $('#final-submit').click(function () {
 		}	
 	sendData(data,'../booknow/');
 })
+
+
+$('#sign-in').click(function () {
+	$('.lightbox-inner').hide();
+	setTimeout(function () {
+		$('.temp').hide();
+		$('.login-reg').show();
+	},500);
+	$('.lightbox-wrapper').fadeIn();
+
+})
+
+$('.lightbox-wrapper .close,.lightbox-overlay').click(function () {
+	$('.lightbox-wrapper').fadeOut();
+})
+
+
+
+
+//  login reg form
+$('.login-reg .headers li').click(function () {
+	$('.login-reg .headers li').removeClass('active');
+	$(this).addClass('active');
+	if($(this).html()=='Sign In'){
+		$('form#register-form').hide();
+		$('form#login-form').show();
+	}
+	else{
+		$('form#login-form').hide();
+		$('form#register-form').show();
+	}
+})
+
