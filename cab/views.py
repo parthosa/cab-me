@@ -50,7 +50,7 @@ def summary(request):
 	price = 1400#distance*cab.price
 	service_tax = float(.06*price)
 	total_price = price+service_tax
-	resp = {'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price}
+	resp = {'cab_id': cab_id, 'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price}
 	return render(request, 'cab/summary.html', resp)
 
 def blog(request):
@@ -282,11 +282,21 @@ def bookcab(request):
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			print 4
 			return render(request, 'cab/search.html', resp) #JsonResponse(resp)
-
 @login_required
 @csrf_exempt
-def booknow(request, user):
+def booknow(request,user):
 	if request.POST:
+		# time space seperated string: 09 30 AM
+		pickup_time = request.POST['pickup_time']
+		pickup_address = request.POST['pickup_address']
+		phone = request.POST['phone']
+
+		if request.POST['sharing'] == 'Yes':
+			sharing = True
+		else:
+			sharing = False
+
+
 		user_p = UserProfile.objects.get(user = request.user)
 		#if book now in request.POST, partho will return id of the cab booked to the backend
 		cab_id = request.POST['cab_id']
@@ -365,8 +375,9 @@ def booknow(request, user):
 
 @login_required
 @csrf_exempt
-def postcab(request):
+def postcab(request,user):
 	user_p = UserProfile.objects.get(user = request.user)
+	print request.POST
 	postcab = PostCab()
 	postcab.From = request.POST['From']
 	postcab.To = request.POST['To']
@@ -378,7 +389,7 @@ def postcab(request):
 	postcab.Music = request.POST['Music']
 	postcab.SeatsAvail = request.POST['Seats']
 	postcab.user = request.user
-	postcab.price = request.POST['price']
+	postcab.price = request.POST['Rate']
 	postcab.save()
 	postcab.cab_id = 'p' + postcab.id
 	postcab.save()

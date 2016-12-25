@@ -66,7 +66,7 @@
     </div>
     <div class="row search-results-wrap">
         {% for cab in cabs %}
-        <div class="col-s1 search-results">
+        <div class="col-s1 search-results" cab-id="{{cab.cab_id}}">
              <div class="col-s6">
             <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
         </div>
@@ -90,7 +90,7 @@
         </div>
 
            <div class="col-s6 input-wrap-3">
-                                <button type="submit" class="form-submit cab-select-submit" cab-id="{{cab.cab_id}}">Book</button>
+                                <button type="submit" class="form-submit cab-select-submit" >Book</button>
                             </div>
         </div>
         {% endfor %}

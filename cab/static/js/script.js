@@ -99,11 +99,16 @@ $(document).ready(function(){
 			'To':$(this).closest('.form-data').find('.to-data').val(),
 			'Date':$(this).closest('.form-data').find('.date-data').val(),
 			'Rate':$(this).closest('.form-data').find('.rate-data').val(),
-			'Class':$(this).closest('.form-data').find('.cab-class').val()
+			'Smoking':$(this).closest('.form-data').find('input[name=smoking]:checked').val(),
+			'Pet':$(this).closest('.form-data').find('input[name=pets]:checked').val(),
+			'Music':$(this).closest('.form-data').find('input[name=music]:checked').val(),
+			'Time':$(this).closest('.form-data').find('.time-hr-data').val() + ' '+ $(this).closest('.form-data').find('.time-min-data').val() +' '+$(this).closest('.form-data').find('.time-type-data').val(),
+			'Seats':$(this).closest('.form-data').find('#post-cab-seats').val(),
+			'Type':$(this).closest('.form-data').find('#post-cab-type').val()
 
 		}
 		
-		sendData(data,'../postcab/');
+		response = sendDataAjax(data,'../postcab/');
 
 	});
 });
@@ -125,12 +130,27 @@ function sendData(data,url){
 }
 
 
+function sendDataAjax(data,url) {
+	$.ajax({
+		type:'POST',
+		url:url,
+		data:data,
+		success:function (response) {
+			return response
+		},
+		error:function(response){
+			console.error(response)
+		}
+	});
+}
+
+
 
 //  select cab from search page 
 
 $('.cab-select-submit').click(function(){
 	var data={
-		'cab_id':$(this).attr('cab-id')
+		'cab_id':$(this).closest('.search-results').attr('cab-id')
 	};
 	sendData(data,'../summary/');
 })
@@ -139,6 +159,7 @@ $('.cab-select-submit').click(function(){
 // final submit
 $('#final-submit').click(function () {
 	var data={
+			'cab_id':$('.summary-headers').attr('cab-id'),
 			'Sharing':$(this).closest('.form-data').find('input[name=Sharing]:checked').val(),
 			'Phone':$(this).closest('.form-data').find('.phone-data').val(),
 			'Pickup Time':$(this).closest('.form-data').find('.time-hr-data').val() + ' '+ $(this).closest('.form-data').find('.time-min-data').val() +' '+$(this).closest('.form-data').find('.time-type-data').val(),

@@ -212,6 +212,18 @@ span.reverse{
 }
 
 
+.radios{
+  font-size: 0.9em;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.radios label {
+    margin-right: 10px;
+}
+
 .input-row .input-wrap-2 {
     width: 17%;
     display: inline-block;
@@ -227,7 +239,7 @@ span.reverse{
 }
 
 .form-data {
-    margin-top: 5vh;
+    margin-top: 2vh;
     padding: 3px 9px;
 }
 
