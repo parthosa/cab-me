@@ -39,7 +39,19 @@ def search(request):
 @csrf_exempt
 def summary(request):
 	print request.POST['cab_id']
-	return render(request, 'cab/summary.html')
+	cab_id = request.POST['cab_id']
+	cab = Cab.objects.get(cab_id = cab_id)
+	cab_type = cab.Type
+	cab_from = cab.From
+	cab_to = cab.To
+	cab_date = cab.Date
+	cab_date_return = cab.Date_return
+	distance = 120#google api call
+	price = 1400#distance*cab.price
+	service_tax = float(.06*price)
+	total_price = price+service_tax
+	resp = {'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price}
+	return render(request, 'cab/summary.html', resp)
 
 def blog(request):
 	return render(request, 'cab/blog.html')
@@ -282,7 +294,7 @@ def booknow(request, user):
 
 		if not cab_id.startswith('p'): #(pcab_id == null):
 		#try:	
-			cab_b = Cab.objects.get(pk = cab_id)
+			cab_b = Cab.objects.get(cab_id = cab_id)
 
 			sms_body_cust = '''Hi %s,
 		Your Cab will be confirmed with in 15 mins from %s to %s by CabMe.
@@ -299,18 +311,18 @@ def booknow(request, user):
 		''' % (user_p.name, From, To, user_p.name, user_p.phone, cab_b.Type)
 			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=8890605392&text=%s&priority=dnd&stype=normal') % (sms_body_simha)
 			b_cab = BookCab()
-			b_cab.From = request.POST['From']
-			b_cab.To = request.POST['To']
-			b_cab.Date = request.POST['Date']
-			b_cab.Date_return = request.POST['Date_return']
+			b_cab.From = cab_b.From #request.POST['From']
+			b_cab.To = cab_b.To #request.POST['To']
+			b_cab.Date = cab_b.Date #request.POST['Date']
+			b_cab.Date_return = cab_b.Date_return #request.POST['Date_return']
 			# b_cab.Time = request.POST['Time']
-			b_cab.OneWay = request.POST['OneWay']
+			b_cab.OneWay = cab_b.OneWay #request.POST['OneWay']
 			b_cab.Sharing = request.POST['Sharing']
 
 			b_cab.save()
 
 		else:
-			cab_b = PostCab.objects.get(pk = cab_id)
+			cab_b = PostCab.objects.get(cab_id = cab_id)
 			user_driver = cab_b.user
 			userpro_driver = UserProfile.objects.get(user = user_driver)
 			sms_body_cust = '''Hi %s,
