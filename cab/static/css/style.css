@@ -1513,7 +1513,7 @@ p.forgot-pass {
 }
 
 .login-form-wrapper input.input-field {
-    color: black;
+    color: white;
     border-bottom-color: #f0f09a;
     width: 177px;
     font-size: 0.9em;
