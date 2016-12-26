@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'registration',
     'cab',
     'b_cab',
+    'vendor',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
