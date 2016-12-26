@@ -5,10 +5,11 @@
 	          <div class="card type-1">
 	          	<div class="headers">
 		          	<ul>
-		          		<li class="active"><a href="{% url 'cab:index' %}">Cabs</a></li> <li><a href="{% url 'cab:index' %}">Flights</a></li>
-		          		<li><a href="{% url 'cab:index' %}">Buses</a></li>
-		          		<li><a href="{% url 'cab:hotels' %}">Hotels</a></li>
-		          		<li><a href="{% url 'cab:index' %}">Holidays</a></li>
+		          		<li class="active"><a href="../main/">Cabs</a></li>
+		          		<li><a href="../flights/">Flights</a></li>
+		          		<li><a href="../buses/">Buses</a></li>
+		          		<li><a href="../hotels/">Hotels</a></li>
+		          		<li><a href="../holidays/">Holidays</a></li>
 		          	</ul>
 	          	</div>
 	          	<div class="form-opts">
@@ -22,11 +23,11 @@
 	          		</div>
 	          		<div class="form-data" id="outstation-form">
 	          			<div class="input-row">
-	          				<div class="input-wrap-2">
+	          				<div class="input-wrap-2 radios">
 		          				<input class="way-type-data" type="radio" name="OneWay" value="One Way" checked="">One Way
 		          				<input class="way-type-data" type="radio" name="OneWay" value="Two Way">Two Way
 	          				</div>
-	          				<div class="input-wrap-2">
+	          				<div class="input-wrap-2 radios">
 		          				<input class="sharing-type-data" type="radio" name="Sharing" value="Sharing" >Sharing
 		          				<input class="sharing-type-data" type="radio" name="Sharing" value="No Sharing" checked="">No Sharing
 	          				</div>
@@ -94,31 +95,86 @@
 	          			</div>
 	          		</div>
 	          		<div class="form-data" id="post-cab-form">
+	          			<div class="input-row ">
+	          				<div class="input-wrap-2 radios">
+	          					<label>Smoking</label>
+		          				<input class="way-type-data" type="radio" name="smoking" value="Yes" >Yes
+		          				<input class="way-type-data" type="radio" name="smoking" value="No" checked="">No
+	          				</div>
+	          				<div class="input-wrap-2 radios">
+	          				<label>Pets</label>
+		          				<input class="sharing-type-data" type="radio" name="pets" value="Yes" >Yes
+		          				<input class="sharing-type-data" type="radio" name="pets" value="No" checked="">No
+	          				</div>
+	          				<div class="input-wrap-2 radios">
+	          				<label>Music</label>
+		          				<input class="sharing-type-data" type="radio" name="music" value="Yes" checked="">Yes
+		          				<input class="sharing-type-data" type="radio" name="music" value=
+		          				"No" >No
+	          				</div>
+	          						<div class="input-wrap-2 ">
+	          					<label class="p-label" name="">Time</label>
+                               <select class="input-field time-hr-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="00">00</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select class="input-field time-min-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="00">00</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                </select>
+                                <select class="input-field time-type-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+	          				</div>
+	          				<div class="input-wrap-2" style="margin-left:15px ">
+	          					<select name="Class" id="post-cab-seats" class="cab-class">
+	          					
+	          					<option disabled selected>Seats</option>
+	          					<option value="1">1</option>
+	          					<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+	          				</select>
+	          				</div>
+          				</div>
 	          			<div class="input-row">
 	          				<div class="input-wrap-2">
 	          					<span class="city"></span>
-	          					<input type="text" class="input-field" name="From" placeholder="From">
+	          					<input type="text" class="input-field from-data" name="From" placeholder="From">
 	          				</div>
 	          				<div class="reverse-icon">
 	          					<span class="reverse"></span>
 	          				</div>
 	          				<div class="input-wrap-2">
 	          					<span class="city"></span>
-	          					<input type="text" class="input-field" name="To" placeholder="To">
+	          					<input type="text" class="input-field to-data" name="To" placeholder="To">
 	          				</div>
-	          				<div class="input-wrap-2">
+	          				<div class="input-wrap-2
+	          				ui-widget">
 	          					<span class="calender"></span>
-	          					<input name="Date" required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
+	          					<input required="" class="input-field form-control date-data" name="Date" type="text" placeholder="Depart" />
 
 	          				</div>
-	          				<div class="input-wrap-2">
+	          				<div class="input-wrap-2 short-input">
 	          					<span class="calender"></span>
-	          					<input name="Date_return" type="text" class="input-field" placeholder="Rates/Km">
+	          					<input name="Date_return" type="text" class="input-field rate-data" placeholder="Rates/Km">
 	          				</div>
-	          				<div class="input-wrap-3">
-	          				<select name="Class" id="out-cab-class" class="cab-class">
-	          					<option value="Economoy">Economoy</option>
-	          					<option value="Business">Business</option>
+	          			          				<div class="input-wrap-3">
+	          				<select name="Class" id="post-cab-type" class="cab-class">
+	          					<option value="Hatchback">Hatchback</option>
+	          					<option value="Sedan">Sedan</option><option value="MUV">MUV</option><option value="SUV">SUV</option>
 	          				</select>
 	          				</div>
 	          				<div class="input-wrap-3" style="margin-left:25px;">
