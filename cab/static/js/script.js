@@ -194,7 +194,37 @@ $('.inner-dash ul li').click(function () {
 	});
 })
 
+$('#edit_profile').click(function () {
+	$('.dashboard-info-input').addClass('editable');
+	$(this).hide();
+	$('#save_profile,#cancel_profile').show();
+})
 
+$('#cancel_profile').click(function () {
+	$('.dashboard-info-input').removeClass('editable');
+	$('#edit_profile').show();
+	$('#save_profile,#cancel_profile').hide();
+})
+
+$('#save_profile').click(function () {
+	var dashboard=$('.personal-info');
+	var data={
+		name:dashboard.find('#name').val(),
+		email:dashboard.find('#email').val(),
+		phone:dashboard.find('#phone').val(),
+	}
+	sendData(data,'../updateProfile');
+})
+
+$('#save_password').click(function () {
+	var dashboard=$('.change-pass');
+	var data={
+		current_password:dashboard.find('#current_password').val(),
+		new_password:dashboard.find('#new_password').val(),
+		confirm_password:dashboard.find('#confirm_password').val(),
+	}
+	sendData(data,'../updatePassword');
+})
 
 //  login reg form
 $('.login-reg .headers li').click(function () {

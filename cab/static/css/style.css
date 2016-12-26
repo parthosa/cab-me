@@ -1595,7 +1595,7 @@ p.forgot-pass {
 }
 
 .field-wrapper{
-    margin-bottom: 0px;
+    margin-bottom: 7px;
     display: flex;
     align-items: center;
   }
@@ -1621,6 +1621,28 @@ p.forgot-pass {
   display: flex;
 }
 
+input.dashboard-info-input{
+    border: none;
+    font-weight: 600;
+}
+
+#cancel_profile,#save_profile{
+  display: none;
+}
+
+p#cancel_profile {
+    background: #ddd;
+    color: black;
+}
+
+input.dashboard-info-input.editable {
+    font-weight: normal;
+    padding: 6px 4px;
+    border-radius: 1px;
+    outline: none;
+    border: 1px solid #aaa;
+}
+
 
 .inner-booking-item{
   justify-content: center;
@@ -1643,6 +1665,8 @@ p.forgot-pass {
     padding: 10px 12px;
     border-radius: 1.1px;
     font-size: 0.9em;
+    margin: 0 3%;
+    cursor: pointer;
 }
 
 

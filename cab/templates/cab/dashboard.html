@@ -30,7 +30,7 @@
                 <p>Name</p>
               </div>
               <div class="col2">
-                <p>Partho Sarthi</p>
+                <input class="dashboard-info-input" id="name" value="Partho Sarthi"></input>
               </div>
             </div>
             <div class="field-wrapper">
@@ -38,7 +38,7 @@
                 <p>Email</p>
               </div>
               <div class="col2">
-                <p>psarthi16@gmail.com</p>
+                <input class="dashboard-info-input" id="email" value="psarthi16@gmail.com"></input>
               </div>
             </div>
             <div class="field-wrapper">
@@ -46,12 +46,14 @@
                 <p>Phone</p>
               </div>
               <div class="col2">
-                <p>9999461307</p>
+                <input class="dashboard-info-input" id="phone" value="9999461307"></input>
               </div>
             </div>
           </div>
           <div class="switch-opts">
-            <p>Edit Profile</p>
+            <p id="edit_profile">Edit Profile</p>
+            <p id="save_profile">Save</p>
+            <p id="cancel_profile">Cancel</p>
           </div>
         </div>
         <div class="col-s2">
@@ -112,7 +114,41 @@
       </div>
     </div>
 
-    
+    <div class="dashboard-details change-pass row">
+        <div class="col-s2">
+          <div class="info-wrapper">
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Current Password</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input editable" id="current_password" type="password" ></input>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>New Password</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input editable" id="new_password" type="password" ></input>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Confirm Password</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input editable" id="confirm_password" type="password" ></input>
+              </div>
+            </div>
+          </div>
+          <div class="switch-opts">
+            <p id="save_password">Save</p>
+          </div>
+        </div>
+       
+
+    </div>
   </div>
 </div>
 {% endblock %}
