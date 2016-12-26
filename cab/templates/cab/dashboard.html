@@ -1,0 +1,118 @@
+{% extends 'cab/base.html' %}
+
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="back-drop"> </div>
+<div class="row dashboard-panel">
+  <div class="card type-1">
+    <div class="headers">
+      <ul>
+        <li class="active"><a href="{% url 'cab:about' %}">Dashboard</a></li> 
+      </ul>
+    </div>
+    <div class="row">
+      <div class="headers inner-dash">
+        <ul>
+          <li class="active" data-block='personal-info'>Personal Info</li> 
+          <li data-block='booking-history'>Booking History</li> 
+          <li data-block='change-pass'>Change Password</li> 
+        </ul>
+      </div>
+    </div>
+    <div class="row dashboard-details-wrapper">
+      <div class="dashboard-details personal-info row">
+        <div class="col-s2">
+          <div class="info-wrapper">
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Name</p>
+              </div>
+              <div class="col2">
+                <p>Partho Sarthi</p>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Email</p>
+              </div>
+              <div class="col2">
+                <p>psarthi16@gmail.com</p>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Phone</p>
+              </div>
+              <div class="col2">
+                <p>9999461307</p>
+              </div>
+            </div>
+          </div>
+          <div class="switch-opts">
+            <p>Edit Profile</p>
+          </div>
+        </div>
+        <div class="col-s2">
+         <div class="social-button-wrapper">
+          <div class="facebook-login social-button">
+            <img src="{% static 'img/login-fb.png' %}">
+          </div>
+          <div class="google-login social-button">
+            <img src="{% static 'img/login-google.png' %}">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="dashboard-details booking-history row">
+      <div class="booking-wrapper">
+      <!-- { for cab in bookings } -->
+        <div class="booking-item">
+          <div class="row inner-booking-item">
+            <div class="col-cus">
+              <div class="row booking-info-wrapper">
+                <div class="major-info">
+                  <div class="cab-img">
+                    <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
+
+                  </div>
+                  <div class="info-data">
+                    <p class="lg-info">Delhi</p>
+                    <p class="sm-info">11/11/2016</p>
+                    <p class="sm-info">03:15 AM</p>
+                  </div>
+                  <h4 class="search-data">&#8644;</h4>
+                  <div class="info-data">
+                    <p class="lg-info">Pilani</p>
+                    <p class="sm-info">11/11/2016</p>
+                    <p class="sm-info">03:15 AM</p>
+                  </div>
+                </div>
+                <div class="minor-info">
+                  <div class="sm-info">
+                    <p>Cab Type:&nbsp;<span>Hatchback</span></p>
+                    <p>Route:&nbsp;<span>One Way</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-s5">
+              <div class="price-wrapper">
+                <p>Fare</p>
+                <p>&#8377;&nbsp;1400</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- { endfor } -->
+
+
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+{% endblock %}

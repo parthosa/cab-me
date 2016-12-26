@@ -184,6 +184,16 @@ $('.lightbox-wrapper .close,.lightbox-overlay').click(function () {
 })
 
 
+$('.inner-dash ul li').click(function () {
+	$('.inner-dash ul li').removeClass('active');
+	$(this).addClass('active');
+	var block=$(this).attr('data-block');
+	$('.dashboard-details').hide();
+	$('.' + block).show().css({
+		'display':'flex'
+	});
+})
+
 
 
 //  login reg form

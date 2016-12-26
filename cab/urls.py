@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^postcab/', views.postcab, name = 'postcab'),
     url(r'^main/', views.index, name='index'),
     url(r'^hotels/', views.hotels, name='hotels'),
+    url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^buses/', views.bus, name='bus'),
     url(r'^flights/', views.flights, name='flights'),
     url(r'^blog/', views.blog, name='blog'),

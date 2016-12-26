@@ -1571,3 +1571,161 @@ p.forgot-pass {
 }
 
 /* END LIGHTBOX*/
+
+
+
+/* START DASHBOARD */
+
+.inner-dash{
+  top:0;
+  position: relative;
+  color:#212f4c;
+}
+
+.inner-dash li.active{
+  border-bottom-color: #212f4c;
+}
+
+
+.inner-dash ul li {
+    font-size: 0.8em;
+    margin: 3px 7px;
+    padding: 8px 2.6%;
+    cursor: pointer;
+}
+
+.field-wrapper{
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+  }
+
+.field-wrapper p {
+    margin: 5px 0px;
+}
+
+.field-wrapper .col1{/* float: left!important; */width: 130px;font-size: 0.8em;color: #828282;font-family: sans-serif;font-weight: 400;text-align: right;margin-right: 10px;}
+.field-wrapper .col2{/* float: left!important; */margin-right: 20px;font-size: 0.8em;color: #000;font-weight: 600;font-family: sans-serif;}
+
+
+.dashboard-details {
+    margin-top: 24px;
+    width: 100%;
+    display: none;
+}
+
+.booking-wrapper{
+  width: 100%;
+}
+.personal-info{
+  display: flex;
+}
+
+
+.inner-booking-item{
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.info-wrapper {}
+
+.switch-opts {
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+    margin-top: 14px;
+    margin-left: 100px;
+}
+
+.switch-opts p {
+    color: white;
+    background: #212f4c;
+    padding: 10px 12px;
+    border-radius: 1.1px;
+    font-size: 0.9em;
+}
+
+
+
+.booking-item{
+  height: 30vh;
+}
+
+.booking-info-wrapper{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.major-info {}
+
+.major-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-data {
+    margin: 10px 4em;
+    font-family: sans-serif;
+}
+
+p.lg-info {
+    margin: 5px;
+    font-size: 2em;
+    color: #212f4c;
+    letter-spacing: 3.2px;
+}
+
+p.sm-info {
+    margin: 5px;
+    font-size: 1.2em;
+}
+
+div.sm-info {
+    font-family: sans-serif;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+div.sm-info span {
+    font-weight: bold;
+}
+
+div.sm-info p {
+    margin: 0 5%;
+}
+
+.minor-info {
+    margin-top: 25px;
+}
+
+.price-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1.4em;
+    font-family: sans-serif;
+    color: #212f4c;
+    flex-direction: column;
+}
+
+.price-wrapper {}
+
+.price-wrapper p {
+    margin: 10px 0;
+    text-align: center;
+    /* margin-right: 27%; */
+}
+
+.col-cus {
+    width: 75%;
+    border-right: 1px solid #ddd;
+}
+
+.cab-img img {
+    width: 260px;
+}
+/* END DASHBOARD*/

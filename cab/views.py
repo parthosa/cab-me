@@ -23,6 +23,9 @@ def index(request):
 		context = {'name': name}
 		return render(request, 'cab/index.html', context)
 
+def dashboard(request):
+	return render(request, 'cab/dashboard.html')
+
 def hotels(request):
 	return render(request, 'cab/hotels.html')
 
