@@ -195,13 +195,13 @@ $('.inner-dash ul li').click(function () {
 })
 
 $('#edit_profile').click(function () {
-	$('.dashboard-info-input').addClass('editable');
+	$('.personal-info .dashboard-info-input').addClass('editable');
 	$(this).hide();
 	$('#save_profile,#cancel_profile').show();
 })
 
 $('#cancel_profile').click(function () {
-	$('.dashboard-info-input').removeClass('editable');
+	$('.personal-info .dashboard-info-input').removeClass('editable');
 	$('#edit_profile').show();
 	$('#save_profile,#cancel_profile').hide();
 })
