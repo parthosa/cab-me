@@ -1,3 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
+from vendor.models import *
 
-# Register your models here.
+admin.site.register(Vendor)
+admin.site.register(Driver)

@@ -293,6 +293,8 @@ def booknow(request,user):
 		pickup_time = request.POST['pickup_time']
 		pickup_address = request.POST['pickup_address']
 		phone = request.POST['phone']
+		driver_phone_list = Driver.objects.all().values('contact')
+		vendor_phone_list = Vendor.objects.all().values('contact')
 
 		if request.POST['sharing'] == 'Yes':
 			sharing = True
@@ -307,6 +309,7 @@ def booknow(request,user):
 
 		if not cab_id.startswith('p'): #(pcab_id == null):
 		#try:	
+			vendor = 'v'
 			cab_b = Cab.objects.get(cab_id = cab_id)
 
 			sms_body_cust = '''Hi %s,
@@ -321,6 +324,7 @@ def booknow(request,user):
 		Customer name: %s
 		Customer number: %s
 		Cab Type: %s
+		Follow the link to confirm the booking: http://cabme.in/vendor/dashboard/confirm_booking
 		''' % (user_p.name, From, To, user_p.name, user_p.phone, cab_b.Type)
 			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=8890605392&text=%s&priority=dnd&stype=normal') % (sms_body_simha)
 			b_cab = BookCab()
@@ -335,6 +339,7 @@ def booknow(request,user):
 			b_cab.save()
 
 		else:
+			vendor = 'p'
 			cab_b = PostCab.objects.get(cab_id = cab_id)
 			user_driver = cab_b.user
 			userpro_driver = UserProfile.objects.get(user = user_driver)
@@ -346,7 +351,7 @@ def booknow(request,user):
 		''' % (user_p.name,userpro_driver.name, From, To, userpro_driver.name, userpro_driver.phone, cab_b.Type)
 			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body_cust)
 			
-			confirm_url = 'cabme.in'
+			confirm_url = 'http://cabme.in/dashboard/confirm_booking'
 			sms_body_driver = '''Hi %s,
 			%s has requested to pool in your car from %s to %s.
 			Kindly confirm his request by following the url %s, or logging in cabme portal.
@@ -356,7 +361,7 @@ def booknow(request,user):
 
 		user_p.bookedcabs.add(cab_b) 
 		#request.session['feedback'] = cab_b
-		key = request.user.id
+		key =  vendor + request.user.id
 		# b_cab = BookCab()
 		# b_cab.From = request.POST['From']
 		# b_cab.To = request.POST['To']
@@ -366,7 +371,13 @@ def booknow(request,user):
 		# b_cab.OneWay = request.POST['OneWay']
 		# b_cab.Sharing = request.POST['Sharing']
 		cache.set(key,
-			{'booked': True})
+			{'booked': True,
+			 'name': user_p.name,
+			 'contact': user_p.phone,
+			 'From': From,
+			 'To': To,
+			 'pickup_time': pickup_time,
+			 'pickup_address':pickup_address})
 		# sms_body = '''Hi %s,
 		# Your Cab will be confirmed with in 15 mins from %s to %s by CabMe.
 		# Driver/Owner name: Reddy Kumar Simha
@@ -378,7 +389,8 @@ def booknow(request,user):
 
 @login_required
 @csrf_exempt
-def postcab(request,user):
+def postcab(request):
+	print request.user
 	user_p = UserProfile.objects.get(user = request.user)
 	print request.POST
 	postcab = PostCab()
@@ -412,5 +424,24 @@ def feedback(request):
 
 	return HttpResponseRedirect('../dashboard/')
 
+def confirm_booking_user(request):
+	book_cache_keys = cache.keys("p*")
+	book_cache = []
+	for key in book_cache_keys:
+		tmp_cache = cache.get(key)
+		book_cache.append(tmp_cache)
+
+	resp = {'bookings': book_cache}
+	return render(request, 'cab/confirm_booking.html', resp)
+
+def confirmed_booking_vendor(request):
+	book_cache_keys = cache.keys("v*")
+	book_cache = []
+	for key in book_cache_keys:
+		tmp_cache = cache.get(key)
+		book_cache.append(tmp_cache)
+
+	resp = {'bookings': book_cache}
+	return render(request, 'vendor/confirm_booking.html', resp)
 
 
