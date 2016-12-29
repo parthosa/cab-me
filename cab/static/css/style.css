@@ -1669,6 +1669,12 @@ input.dashboard-info-input.editable {
     cursor: pointer;
 }
 
+p.message-login {
+    margin: 0;
+    font-family: sans-serif;
+    color: red;
+    font-size: 0.9em;
+}
 
 
 .booking-item{

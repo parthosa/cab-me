@@ -1,12 +1,14 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
+from django.http import HttpResponseRedirect,Http404,HttpResponse, JsonResponse
+
 from .models import *
 
-@csrf_exempt
 def Init_Reg(request):
 	if request.POST:
 
 		name = request.POST['Name']
-		last_name = request.POST['Lname']
+		# last_name = request.POST['Lname']
 		email = request.POST['Email']
 		contact = int(request.POST['Contact'])
 		password = request.POST['Password']
@@ -52,12 +54,13 @@ def Init_Reg(request):
 			return JsonResponse(status)
 			# return HttpResponseRedirect('../../../register')
 
-
 def user_login(request):
 
-	context = RequestContext(request)
+
 
 	if request.method == 'POST':
+		# m sending email...
+		# email = request.POST['email']
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
