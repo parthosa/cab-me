@@ -114,6 +114,22 @@ $(document).ready(function(){
 });
 
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 function sendData(data,url){
 	var form=document.createElement('form');
 	form.method="POST";
@@ -130,20 +146,21 @@ function sendData(data,url){
 }
 
 
-function sendDataAjax(data,url) {
+function sendDataAjax(data,url,updateElement) {
+	data['csrfmiddlewaretoken']=getCookie('csrftoken');
+	$(updateElement).html('');
 	$.ajax({
 		type:'POST',
 		url:url,
 		data:data,
 		success:function (response) {
-			return response
+				$(updateElement).html(response.message);
 		},
 		error:function(response){
 			console.error(response)
 		}
 	});
 }
-
 
 
 //  select cab from search page 
@@ -169,7 +186,7 @@ $('#final-submit').click(function () {
 })
 
 
-$('#sign-in').click(function () {
+$('#sign-in-trigger').click(function () {
 	$('.lightbox-inner').hide();
 	setTimeout(function () {
 		$('.temp').hide();
@@ -179,6 +196,29 @@ $('#sign-in').click(function () {
 
 })
 
+$('#sign-in').click(function (ev) {
+	ev.preventDefault();
+	var data={
+		email:$(this).closest('#login-form').find('input[name=email]').val(),
+		password:$(this).closest('#login-form').find('input[name=password]').val()
+	}
+	sendDataAjax(data,'/accounts/login/','.message-login');
+})
+
+
+$('#sign-up').click(function (ev) {
+	ev.preventDefault();
+	var data={
+		Name:$(this).closest('#register-form').find('input[name=name]').val(),
+		Contact:$(this).closest('#register-form').find('input[name=phone]').val(),
+		Email:$(this).closest('#register-form').find('input[name=email]').val(),
+		Password:$(this).closest('#register-form').find('input[name=password]').val(),
+		Password_confirm:$(this).closest('#register-form').find('input[name=password_confirm]').val()
+	}
+	sendDataAjax(data,'/accounts/register/','.message-login');
+})
+
+	
 $('.lightbox-wrapper .close,.lightbox-overlay').click(function () {
 	$('.lightbox-wrapper').fadeOut();
 })
@@ -195,13 +235,13 @@ $('.inner-dash ul li').click(function () {
 })
 
 $('#edit_profile').click(function () {
-	$('.dashboard-info-input').addClass('editable');
+	$('.personal-info .dashboard-info-input').addClass('editable');
 	$(this).hide();
 	$('#save_profile,#cancel_profile').show();
 })
 
 $('#cancel_profile').click(function () {
-	$('.dashboard-info-input').removeClass('editable');
+	$('.personal-info .dashboard-info-input').removeClass('editable');
 	$('#edit_profile').show();
 	$('#save_profile,#cancel_profile').hide();
 })
