@@ -689,7 +689,7 @@ button.form-submit {
 
 .footer .col-s2 .row {
     width: 80%;
-    left: 20%;
+    /* left: 20%; */
     position: relative;
     margin-top: 16px;
 }
@@ -1552,6 +1552,33 @@ p.forgot-pass {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.form-inner form{
+  display: none;
+}
+
+form#login-form{
+  display: block;
+}
+
+.forgot-pass-text{
+      width: 215px;
+    left: calc((215px - 177px)/2);
+    position: relative;
+    margin-bottom: 1.5em !important;
+}
+
+.forgot-pass-text h3 {
+    margin: 0;
+    color: white;
+    font-size: 0.9em;
+}
+
+.forgot-pass-text p {
+    color: white;
+    margin: 2% 0px;
+    font-size: 0.8em;
 }
 
 .social-wrapper{

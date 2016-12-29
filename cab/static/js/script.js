@@ -218,6 +218,15 @@ $('#sign-up').click(function (ev) {
 	sendDataAjax(data,'/accounts/register/','.message-login');
 })
 
+$('#reset-pass').click(function(ev){
+	ev.preventDefault();
+	var data={
+		Email:$(this).closest('#forgot-pass-form').find('input[name=email]').val(),
+	}
+	sendDataAjax(data,'/accounts/reset_password/','.message-login');
+
+})
+
 	
 $('.lightbox-wrapper .close,.lightbox-overlay').click(function () {
 	$('.lightbox-wrapper').fadeOut();
@@ -271,12 +280,21 @@ $('.login-reg .headers li').click(function () {
 	$('.login-reg .headers li').removeClass('active');
 	$(this).addClass('active');
 	if($(this).html()=='Sign In'){
-		$('form#register-form').hide();
+		$('.form-inner form').hide();
 		$('form#login-form').show();
 	}
 	else{
-		$('form#login-form').hide();
+		$('.form-inner form').hide();
 		$('form#register-form').show();
 	}
+})
+
+
+$('.forgot-pass').click(function(){
+	$('.login-reg .headers li').removeClass('active');
+	$('.form-inner form').hide();
+	$('#forgot-pass-form').show().css({
+		display:'flex'
+	});
 })
 

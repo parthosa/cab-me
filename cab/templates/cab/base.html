@@ -69,8 +69,13 @@
                                 <input class="input-field" type="password" placeholder="Password" name="password" required=""></input>
                             </div>
                             <button type="submit" id="sign-in">Sign In</button>
+                             <div class="foot-note">
+                                <p class="message-login">
+                                </p>
+                                <p class="forgot-pass">Forgot Password?</p>
+                            </div>
                         </form>
-                        <form id="register-form" style="display: none">
+                        <form id="register-form">
                             {% csrf_token %}
                             <div class="input-wrap-2">
                                 <input class="input-field" type="text" placeholder="Name" name="name" required=""></input>
@@ -88,12 +93,31 @@
                                 <input class="input-field" type="password" placeholder="Confirm Password" name="password_confirm" required=""></input>
                             </div>
                             <button type="submit" id="sign-up">Sign Up</button>
+                            <div class="foot-note">
+                                <p class="message-login">
+                                </p>
+                                <!-- <p class="forgot-pass">Forgot Password?</p> -->
+                            </div>
                         </form>
-                        <div class="foot-note">
-                            <p class="message-login">
-                            </p>
-                            <p class="forgot-pass">Forgot Password?</p>
-                        </div>
+                       <form id="forgot-pass-form" >
+                        {% csrf_token %}
+                           
+                           <div class="input-wrap-2 forgot-pass-text">
+                                <h3>Forgot Password? </h3>
+                                <p>We will send a new password on your registered email address</p>
+
+                            </div>
+                            <div class="input-wrap-2">
+                                <input class="input-field" type="email" placeholder="Email" name="email" required=""></input>
+                            </div>
+                           
+                            <button type="submit" id="reset-pass">Reset Password</button>
+                             <div class="foot-note">
+                                <p class="message-login">
+                                </p>
+                               
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-s2 social-wrapper">
