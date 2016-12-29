@@ -372,6 +372,7 @@ def booknow(request,user):
 		# b_cab.Sharing = request.POST['Sharing']
 		cache.set(key,
 			{'booked': True,
+			'key': key,
 			 'name': user_p.name,
 			 'contact': user_p.phone,
 			 'From': From,
@@ -424,24 +425,38 @@ def feedback(request):
 
 	return HttpResponseRedirect('../dashboard/')
 
+@login_required
 def confirm_booking_user(request):
-	book_cache_keys = cache.keys("p*")
-	book_cache = []
-	for key in book_cache_keys:
-		tmp_cache = cache.get(key)
-		book_cache.append(tmp_cache)
+	if not request.POST:
+		book_cache_keys = cache.keys("p*")
+		book_cache = []
+		for key in book_cache_keys:
+			tmp_cache = cache.get(key)
+			book_cache.append(tmp_cache)
 
-	resp = {'bookings': book_cache}
-	return render(request, 'cab/confirm_booking.html', resp)
+		resp = {'bookings': book_cache}
+		return render(request, 'cab/confirm_booking.html', resp)
+	else: 
+		cache.delete(request.POST['key'])
 
+		resp = {'status': 'Successfull', 'message': 'You confirmed the booking'}
+		return render(request, 'cab/confirm_booking.html', resp)
+
+@login_required
 def confirmed_booking_vendor(request):
-	book_cache_keys = cache.keys("v*")
-	book_cache = []
-	for key in book_cache_keys:
-		tmp_cache = cache.get(key)
-		book_cache.append(tmp_cache)
+	if not request.POST:
+		book_cache_keys = cache.keys("v*")
+		book_cache = []
+		for key in book_cache_keys:
+			tmp_cache = cache.get(key)
+			book_cache.append(tmp_cache)
 
-	resp = {'bookings': book_cache}
-	return render(request, 'vendor/confirm_booking.html', resp)
+		resp = {'bookings': book_cache}
+		return render(request, 'vendor/confirm_booking.html', resp)
+	else: 
+		cache.delete(request.POST['key'])
+
+		resp = {'status': 'Successful', 'message': 'You confirmed the booking'}
+		return render(request, 'vendor/confirm_booking.html', resp)
 
 
