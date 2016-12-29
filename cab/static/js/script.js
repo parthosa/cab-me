@@ -108,8 +108,8 @@ $(document).ready(function(){
 
 		}
 		
-		response = sendDataAjax(data,'../postcab/');
-
+		response = sendDataAjax(data,'../postcab/','#post-cab-message');
+		lightbox_trigger('post-cab-wrap',true);
 	});
 });
 
@@ -163,6 +163,25 @@ function sendDataAjax(data,url,updateElement) {
 }
 
 
+function lightbox_trigger(lightbox_name,show_temp){
+	$('.lightbox-inner').hide();
+	$('.lightbox-wrapper').fadeIn();
+	if(show_temp==true){
+		$('.temp').show().css({
+			display:'flex'
+		});
+		setTimeout(function () {
+			$('.temp').hide();
+			$('.'+lightbox_name).show();
+		},1000);
+	}
+	else{
+		$('.'+lightbox_name).show();
+		
+	}
+
+}
+
 //  select cab from search page 
 
 $('.cab-select-submit').click(function(){
@@ -187,13 +206,7 @@ $('#final-submit').click(function () {
 
 
 $('#sign-in-trigger').click(function () {
-	$('.lightbox-inner').hide();
-	setTimeout(function () {
-		$('.temp').hide();
-		$('.login-reg').show();
-	},500);
-	$('.lightbox-wrapper').fadeIn();
-
+	lightbox_trigger('login-reg',false);
 })
 
 $('#sign-in').click(function (ev) {
@@ -237,6 +250,7 @@ $('.inner-dash ul li').click(function () {
 	$('.inner-dash ul li').removeClass('active');
 	$(this).addClass('active');
 	var block=$(this).attr('data-block');
+	location.hash=block;
 	$('.dashboard-details').hide();
 	$('.' + block).show().css({
 		'display':'flex'
@@ -298,3 +312,22 @@ $('.forgot-pass').click(function(){
 	});
 })
 
+$('#view_bookings').click(function(){
+	location.href="/dashboard/#booking-history"
+})
+
+if(location.pathname=="/dashboard/"){
+	var tab = location.hash.substr(1);
+	if(tab=="")
+		tab="personal-info"
+	location.hash=tab
+	$('.inner-dash ul li').removeClass('active');
+	$('.inner-dash ul li').map(function(i,e){
+		if($(e).attr('data-block')==tab){
+			$(e).addClass('active')
+		}
+	});
+
+	$('.dashboard-details').hide();
+	$('.'+tab).show();
+}
