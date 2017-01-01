@@ -59,8 +59,8 @@ def Init_Reg(request):
 
 				status = { "registered" : True , "id" : user.id }
 
-				return JsonResponse(status)
-				# return HttpResponseRedirect('../../../login')
+				# return JsonResponse(status)
+				return HttpResponseRedirect('../../main')
 
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
@@ -87,7 +87,7 @@ def user_login(request):
 				return HttpResponseRedirect('../feedback/')	
 			else:
 				login(request, user)
-				return HttpResponseRedirect('../dashboard/')
+				return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 		else:
 			context = {'error_heading' : "Invalid Login Credentials", 'error_message' :  'Invalid Login Credentials. Please try again'}
 			return render(request, 'main/login.html', context)
