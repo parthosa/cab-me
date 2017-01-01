@@ -154,4 +154,19 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var tab = location.hash.substr(1);
+  if(tab=="")
+    tab="personal-info"
+  location.hash=tab
+  $('.inner-dash ul li').removeClass('active');
+  $('.inner-dash ul li').map(function(i,e){
+    if($(e).attr('data-block')==tab){
+      $(e).addClass('active')
+    }
+  });
+
+  $('.dashboard-details').hide();
+  $('.'+tab).show();
+</script>
 {% endblock %}

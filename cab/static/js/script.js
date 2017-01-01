@@ -77,6 +77,7 @@ $(document).ready(function(){
     	dateFormat: "dd/mm/yy"
     });
 
+
 	$('#outstation-form button.form-submit').click(function(){
 		var data={
 			'OneWay':$(this).closest('.form-data').find('input[name=OneWay]:checked').val(),
@@ -110,6 +111,19 @@ $(document).ready(function(){
 		
 		response = sendDataAjax(data,'../postcab/','#post-cab-message');
 		lightbox_trigger('post-cab-wrap',true);
+	});
+
+
+	$('#self-drive-form button.form-submit').click(function(){
+		var data={
+			'From':$(this).closest('.form-data').find('.from-data').val(),
+			'Date':$(this).closest('.form-data').find('.date-data').val(),
+			'Date_return':$(this).closest('.form-data').find('.return-date-data').val(),
+
+
+		}
+		
+		sendData(data,'../self_drive/');
 	});
 });
 
@@ -155,6 +169,8 @@ function sendDataAjax(data,url,updateElement) {
 		data:data,
 		success:function (response) {
 				$(updateElement).html(response.message);
+				if(url=='/accounts/login/' && response.status ==1)
+					location.href='/dashboard/'
 		},
 		error:function(response){
 			console.error(response)
@@ -177,7 +193,7 @@ function lightbox_trigger(lightbox_name,show_temp){
 	}
 	else{
 		$('.'+lightbox_name).show();
-		
+
 	}
 
 }
@@ -316,18 +332,3 @@ $('#view_bookings').click(function(){
 	location.href="/dashboard/#booking-history"
 })
 
-if(location.pathname=="/dashboard/"){
-	var tab = location.hash.substr(1);
-	if(tab=="")
-		tab="personal-info"
-	location.hash=tab
-	$('.inner-dash ul li').removeClass('active');
-	$('.inner-dash ul li').map(function(i,e){
-		if($(e).attr('data-block')==tab){
-			$(e).addClass('active')
-		}
-	});
-
-	$('.dashboard-details').hide();
-	$('.'+tab).show();
-}

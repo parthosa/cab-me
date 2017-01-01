@@ -29,7 +29,7 @@ def Init_Reg(request):
 				# return HttpResponseRedirect('../../../register')
 
 			elif len(str(contact)) < 10: 
-				resp = {"status": 0, "message": 'Please enter a valid conatct number'}	
+				resp = {"status": 0, "message": 'Please enter a valid contact number'}	
 				return JsonResponse(resp)					
 			# user_c = User()
 			elif contact in list_of_registered_contacts:
@@ -84,7 +84,7 @@ def user_login(request):
 			print 2
 			if cache.get(request.user.id) is not None:
 				login(request, user)
-				return HttpResponseRedirect('../feedback/')	
+				return HttpResponseRedirect('../../feedback/')	
 			else:
 				login(request, user)
 				return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
