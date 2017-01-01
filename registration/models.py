@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     name = models.CharField('First Name', max_length=200)
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=100)
-    phone = models.BigIntegerField()
+    phone = models.BigIntegerField(unique = True)
     email_id = models.EmailField(unique=True)
     user = models.OneToOneField(User, SocialAccount, null=True)
     postedcabs = models.ManyToManyField(PostCab, blank = True, default = '')

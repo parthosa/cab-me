@@ -30,7 +30,7 @@ SITE_ID = 1
 # Application definition
 
 TEMPPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.request",
+    'django.template.context_processors.request',
     "django.contrib.auth.context_processors.auth",
     "allauth.account.context_processors.account",
     "allauth.socialaccount.context_processors.socialaccount",
@@ -65,6 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 )
 
 ROOT_URLCONF = 'cabme.urls'
@@ -88,12 +89,12 @@ DATABASES = {
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_SIGNUP_FORM_CLASS = 'registration.forms.SocialForm'
-#SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+# ACCOUNT_SIGNUP_FORM_CLASS = 'registration.forms.SocialForm'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/main'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
