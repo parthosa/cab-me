@@ -27,8 +27,33 @@ def index(request):
 		context = {'name': name}
 		return render(request, 'cab/index.html', context)
 
+@login_required
 def dashboard(request):
-	return render(request, 'cab/dashboard.html')
+	user_p = UserProfile.objects.get(user = request.user)
+	name = user_p.name
+	email = user_p.email_id
+	contact = user_p.phone
+	book_cab = []
+	bookedcabs = user_p.bookedcabs
+	try:
+		book_cab = 0
+	except len(book_cab)!=0:
+		for cab in bookedcabs:
+			cab_type = cab.Type
+			route = 'Oneway' if cab.OneWay == True else 'RoundTrip'
+			From = cab.From
+			To = cab.To
+			Date = cab.Date
+			Date_return = cab.Date_return
+			distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
+			distance_json = urlopen(distance_url)
+			distance = distance_json['rows'][0]['elements'][0]['distance']['text'] #google api call
+			fare = cab.price*distance #distance*cab.price
+			book_cab.append({'cab_type': cab_type, 'route': route, 'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'fare': fare})
+	
+	context = {'name': name, 'email': email, 'contact': contact, 'book_cab': book_cab}
+
+	return render(request, 'cab/dashboard.html', context)
 
 def hotels(request):
 	return render(request, 'cab/hotels.html')
