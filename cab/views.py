@@ -24,7 +24,8 @@ def index(request):
 		print user.username
 		customer = UserProfile.objects.get(email_id = user.username)
 		name = customer.name
-		context = {'name': name}
+		print name
+		context = {'name': name, 'login': 1}
 		return render(request, 'cab/index.html', context)
 
 @login_required
@@ -34,11 +35,11 @@ def dashboard(request):
 	email = user_p.email_id
 	contact = user_p.phone
 	book_cab = []
-	bookedcabs = user_p.bookedcabs
+	bookedcabs = user_p.bookedcabs.all()
 	try:
 		book_cab = 0
-	except len(book_cab)!=0:
-		for cab in bookedcabs:
+	except len(bookedcabs)!=0:
+		for cab in user_p.bookedcabs:
 			cab_type = cab.Type
 			route = 'Oneway' if cab.OneWay == True else 'RoundTrip'
 			From = cab.From
