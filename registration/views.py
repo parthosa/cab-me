@@ -2,7 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponseRedirect,Http404,HttpResponse, JsonResponse
 from django.core.cache import cache
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login ,logout
 from .models import *
 from cab.models import *
 
@@ -97,7 +97,7 @@ def user_login(request):
 
 def user_logout(request):
 	logout(request)
-	return redirect('registration:login')	
+	return JsonResponse({'status': 1, 'message': 'Successfully logged out'})
 
 def social_profile_build(request):
 	s_user = SocialAccount.objects.get(user=request.user)
