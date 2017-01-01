@@ -108,8 +108,8 @@ $(document).ready(function(){
 
 		}
 		
-		response = sendDataAjax(data,'../postcab/');
-
+		response = sendDataAjax(data,'../postcab/','#post-cab-message');
+		lightbox_trigger('post-cab-wrap',true);
 	});
 });
 
@@ -163,6 +163,25 @@ function sendDataAjax(data,url,updateElement) {
 }
 
 
+function lightbox_trigger(lightbox_name,show_temp){
+	$('.lightbox-inner').hide();
+	$('.lightbox-wrapper').fadeIn();
+	if(show_temp==true){
+		$('.temp').show().css({
+			display:'flex'
+		});
+		setTimeout(function () {
+			$('.temp').hide();
+			$('.'+lightbox_name).show();
+		},1000);
+	}
+	else{
+		$('.'+lightbox_name).show();
+		
+	}
+
+}
+
 //  select cab from search page 
 
 $('.cab-select-submit').click(function(){
@@ -187,13 +206,7 @@ $('#final-submit').click(function () {
 
 
 $('#sign-in-trigger').click(function () {
-	$('.lightbox-inner').hide();
-	setTimeout(function () {
-		$('.temp').hide();
-		$('.login-reg').show();
-	},500);
-	$('.lightbox-wrapper').fadeIn();
-
+	lightbox_trigger('login-reg',false);
 })
 
 $('#sign-in').click(function (ev) {
@@ -218,6 +231,15 @@ $('#sign-up').click(function (ev) {
 	sendDataAjax(data,'/accounts/register/','.message-login');
 })
 
+$('#reset-pass').click(function(ev){
+	ev.preventDefault();
+	var data={
+		Email:$(this).closest('#forgot-pass-form').find('input[name=email]').val(),
+	}
+	sendDataAjax(data,'/accounts/reset_password/','.message-login');
+
+})
+
 	
 $('.lightbox-wrapper .close,.lightbox-overlay').click(function () {
 	$('.lightbox-wrapper').fadeOut();
@@ -228,6 +250,7 @@ $('.inner-dash ul li').click(function () {
 	$('.inner-dash ul li').removeClass('active');
 	$(this).addClass('active');
 	var block=$(this).attr('data-block');
+	location.hash=block;
 	$('.dashboard-details').hide();
 	$('.' + block).show().css({
 		'display':'flex'
@@ -271,12 +294,40 @@ $('.login-reg .headers li').click(function () {
 	$('.login-reg .headers li').removeClass('active');
 	$(this).addClass('active');
 	if($(this).html()=='Sign In'){
-		$('form#register-form').hide();
+		$('.form-inner form').hide();
 		$('form#login-form').show();
 	}
 	else{
-		$('form#login-form').hide();
+		$('.form-inner form').hide();
 		$('form#register-form').show();
 	}
 })
 
+
+$('.forgot-pass').click(function(){
+	$('.login-reg .headers li').removeClass('active');
+	$('.form-inner form').hide();
+	$('#forgot-pass-form').show().css({
+		display:'flex'
+	});
+})
+
+$('#view_bookings').click(function(){
+	location.href="/dashboard/#booking-history"
+})
+
+if(location.pathname=="/dashboard/"){
+	var tab = location.hash.substr(1);
+	if(tab=="")
+		tab="personal-info"
+	location.hash=tab
+	$('.inner-dash ul li').removeClass('active');
+	$('.inner-dash ul li').map(function(i,e){
+		if($(e).attr('data-block')==tab){
+			$(e).addClass('active')
+		}
+	});
+
+	$('.dashboard-details').hide();
+	$('.'+tab).show();
+}
