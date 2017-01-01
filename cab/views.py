@@ -481,7 +481,7 @@ def forgot_password(request):
 		return JsonResponse({'status': 'Failed', 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
 
 @login_required
-def change_password(request, user):
+def change_password(request):
 	old_password = request.POST['old_password']
 	new_password = request.POST['new_password']
 	new_password_confirm = request.POST['new_password_confirm']
@@ -496,7 +496,7 @@ def change_password(request, user):
 		return JsonResponse({'status': 'Failed', 'message': 'The password enetered is incorrect'})
 
 @login_required
-def edit_profile(request, user):
+def edit_profile(request):
 	user = request.user
 	user_pro = UserProfile.objects.get(user = user)
 	email = request.POST['email_id']
