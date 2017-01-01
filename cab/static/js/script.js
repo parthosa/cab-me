@@ -169,6 +169,8 @@ function sendDataAjax(data,url,updateElement) {
 		data:data,
 		success:function (response) {
 				$(updateElement).html(response.message);
+				if(url=='/accounts/login/' && response.status ==1)
+					location.href='/dashboard/'
 		},
 		error:function(response){
 			console.error(response)
