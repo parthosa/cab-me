@@ -6,6 +6,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import requests
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.cache import cache
+import random
+import string
+from urllib import urlopen
 
 
 def index(request):
@@ -49,8 +53,10 @@ def summary(request):
 	cab_to = cab.To
 	cab_date = cab.Date
 	cab_date_return = cab.Date_return
-	distance = 120#google api call
-	price = 1400#distance*cab.price
+	distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
+	distance_json = urlopen(distance_url)
+	distance = distance_json['rows'][0]['elements'][0]['distance']['text'] #google api call
+	price = cab.price*distance #distance*cab.price
 	service_tax = float(.06*price)
 	total_price = price+service_tax
 	resp = {'cab_id': cab_id, 'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price}
@@ -459,4 +465,46 @@ def confirmed_booking_vendor(request):
 		resp = {'status': 'Successful', 'message': 'You confirmed the booking'}
 		return render(request, 'vendor/confirm_booking.html', resp)
 
+def forgot_password(request):
+	phone = request.POST['phone']
+	password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
+
+	try:
+		user = UserProfile.objects.get(phone = phone)
+		forgot_password_body = '''Hi %s,
+	You requested a new password.
+	New password: %s
+	'''(user.name, password)
+		requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user.phone, forgot_password_body)
+		return JsonResponse({'status': 'Success', 'message': 'Your new password has been sent to your registered phone number'})
+	except:
+		return JsonResponse({'status': 'Failed', 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
+
+@login_required
+def change_password(request):
+	old_password = request.POST['old_password']
+	new_password = request.POST['new_password']
+	new_password_confirm = request.POST['new_password_confirm']
+	if old_password == request.user.password:
+		if new_password == new_password_confirm:
+			request.user.password = old_password
+			request.user.save()
+			return JsonResponse({'status': 'Success', 'message': 'Your password has been successfully changed'})
+		else: 
+			return JsonResponse({'status': 'Failed', 'message': 'Your passwords do not match'})
+	else:
+		return JsonResponse({'status': 'Failed', 'message': 'The password enetered is incorrect'})
+
+@login_required
+def edit_profile(request):
+	user = request.user
+	user_pro = UserProfile.objects.get(user = user)
+	email = request.POST['email_id']
+	contact = request.POST['phone']
+	name = request.POST['name']
+	user_pro.email_id = email
+	user_pro.name = name
+	user_pro.phone = contact
+	user_pro.save()
+	return JsonResponse({'status': 'Successful', 'message': 'Your details have been saved'})
 
