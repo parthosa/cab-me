@@ -168,9 +168,16 @@ function sendDataAjax(data,url,updateElement) {
 		url:url,
 		data:data,
 		success:function (response) {
-				$(updateElement).html(response.message);
 				if(url=='/accounts/login/' && response.status ==1)
 					location.href='/dashboard/'
+				else if(url=='/accounts/login/'||url=='/accounts/register/'
+||url=='/accounts/reset_password/'){
+					if(response.status == 1)
+						updateElement+='.success'
+					else if(response.status == 0)
+						updateElement+='.fail'
+				}
+				$(updateElement).html(response.message);
 		},
 		error:function(response){
 			console.error(response)
@@ -179,7 +186,7 @@ function sendDataAjax(data,url,updateElement) {
 }
 
 
-function lightbox_trigger(lightbox_name,show_temp){
+function lightbox_trigger(lightbox_name,show_temp=false){
 	$('.lightbox-inner').hide();
 	$('.lightbox-wrapper').fadeIn();
 	if(show_temp==true){
