@@ -184,7 +184,7 @@
                      <p class="info-text">Phone Number</p>
                       <form id="social-info-form">
                          {% csrf_token %}
-                            <div class="input-wrap-2"><input class="input-field" type="text"  name="phone" required=""></input>
+                            <div class="input-wrap-2"><input class="input-field" type="text"  name="phone" required="" maxlength="10"></input>
                             </div>
                           <button type="submit" id="social-info-submit">Confirm</button>
                           <p class="message fail"></p>
