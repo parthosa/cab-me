@@ -67,7 +67,7 @@ def Init_Reg(request):
 				cache.set(key,
 					{'name': name,
 					 'email_id': email,
-					 'phone': phone,
+					 'phone': contact,
 					 'otp_id': otp_id
 					})
 
