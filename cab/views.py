@@ -24,11 +24,37 @@ def index(request):
 		print user.username
 		customer = UserProfile.objects.get(email_id = user.username)
 		name = customer.name
-		context = {'name': name}
+		print name
+		context = {'name': name, 'login': 1}
 		return render(request, 'cab/index.html', context)
 
+@login_required
 def dashboard(request):
-	return render(request, 'cab/dashboard.html')
+	user_p = UserProfile.objects.get(user = request.user)
+	name = user_p.name
+	email = user_p.email_id
+	contact = user_p.phone
+	book_cab = []
+	bookedcabs = user_p.bookedcabs.all()
+	try:
+		book_cab = 0
+	except len(bookedcabs)!=0:
+		for cab in user_p.bookedcabs:
+			cab_type = cab.Type
+			route = 'Oneway' if cab.OneWay == True else 'RoundTrip'
+			From = cab.From
+			To = cab.To
+			Date = cab.Date
+			Date_return = cab.Date_return
+			distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
+			distance_json = urlopen(distance_url)
+			distance = distance_json['rows'][0]['elements'][0]['distance']['text'] #google api call
+			fare = cab.price*distance #distance*cab.price
+			book_cab.append({'cab_type': cab_type, 'route': route, 'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'fare': fare})
+	
+	context = {'name': name, 'email': email, 'contact': contact, 'book_cab': book_cab}
+
+	return render(request, 'cab/dashboard.html', context)
 
 def hotels(request):
 	return render(request, 'cab/hotels.html')
@@ -481,7 +507,7 @@ def forgot_password(request):
 		return JsonResponse({'status': 'Failed', 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
 
 @login_required
-def change_password(request, user):
+def change_password(request):
 	old_password = request.POST['old_password']
 	new_password = request.POST['new_password']
 	new_password_confirm = request.POST['new_password_confirm']
@@ -496,7 +522,7 @@ def change_password(request, user):
 		return JsonResponse({'status': 'Failed', 'message': 'The password enetered is incorrect'})
 
 @login_required
-def edit_profile(request, user):
+def edit_profile(request):
 	user = request.user
 	user_pro = UserProfile.objects.get(user = user)
 	email = request.POST['email_id']

@@ -30,7 +30,7 @@
                 <p>Name</p>
               </div>
               <div class="col2">
-                <input class="dashboard-info-input" id="name" value="Partho Sarthi"></input>
+                <input class="dashboard-info-input" id="name">{{name}}</input>
               </div>
             </div>
             <div class="field-wrapper">
@@ -38,7 +38,7 @@
                 <p>Email</p>
               </div>
               <div class="col2">
-                <input class="dashboard-info-input" id="email" value="psarthi16@gmail.com"></input>
+                <input class="dashboard-info-input" id="email">{{email}}</input>
               </div>
             </div>
             <div class="field-wrapper">
@@ -46,7 +46,7 @@
                 <p>Phone</p>
               </div>
               <div class="col2">
-                <input class="dashboard-info-input" id="phone" value="9999461307"></input>
+                <input class="dashboard-info-input" id="phone">{{contact}}</input>
               </div>
             </div>
           </div>
@@ -70,46 +70,49 @@
     </div>
     <div class="dashboard-details booking-history row">
       <div class="booking-wrapper">
-      <!-- { for cab in bookings } -->
-        <div class="booking-item">
-          <div class="row inner-booking-item">
-            <div class="col-cus">
-              <div class="row booking-info-wrapper">
-                <div class="major-info">
-                  <div class="cab-img">
-                    <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
+      {% if book_cab == 0 %}
+        <h2>No cabs found</h2>
+      {% else %}
+        {% for cab in book_cab %}
+          <div class="booking-item">
+            <div class="row inner-booking-item">
+              <div class="col-cus">
+                <div class="row booking-info-wrapper">
+                  <div class="major-info">
+                    <div class="cab-img">
+                      <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
 
+                    </div>
+                    <div class="info-data">
+                      <p class="lg-info">{{cab.From}}</p>
+                      <p class="sm-info">{{cab.Date}}</p>
+                      <p class="sm-info">03:15 AM</p>
+                    </div>
+                    <h4 class="search-data">&#8644;</h4>
+                    <div class="info-data">
+                      <p class="lg-info">{{cab.To}}</p>
+                      <p class="sm-info">{{cab.Date_return}}</p>
+                      <p class="sm-info">03:15 AM</p>
+                    </div>
                   </div>
-                  <div class="info-data">
-                    <p class="lg-info">Delhi</p>
-                    <p class="sm-info">11/11/2016</p>
-                    <p class="sm-info">03:15 AM</p>
-                  </div>
-                  <h4 class="search-data">&#8644;</h4>
-                  <div class="info-data">
-                    <p class="lg-info">Pilani</p>
-                    <p class="sm-info">11/11/2016</p>
-                    <p class="sm-info">03:15 AM</p>
-                  </div>
-                </div>
-                <div class="minor-info">
-                  <div class="sm-info">
-                    <p>Cab Type:&nbsp;<span>Hatchback</span></p>
-                    <p>Route:&nbsp;<span>One Way</span></p>
+                  <div class="minor-info">
+                    <div class="sm-info">
+                      <p>Cab Type:&nbsp;<span>{{cab.cab_type}}</span></p>
+                      <p>Route:&nbsp;<span>{{cab.route}}</span></p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-s5">
-              <div class="price-wrapper">
-                <p>Fare</p>
-                <p>&#8377;&nbsp;1400</p>
+              <div class="col-s5">
+                <div class="price-wrapper">
+                  <p>Fare</p>
+                  <p>&#8377;&nbsp;{{fare}}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- { endfor } -->
-
+          {% endfor %}
+        {% endif %}
 
       </div>
     </div>
@@ -151,4 +154,19 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var tab = location.hash.substr(1);
+  if(tab=="")
+    tab="personal-info"
+  location.hash=tab
+  $('.inner-dash ul li').removeClass('active');
+  $('.inner-dash ul li').map(function(i,e){
+    if($(e).attr('data-block')==tab){
+      $(e).addClass('active')
+    }
+  });
+
+  $('.dashboard-details').hide();
+  $('.'+tab).show();
+</script>
 {% endblock %}

@@ -1501,7 +1501,6 @@ ol.terms-list {
     margin-top: 1.1em;
     color: #f0f09a;
     border: 1px solid #f0f09a;
-
     cursor: pointer;
 }
 
@@ -1756,9 +1755,17 @@ input.dashboard-info-input.editable {
 p.message-login {
     margin: 0;
     font-family: sans-serif;
-    color: red;
     font-size: 0.9em;
 }
+
+p.message-login.success{
+  color:#1C941D;
+}
+
+p.message-login.fail{
+  color:red;
+}
+
 
 
 .booking-item{

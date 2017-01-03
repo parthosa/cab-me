@@ -2,7 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponseRedirect,Http404,HttpResponse, JsonResponse
 from django.core.cache import cache
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login ,logout
 from .models import *
 from cab.models import *
 
@@ -29,7 +29,7 @@ def Init_Reg(request):
 				# return HttpResponseRedirect('../../../register')
 
 			elif len(str(contact)) < 10: 
-				resp = {"status": 0, "message": 'Please enter a valid conatct number'}	
+				resp = {"status": 0, "message": 'Please enter a valid contact number'}	
 				return JsonResponse(resp)					
 			# user_c = User()
 			elif contact in list_of_registered_contacts:
@@ -59,8 +59,8 @@ def Init_Reg(request):
 
 				status = { "registered" : True , "id" : user.id }
 
-				return JsonResponse(status)
-				# return HttpResponseRedirect('../../../login')
+				# return JsonResponse(status)
+				return HttpResponseRedirect('../../main')
 
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
@@ -84,10 +84,10 @@ def user_login(request):
 			print 2
 			if cache.get(request.user.id) is not None:
 				login(request, user)
-				return HttpResponseRedirect('../feedback/')	
+				return HttpResponseRedirect('../../feedback/')	
 			else:
 				login(request, user)
-				return HttpResponseRedirect('../dashboard/')
+				return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 		else:
 			context = {'error_heading' : "Invalid Login Credentials", 'error_message' :  'Invalid Login Credentials. Please try again'}
 			return render(request, 'main/login.html', context)
@@ -97,7 +97,7 @@ def user_login(request):
 
 def user_logout(request):
 	logout(request)
-	return redirect('registration:login')	
+	return JsonResponse({'status': 1, 'message': 'Successfully logged out'})
 
 def social_profile_build(request):
 	s_user = SocialAccount.objects.get(user=request.user)
