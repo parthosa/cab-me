@@ -89,12 +89,12 @@ def user_login(request):
 				login(request, user)
 				return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 		else:
-			context = {'error_heading' : "Invalid Login Credentials", 'error_message' :  'Invalid Login Credentials. Please try again'}
-			return render(request, 'main/login.html', context)
+			return JsonResponse({'status': 0, 'message': 'Invalid Login Credentials. Please try again'})
 	else:
 		print 1
 		return render(request, 'main/login.html')		
 
+@csrf_exempt
 def user_logout(request):
 	logout(request)
 	return JsonResponse({'status': 1, 'message': 'Successfully logged out'})

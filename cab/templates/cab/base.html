@@ -67,7 +67,7 @@
                         <form id="login-form" >
                         {% csrf_token %}
                             <div class="logo-sm">
-                                <img src="{% static 'img/logo.png'%}">
+                                <img src="{% static 'img/logo-inv.png'%}">
                             </div>
                             <div class="input-wrap-2">
                                 <input class="input-field" type="email" placeholder="Email" name="email" required=""></input>
@@ -79,7 +79,7 @@
                              <div class="foot-note">
                                  <p class="message-login success">
                                 </p>
-                                 <p class="message-login danger">
+                                 <p class="message-login fail">
                                 </p>
                                 <p class="forgot-pass">Forgot Password?</p>
                             </div>
@@ -105,7 +105,7 @@
                             <div class="foot-note">
                                 <p class="message-login success">
                                 </p>
-                                 <p class="message-login danger">
+                                 <p class="message-login fail">
                                 </p>
                                 <!-- <p class="forgot-pass">Forgot Password?</p> -->
                             </div>
@@ -171,8 +171,20 @@
              </div>
              <div class="col-s2 content-display">
                  <div class="content-display-inner">
-                     <h1 id="post-cab-message">Your cab has been successfully posted</h1>
-                     <p id="view_bookings">View Bookings</p>
+                     <div class="info-header">
+                     <h3>Complete Registration</h3>
+                     </div>
+                     <div class="info-form">
+                      <form>
+                         {% csrf_token %}
+                            <div class="input-wrap-2">
+                                <input class="input-field" type="text" placeholder="Name" name="name" required=""></input>
+                            </div>
+                            <div class="input-wrap-2">
+                                <input class="input-field" type="text" placeholder="Phone" name="phone" required=""></input>
+                            </div>
+                      </form>
+                     </div>
                  </div>
              </div>
             </div>
@@ -187,7 +199,7 @@
         height: 67%;
         ">
         <div class="row logo-footer">
-            <img src="{% static 'img/logo.png' %}" alt="">
+            <img src="{% static 'img/logo-inv.png' %}" alt="">
         </div>
         <div class="row follow">
             <p>Follow Us</p>

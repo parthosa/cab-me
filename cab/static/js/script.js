@@ -161,7 +161,7 @@ function sendData(data,url){
 }
 
 
-function sendDataAjax(data,url,updateElement) {
+function sendDataAjax(data,url,updateElement='') {
 	data['csrfmiddlewaretoken']=getCookie('csrftoken');
 	$(updateElement).html('');
 	$.ajax({
@@ -171,6 +171,8 @@ function sendDataAjax(data,url,updateElement) {
 		success:function (response) {
 				if(url=='/accounts/login/' && response.status ==1)
 					location.href='/dashboard/'
+				else if(url=='/accounts/logout/' && response.status ==1)
+					location.href='/main/'
 				else if(url=='/accounts/login/'||url=='/accounts/register/'
 ||url=='/accounts/reset_password/'){
 					if(response.status == 1)
@@ -178,9 +180,9 @@ function sendDataAjax(data,url,updateElement) {
 					else if(response.status == 0)
 						updateElement+='.fail'
 				}
+				console.log(updateElement,response)
 				$(updateElement).html(response.message);
-				if(url=='/accounts/login/' && response.status == 1)
-					location.href='/dashboard/'
+				
 		},
 		error:function(response){
 			console.error(response)
