@@ -27,9 +27,9 @@ def Init_Reg(request):
 			registered_members = UserProfile.objects.all()			
 			list_of_registered_emails = [x.email for x in registered_members]
 			if email in list_of_registered_emails:
-				# status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
-				# return JsonResponse(status)	
-				return HttpResponseRedirect('../../../register')
+				status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
+				return JsonResponse(status)	
+				# return HttpResponseRedirect('../../../register')
 			elif len(str(contact)) < 10: 
 				resp = {"status": 0, "message": 'Please enter a valid conatct number'}						
 			# user_c = User()
@@ -47,10 +47,10 @@ def Init_Reg(request):
 					member.user = user
 					member.save()
 
-					# status = { "registered" : True , "id" : user.id }
+					status = { "registered" : True , "id" : user.id }
 
-					# return JsonResponse(status)
-					return HttpResponseRedirect('../../../login')
+					return JsonResponse(status)
+					# return HttpResponseRedirect('../../../login')
 
 				else:
 					member = Driver()
@@ -65,13 +65,13 @@ def Init_Reg(request):
 					member.user = user
 					member.save()
 
-					return HttpResponseRedirect('../../../login')
+					return JsonResponse({'status':1, 'message':'Successfully registered'})
 
 		else:
-			# status = { "status": 0 , "message": "Passwords do not match"}
+			status = { "status": 0 , "message": "Passwords do not match"}
 
-			# return JsonResponse(status)
-			return HttpResponseRedirect('../../../register')
+			return JsonResponse(status)
+			# return HttpResponseRedirect('../../../register')
 
 @csrf_exempt
 def user_login(request):
