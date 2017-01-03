@@ -256,6 +256,11 @@ input.input-field {
     background: none;
 }
 
+
+input.input-field.return-date-data:disabled{
+  background: rgb(235, 235, 228)
+}
+
 select#out-cab-class:focus,button.form-submit:focus, 
 input.input-field:focus {
     outline: none;
@@ -1496,6 +1501,8 @@ ol.terms-list {
     margin-top: 1.1em;
     color: #f0f09a;
     border: 1px solid #f0f09a;
+
+    cursor: pointer;
 }
 
 .login-form-wrapper.row {

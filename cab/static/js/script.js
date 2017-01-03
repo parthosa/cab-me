@@ -32,7 +32,8 @@ $(document).ready(function(){
 		$('#'+id+'-form').show();
 	})
 
-	$('input[name="OneWay"]').on('change',function(){
+	$('input[name=OneWay]').on('change',function(){
+		console.log('change');
 		if($(this).val()=='One Way'){
 			$(this).closest('.form-data').find('.return-date-data').val('');
 			$(this).closest('.form-data').find('.return-date-data').attr('disabled','')
@@ -155,6 +156,8 @@ function sendDataAjax(data,url,updateElement) {
 		data:data,
 		success:function (response) {
 				$(updateElement).html(response.message);
+				if(url=='/accounts/login/' && response.status == 1)
+					location.href='/dashboard/'
 		},
 		error:function(response){
 			console.error(response)
