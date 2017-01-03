@@ -3,7 +3,7 @@ from .models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-import moment
+# import moment
 from datetime import datetime
 from django.core.cache import cache
 from django.contrib.auth import authenticate, login
