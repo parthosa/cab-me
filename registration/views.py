@@ -62,7 +62,7 @@ def Init_Reg(request):
 				send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
 				send_otp = requests.get(send_otp_url)
 				otp_id = send_otp.text.split(',')[1][11:-2]	
-				request.session['contact'] = phone
+				request.session['contact'] = contact
 				key = request.session['contact']
 				cache.set(key,
 					{'name': name,
