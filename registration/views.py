@@ -134,7 +134,7 @@ def user_login(request):
 
 def user_logout(request):
 	logout(request)
-	return JsonResponse({'status': 1, 'message': 'Successfully logged out'})
+	return HttpResponseRedirect('../../main/')
 
 def social_profile_build(request):
 	s_user = SocialAccount.objects.get(user=request.user)

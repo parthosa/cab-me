@@ -176,12 +176,12 @@ function sendDataAjax(data,url,updateElement='') {
 				else if(url=='/accounts/login/'||url=='/accounts/register/'
 ||url=='/accounts/reset_password/'){
 					if(response.status == 1)
-						updateElement+='.success'
+						$(updateElement+'.success').html(response.message);
 					else if(response.status == 0)
-						updateElement+='.fail'
+						$(updateElement+'.fail').html(response.message);
 				}
-				console.log(updateElement,response)
-				$(updateElement).html(response.message);
+				else
+					$(updateElement).html(response.message);
 				
 		},
 		error:function(response){
@@ -288,21 +288,34 @@ $('.inner-dash ul li').click(function () {
 	});
 })
 
+var dashboard=$('.personal-info');
+var profileData;
 $('#edit_profile').click(function () {
+	
+	profileData={
+		name:dashboard.find('#name').val(),
+		email:dashboard.find('#email').val(),
+		phone:dashboard.find('#phone').val(),
+	}
+	$('.personal-info .dashboard-info-input').removeAttr('readonly');
 	$('.personal-info .dashboard-info-input').addClass('editable');
 	$(this).hide();
 	$('#save_profile,#cancel_profile').show();
 })
 
 $('#cancel_profile').click(function () {
+
+	dashboard.find('#name').val(profileData.name),
+	dashboard.find('#email').val(profileData.email),
+	dashboard.find('#phone').val(profileData.phone),
+
 	$('.personal-info .dashboard-info-input').removeClass('editable');
 	$('#edit_profile').show();
 	$('#save_profile,#cancel_profile').hide();
 })
 
 $('#save_profile').click(function () {
-	var dashboard=$('.personal-info');
-	var data={
+	profileData={
 		name:dashboard.find('#name').val(),
 		email:dashboard.find('#email').val(),
 		phone:dashboard.find('#phone').val(),
@@ -364,3 +377,5 @@ $('#otp-submit').click(function(ev){
 	}
 	sendDataAjax(data,'/otp/','.message.fail')
 })
+
+
