@@ -44,12 +44,11 @@ def Init_Reg(request):
 				member.phone = contact
 				member.name = name
 
-				if len(str(contact)) < 10: 
-					pass
 				# member.save()				
 				user = User.objects.create_user(
 					username=email,
-					password=password)				
+					password=password)
+				user.is_active = False
 				# user_c.save()	
 				print 4
 				member.user = user
@@ -58,9 +57,11 @@ def Init_Reg(request):
 				print 6
 
 				status = { "registered" : True , "id" : user.id }
+				send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
+				send_otp = requests.get(send_otp_url)
 
 				# return JsonResponse(status)
-				return HttpResponseRedirect('../../main')
+				return HttpResponseRedirect('../verify_otp')
 
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
@@ -69,8 +70,6 @@ def Init_Reg(request):
 			# return HttpResponseRedirect('../../../register')
 
 def user_login(request):
-
-
 
 	if request.method == 'POST':
 		# m sending email...
