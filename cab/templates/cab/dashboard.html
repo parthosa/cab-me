@@ -1,0 +1,172 @@
+{% extends 'cab/base.html' %}
+
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="back-drop"> </div>
+<div class="row dashboard-panel">
+  <div class="card type-1">
+    <div class="headers">
+      <ul>
+        <li class="active"><a href="{% url 'cab:about' %}">Dashboard</a></li> 
+      </ul>
+    </div>
+    <div class="row">
+      <div class="headers inner-dash">
+        <ul>
+          <li class="active" data-block='personal-info'>Personal Info</li> 
+          <li data-block='booking-history'>Booking History</li> 
+          <li data-block='change-pass'>Change Password</li> 
+        </ul>
+      </div>
+    </div>
+    <div class="row dashboard-details-wrapper">
+      <div class="dashboard-details personal-info row">
+        <div class="col-s2">
+          <div class="info-wrapper">
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Name</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input" id="name">{{name}}</input>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Email</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input" id="email">{{email}}</input>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Phone</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input" id="phone">{{contact}}</input>
+              </div>
+            </div>
+          </div>
+          <div class="switch-opts">
+            <p id="edit_profile">Edit Profile</p>
+            <p id="save_profile">Save</p>
+            <p id="cancel_profile">Cancel</p>
+          </div>
+        </div>
+        <div class="col-s2">
+         <div class="social-button-wrapper">
+          <div class="facebook-login social-button">
+            <img src="{% static 'img/login-fb.png' %}">
+          </div>
+          <div class="google-login social-button">
+            <img src="{% static 'img/login-google.png' %}">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="dashboard-details booking-history row">
+      <div class="booking-wrapper">
+      {% if book_cab == 0 %}
+        <h2>No cabs found</h2>
+      {% else %}
+        {% for cab in book_cab %}
+          <div class="booking-item">
+            <div class="row inner-booking-item">
+              <div class="col-cus">
+                <div class="row booking-info-wrapper">
+                  <div class="major-info">
+                    <div class="cab-img">
+                      <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
+
+                    </div>
+                    <div class="info-data">
+                      <p class="lg-info">{{cab.From}}</p>
+                      <p class="sm-info">{{cab.Date}}</p>
+                      <p class="sm-info">03:15 AM</p>
+                    </div>
+                    <h4 class="search-data">&#8644;</h4>
+                    <div class="info-data">
+                      <p class="lg-info">{{cab.To}}</p>
+                      <p class="sm-info">{{cab.Date_return}}</p>
+                      <p class="sm-info">03:15 AM</p>
+                    </div>
+                  </div>
+                  <div class="minor-info">
+                    <div class="sm-info">
+                      <p>Cab Type:&nbsp;<span>{{cab.cab_type}}</span></p>
+                      <p>Route:&nbsp;<span>{{cab.route}}</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-s5">
+                <div class="price-wrapper">
+                  <p>Fare</p>
+                  <p>&#8377;&nbsp;{{fare}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="dashboard-details change-pass row">
+        <div class="col-s2">
+          <div class="info-wrapper">
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Current Password</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input editable" id="current_password" type="password" ></input>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>New Password</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input editable" id="new_password" type="password" ></input>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <div class="col1">
+                <p>Confirm Password</p>
+              </div>
+              <div class="col2">
+                <input class="dashboard-info-input editable" id="confirm_password" type="password" ></input>
+              </div>
+            </div>
+          </div>
+          <div class="switch-opts">
+            <p id="save_password">Save</p>
+          </div>
+        </div>
+       
+
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var tab = location.hash.substr(1);
+  if(tab=="")
+    tab="personal-info"
+  location.hash=tab
+  $('.inner-dash ul li').removeClass('active');
+  $('.inner-dash ul li').map(function(i,e){
+    if($(e).attr('data-block')==tab){
+      $(e).addClass('active')
+    }
+  });
+
+  $('.dashboard-details').hide();
+  $('.'+tab).show();
+</script>
+{% endblock %}

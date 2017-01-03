@@ -1,0 +1,53 @@
+{% extends 'cab/base.html' %}
+{% block content %}
+ {% load staticfiles %}
+  <div class="back-drop"> </div>
+ <div class="row">
+      <div class="blog-panel">
+          <div class="card type-1">
+          <div class="headers">
+                    <ul>
+                        <li class="active"><a href="{% url 'cab:index' %}">Blog</a></li> 
+                    </ul>
+                </div>
+              <div class="row">
+                <h3 class="card-label blog-title">Thanking America’s Veterans, Today and Every Day</h3>
+            </div>
+            <div class="row blog-details">
+                <div class="col-s1 blog-image">
+                    <img src="/static/img/blog/blog1.png" alt="">
+                </div>
+                <div class="row blog-content">
+                    <div class="col-s6-5">
+                        <div class="small-details">
+                        <span class="blog-date">November 11, 2016 </span> | Posted by 
+                        <span class="blog-author">Emil Michael, Chief Business Officer and Executive Sponsor of UberMILITARY
+                        </span>
+                        </div>
+                        <div class="text-content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga itaque odio impedit suscipit at laborum veniam iusto facilis aspernatur rem, sequi repellendus, autem quia pariatur assumenda voluptas minus, voluptates!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-featured">
+      <div class="card type-1">
+          <div class="row">
+            <h3 class="card-label">Featured Articles <span>&gt;</span></h3>
+        </div>
+        <div class="row">
+        <div class="col-s1 featured-list">
+          <ul>
+              <li>Let’s take care of each other</li>
+              <li>9 Things to Know About the Uber Driver App for iOS</li>
+              <li>Let’s take care of each other</li>
+              <li>9 Things to Know About the Uber Driver App for iOS</li>
+          </ul>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

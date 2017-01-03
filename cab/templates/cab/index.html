@@ -1,0 +1,266 @@
+{% extends 'cab/base.html' %}
+{% block content %}
+ {% load staticfiles %}
+	          <div class="back-drop"> </div>
+	          <div class="card type-1">
+	          	<div class="headers">
+		          	<ul>
+		          		<li class="active"><a href="../main/">Cabs</a></li>
+		          		<li><a href="../flights/">Flights</a></li>
+		          		<li><a href="../buses/">Buses</a></li>
+		          		<li><a href="../hotels/">Hotels</a></li>
+		          		<li><a href="../holidays/">Holidays</a></li>
+		          	</ul>
+	          	</div>
+	          	<div class="form-opts">
+	          		<div class="cab-opts">
+	          			<ul>
+			          		<li class="active" id="outstation">Outstation</li>
+			          		<li id="self-drive">Self-Drive</li>
+			          		<li id="book-seat">Book A Seat</li>
+			          		<li id="post-cab">Post A Cab</li>
+			          	</ul>
+	          		</div>
+	          		<div class="form-data" id="outstation-form">
+	          			<div class="input-row">
+	          				<div class="input-wrap-2 radios">
+		          				<input class="way-type-data" type="radio" name="OneWay" value="One Way" checked="">One Way
+		          				<input class="way-type-data" type="radio" name="OneWay" value="Two Way">Two Way
+	          				</div>
+	          				<div class="input-wrap-2 radios">
+		          				<input class="sharing-type-data" type="radio" name="Sharing" value="Sharing" >Sharing
+		          				<input class="sharing-type-data" type="radio" name="Sharing" value="No Sharing" checked="">No Sharing
+	          				</div>
+          				</div>
+	          			<div class="input-row">
+	          				<div class="input-wrap-2 ui-widget">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field from-data" name="From" placeholder="From">
+	          				</div>
+	          				<div class="reverse-icon">
+	          					<span class="reverse"></span>
+	          				</div>
+	          				<div class="input-wrap-2 ui-widget">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field to-data" name="To" placeholder="To">
+	          				</div>
+	          				<div class="input-wrap-2
+	          				ui-widget">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field form-control date-data" name="Date" type="text" placeholder="Depart" />
+
+	          				</div>
+	          				<div class="input-wrap-2
+	          				ui-widget">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field return-date-data form-control" name="Date_return" type="text" placeholder="Return" value="" disabled="" />
+
+
+	          				</div>
+	          				<div class="input-wrap-3">
+	          				<select name="Class" id="out-cab-class" class="cab-class">
+	          					<option value="Economoy">Economy</option>
+	          					<option value="Business">Business</option>
+	          				</select>
+	          				</div>
+	          				<div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Search</button>
+	          				</div>
+	          			</div>
+	          			<!-- <div class="input-row-3">
+	          			</div> -->
+	          		</div>
+	          		<div class="form-data" id="self-drive-form">
+	          			<div class="input-row">
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field from-data" placeholder="From">
+	          				</div>
+							<div class="input-wrap-2
+	          				ui-widget">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field form-control date-data" name="Date" type="text" placeholder="Depart" />
+
+	          				</div>
+	          				<div class="input-wrap-2
+	          				ui-widget">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field form-control return-date-data" name="Date_return" type="text" placeholder="Return" />
+
+	          				</div>
+
+
+
+	          				<div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Search</button>
+	          				</div>
+	          			</div>
+	          		</div>
+	          		<div class="form-data" id="post-cab-form">
+	          			<div class="input-row ">
+	          				<div class="input-wrap-2 radios">
+	          					<label>Smoking</label>
+		          				<input class="way-type-data" type="radio" name="smoking" value="Yes" >Yes
+		          				<input class="way-type-data" type="radio" name="smoking" value="No" checked="">No
+	          				</div>
+	          				<div class="input-wrap-2 radios">
+	          				<label>Pets</label>
+		          				<input class="sharing-type-data" type="radio" name="pets" value="Yes" >Yes
+		          				<input class="sharing-type-data" type="radio" name="pets" value="No" checked="">No
+	          				</div>
+	          				<div class="input-wrap-2 radios">
+	          				<label>Music</label>
+		          				<input class="sharing-type-data" type="radio" name="music" value="Yes" checked="">Yes
+		          				<input class="sharing-type-data" type="radio" name="music" value=
+		          				"No" >No
+	          				</div>
+	          						<div class="input-wrap-2 ">
+	          					<label class="p-label" name="">Time</label>
+                               <select class="input-field time-hr-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="00">00</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select class="input-field time-min-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="00">00</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                </select>
+                                <select class="input-field time-type-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+	          				</div>
+	          				<div class="input-wrap-2" style="margin-left:15px ">
+	          					<select name="Class" id="post-cab-seats" class="cab-class">
+	          					
+	          					<option disabled selected>Seats</option>
+	          					<option value="1">1</option>
+	          					<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+	          				</select>
+	          				</div>
+          				</div>
+	          			<div class="input-row">
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field from-data" name="From" placeholder="From">
+	          				</div>
+	          				<div class="reverse-icon">
+	          					<span class="reverse"></span>
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field to-data" name="To" placeholder="To">
+	          				</div>
+	          				<div class="input-wrap-2
+	          				ui-widget">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field form-control date-data" name="Date" type="text" placeholder="Depart" />
+
+	          				</div>
+	          				<div class="input-wrap-2 short-input">
+	          					<span class="calender"></span>
+	          					<input name="Date_return" type="text" class="input-field rate-data" placeholder="Rates/Km">
+	          				</div>
+	          			          				<div class="input-wrap-3">
+	          				<select name="Class" id="post-cab-type" class="cab-class">
+	          					<option value="Hatchback">Hatchback</option>
+	          					<option value="Sedan">Sedan</option><option value="MUV">MUV</option><option value="SUV">SUV</option>
+	          				</select>
+	          				</div>
+	          				<div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Post</button>
+	          				</div>
+	          			</div>
+	          		</div>
+	          		<div class="form-data" id="book-seat-form">
+	          			<div class="input-row">
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="From">
+	          				</div>
+	          				<div class="reverse-icon">
+	          					<span class="reverse"></span>
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="city"></span>
+	          					<input type="text" class="input-field" placeholder="To">
+	          				</div>
+	          				<div class="input-wrap-2">
+	          					<span class="calender"></span>
+	          					<input required="" class="input-field"  type="text" class="form-control" placeholder="Depart" onfocus="(this.type='date')"/>
+
+	          				</div>
+
+	          				<div class="input-wrap-3">
+	          				<select name="type" id="out-cab-class" class="cab-class">
+	          					<option value="Economoy">Economoy</option>
+	          					<option value="Business">Business</option>
+	          				</select>
+	          				</div>
+	          				<div class="input-wrap-3" style="margin-left:25px;">
+		          				<button type="submit" class="form-submit">Search</button>
+	          				</div>
+	          			</div>
+	          		</div>
+	          	 </div> 
+	          </div>
+	          <div class="card type-2" style="
+    flex-direction: row;
+">
+	          	<div class="left-pane">
+    	          	<div id="owl-demo-1" class="owl-carousel owl-theme">
+                      <div class="item"><img src="{% static 'img/slide1.jpg' %}" alt="The Last of us"></div>
+                      <div class="item"><img src="{% static 'img/slide2.jpg' %}" alt="GTA V"></div>
+                      <div class="item"><img src="{% static 'img/slide3.jpg' %}" alt="Mirror Edge"></div>
+                    </div>
+	          	</div>
+	          	<div class="right-pane cab-offers" style="height: 76.5vh;">
+	          		<div class="row">
+	          			<div class="col-s2"></div>
+	          			<div class="col-s2"></div>
+	          		</div>
+	          		<div class="row">
+		          		<div class="col-s2"></div>
+		          		<div class="col-s2"></div>
+	          		</div>
+	          		<div class="row">
+	          			<div class="col-s2"></div>
+	          			<div class="col-s2"></div>
+	          		</div>
+	          	</div>
+	          </div>
+	          <div class="card type-2 banner">
+                <div class="row">
+                    <h3 class="card-label">Shop On CabMe <span class="caret">></span></h3>
+                </div>
+                <div class="row">
+                    <div id="owl-demo-2" class="owl-carousel owl-theme">
+                      <div class="item"><img src="{% static 'img/banner/banner1.jpg' %}" alt="The Last of us"></div>
+                      <div class="item"><img src="{% static 'img/banner/banner2.jpg' %}" alt="GTA V"></div>
+                      <div class="item"><img src="{% static 'img/banner/banner3.jpg' %}" alt="Mirror Edge"></div>
+                      <div class="item"><img src="{% static 'img/banner/banner4.jpg' %}" alt="Mirror Edge"></div>
+                    </div>
+                </div>
+              </div>
+              <div class="card type-2 banner">
+	          	<div class="row">
+	          		<h3 class="card-label">Interesting Offers <span class="caret">></span></h3>
+	          	</div>
+	          	<div class="row">
+	          		<div id="owl-demo-3" class="owl-carousel owl-theme">
+                    </div>
+                </div>
+              	</div>
+ {% endblock%}

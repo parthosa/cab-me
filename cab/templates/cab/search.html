@@ -1,0 +1,118 @@
+{% extends 'cab/base.html' %}
+{% block content %}
+ {% load staticfiles %}
+<script> console.log("{{cabs}}"+'8')</script>
+		        <div class="back-drop"> </div>
+              <div class="card type-1">
+                  <div class="row">
+                        <h3 class="card-label">Search Results <span class="caret">></span></h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-s1 search-headers" id="outstation-search">
+                            <div class="col-s5">
+                                <p>From</p>
+                                <h4 class="search-data">
+                                    {{From}}
+                                </h4>
+                            </div> 
+                            <div class="col-s5">
+                                <p>To</p>
+                                    <h4 class="search-data">
+                                        {{To}}
+                                    </h4>
+
+                            </div>
+                            <div class="col-s5">
+                                <p>Date</p>
+                                    <h4 class="search-data">
+                                        {{Date}}
+                                    </h4>
+                            </div> 
+                            <div class="col-s5">
+                                <p>Date</p>
+                                    <h4 class="search-data">
+                                        {{Date}}
+                                    </h4>
+                            </div>                    <div class="col-s5">
+                                <p>Class</p>
+                                <h4 class="search-data">
+                                    Economy
+                                </h4>
+                            </div>
+                            <div class="col-s5 input-wrap-3" style="margin-left:25px;">
+                                <button type="submit" class="form-submit">Modify</button>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+              <div class="card type-2">
+    <div class="row search-headbar">
+        <div class="col-s6">
+            <p>Cab</p>
+        </div>
+        <div class="col-s6">
+            <p>Driver Name</p>
+        </div>
+        <div class="col-s6">
+            <p>Driver Contact</p>
+        </div>
+        <div class="col-s6">
+            <p>Cab Type</p>
+        </div>
+        <div class="col-s6">
+            <p>Price</p>
+        </div>
+        
+    </div>
+    <div class="row search-results-wrap">
+        {% for cab in cabs %}
+        <div class="col-s1 search-results" cab-id="{{cab.cab_id}}">
+             <div class="col-s6">
+            <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
+        </div>
+        
+       
+            <div class="col-s6">
+                <p>{{cab.Driver_name}}</p>
+            </div>
+      
+        
+            <div class="col-s6">
+                <p>{{cab.Driver_phone}}</p>
+            </div>
+        
+        <div class="col-s6">
+            <p>{{cab.Cab_type}}</p>
+        </div>
+        
+        <div class="col-s6">
+            <p>Rs {{cab.Price}}</p>
+        </div>
+
+           <div class="col-s6 input-wrap-3">
+                                <button type="submit" class="form-submit cab-select-submit" >Book</button>
+                            </div>
+        </div>
+        {% endfor %}
+    <!--      <div class="col-s1 search-results">
+             <div class="col-s6">
+            <img src="{% static 'img/cabs/INDIGO_OR_EQUIVALENT.png' %}" alt="">
+        </div>
+        <div class="col-s6">
+            <p>Simha</p>
+        </div>
+        <div class="col-s6">
+            <p>9982312111</p>
+        </div>
+        <div class="col-s6">
+            <p>Hatch Back</p>
+        </div>
+        <div class="col-s6">
+            <p>Rs <span>2311</span></p>
+        </div>
+           <div class="col-s6 input-wrap-3">
+                                <button type="submit" class="form-submit">Book</button>
+                            </div>
+        </div> -->
+    </div>
+	        {% endblock %}
