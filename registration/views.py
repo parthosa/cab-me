@@ -5,6 +5,7 @@ from django.core.cache import cache
 from django.contrib.auth import authenticate, login ,logout
 from .models import *
 from cab.models import *
+import requests
 
 def Init_Reg(request):
 	if request.POST:
@@ -28,7 +29,7 @@ def Init_Reg(request):
 				return JsonResponse(status)	
 				# return HttpResponseRedirect('../../../register')
 
-			elif len(str(contact)) < 10: 
+			elif len(str(contact)) != 10: 
 				resp = {"status": 0, "message": 'Please enter a valid contact number'}	
 				return JsonResponse(resp)					
 			# user_c = User()
@@ -48,7 +49,8 @@ def Init_Reg(request):
 				user = User.objects.create_user(
 					username=email,
 					password=password)
-				user.is_active = False
+				user.is_active = False		
+				user.save()		
 				# user_c.save()	
 				print 4
 				member.user = user
@@ -59,9 +61,18 @@ def Init_Reg(request):
 				status = { "registered" : True , "id" : user.id }
 				send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
 				send_otp = requests.get(send_otp_url)
+				otp_id = send_otp.text.split(',')[1][11:-2]	
+				request.session['contact'] = phone
+				key = request.session['contact']
+				cache.set(key,
+					{'name': name,
+					 'email_id': email,
+					 'phone': phone,
+					 'otp_id': otp_id
+					})
 
 				# return JsonResponse(status)
-				return HttpResponseRedirect('../verify_otp')
+				return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
 
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
@@ -69,7 +80,34 @@ def Init_Reg(request):
 			return JsonResponse(status)
 			# return HttpResponseRedirect('../../../register')
 
+def verify_otp(request):
+	cust_cache = cache.get(request.session['contact'])
+	otp = request.POST['otp']
+	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%status'''%(cust_cache['otp_id'], otp)
+	verify_otp = requests.get(verify_otp_api)
+	if json.loads(verify_otp.text)['Status'] == 'Success':
+		user = User.objects.get(username = cust_cache['email_id'])
+		user.is_active = True
+		user.save()
+
+		member = UserProfile()
+		member.email_id = cust_cache['email_id']
+		member.phone = cust_cache['phone']
+		member.user = user
+		member.save()
+
+		cache.delete(request.session['contact'])
+
+		resp = {'status': 1 , 'message': 'You have successfully verified your phone number. You can login now'}
+
+	else:
+		resp = {'status': 0, 'message': 'The OTP you entered is incorrect. Kindly check it again'}
+
+	return JsonResponse(resp)
+
 def user_login(request):
+
+
 
 	if request.method == 'POST':
 		# m sending email...
@@ -88,12 +126,12 @@ def user_login(request):
 				login(request, user)
 				return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 		else:
-			return JsonResponse({'status': 0, 'message': 'Invalid Login Credentials. Please try again'})
+			context = {'status': 0,'error_heading' : "Invalid Login Credentials", 'message' :  'Invalid Login Credentials. Please try again'}
+			return JsonResponse(context) #render(request, 'main/login.html', context)
 	else:
 		print 1
 		return render(request, 'main/login.html')		
 
-@csrf_exempt
 def user_logout(request):
 	logout(request)
 	return JsonResponse({'status': 1, 'message': 'Successfully logged out'})
