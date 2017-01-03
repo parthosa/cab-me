@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from .models import *
-from Fund.models import *
-from UserM.models import UserProfile
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -34,7 +32,7 @@ def Init_Reg(request):
 				resp = {"status": 0, "message": 'Please enter a valid conatct number'}						
 			# user_c = User()
 			else:
-				if member_type = 'Vendor':
+				if member_type == 'Vendor':
 					member = Vendor()
 					member.email = email
 					member.contact = contact
