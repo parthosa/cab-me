@@ -172,23 +172,46 @@
         </div>
          <div class="lightbox-inner additional-info-wrap">
             <div class="row">
-             <div class="col-s2">
+             <div class="col-s2 info-img">
                  <img src="{% static 'img/lightbox_left.jpg' %}">
              </div>
-             <div class="col-s2 content-display">
-                 <div class="content-display-inner">
+             <div class="col-s2 info-display">
+                 <div class="info-display-inner">
                      <div class="info-header">
-                     <h3>Complete Registration</h3>
+                     <h3>Step 2</h3>
                      </div>
                      <div class="info-form">
-                      <form>
+                     <p class="info-text">Phone Number</p>
+                      <form id="social-info-form">
                          {% csrf_token %}
-                            <div class="input-wrap-2">
-                                <input class="input-field" type="text" placeholder="Name" name="name" required=""></input>
+                            <div class="input-wrap-2"><input class="input-field" type="text"  name="phone" required=""></input>
                             </div>
-                            <div class="input-wrap-2">
-                                <input class="input-field" type="text" placeholder="Phone" name="phone" required=""></input>
+                          <button type="submit" id="social-info-submit">Confirm</button>
+                          <p class="message fail"></p>
+                      </form>
+                     </div>
+                 </div>
+             </div>
+            </div>
+        </div>
+          <div class="lightbox-inner mobile-verification">
+            <div class="row">
+             <div class="col-s2 info-img">
+                 <img src="{% static 'img/lightbox_left.jpg' %}">
+             </div>
+             <div class="col-s2 info-display">
+                 <div class="info-display-inner">
+                     <div class="info-header">
+                     <h3>Verify</h3>
+                     </div>
+                     <div class="info-form">
+                     <p class="info-text">Enter OTP</p>
+                      <form id="otp-form">
+                         {% csrf_token %}
+                            <div class="input-wrap-2"><input class="input-field" type="text"  name="otp" required=""></input>
                             </div>
+                          <button type="submit" id="otp-submit">Confirm</button>
+                          <p class="message fail"></p>
                       </form>
                      </div>
                  </div>
@@ -208,11 +231,10 @@
             <img src="{% static 'img/logo-inv.png' %}" alt="">
         </div>
         <div class="row follow">
-            <p>Follow Us</p>
-            <ul>
-                <li><img src="{% static 'img/fb.png' %}"></li>
-                <li><img src="{% static 'img/twitter.png' %}"></li>
-                <li><img src="{% static 'img/youtube.png' %}"></li>
+           <ul>
+                <li><img src="{% static 'img/fb-logo.png' %}"></li>
+                <li><img src="{% static 'img/twitter-logo.png' %}"></li>
+                <li><img src="{% static 'img/insta-logo.png' %}"></li>
             </ul>
         </div>
         <div class="row apps">

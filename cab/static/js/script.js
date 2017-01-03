@@ -259,6 +259,9 @@ $('#sign-up').click(function (ev) {
 	sendDataAjax(data,'/accounts/register/','.message-login');
 })
 
+
+
+
 $('#reset-pass').click(function(ev){
 	ev.preventDefault();
 	var data={
@@ -344,3 +347,20 @@ $('#view_bookings').click(function(){
 	location.href="/dashboard/#booking-history"
 })
 
+
+$('#social-info-submit').click(function(ev){
+	ev.preventDefault();
+	var data = {
+			'phone':$(this).closest('form').find('input[name=phone]').val(),
+	}
+	sendDataAjax(data,'/accounts/social/phoneUpdate/','.message.fail')
+})
+
+
+$('#otp-submit').click(function(ev){
+	ev.preventDefault();
+	var data = {
+			'otp':$(this).closest('form').find('input[name=otp]').val(),
+	}
+	sendDataAjax(data,'/otp/','.message.fail')
+})

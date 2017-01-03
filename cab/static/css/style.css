@@ -724,14 +724,20 @@ button.form-submit {
 .follow ul {
     margin: 0;
     list-style: none;
+    padding-left: 0px;
 }
 
 .follow ul li {
     display: inline-block;
+    padding: 6px;
+    border: 1px solid white;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .follow ul li img {
-    height: 35px;
+    height: 25px;
 }
 
 .apps img {
@@ -1425,7 +1431,7 @@ ol.terms-list {
 
 .lightbox-inner {
     width: 50vw;
-    min-height: 63vh;
+    height: 63vh;
     background: white;
     min-width: 620px;
     /* min-height: 410px; */
@@ -1652,6 +1658,71 @@ form#login-form{
 }
 
 
+.info-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.info-header h3 {
+    font-family: sans-serif;
+    color: rgb(240, 240, 154);
+    /* margin: 0; */
+   padding: 10px 2px;
+    display: inline;
+    border-bottom: 1px solid;
+}
+
+.info-display-inner {
+    margin: 0 2em;
+}
+
+.info-form {
+    height: 45vh;
+    margin-top: 3em;
+}
+
+.col-s2.info-display {
+    background: #212f4c;
+}
+
+.info-header {
+    margin: 1em 0;
+}
+
+p.info-text {
+    color: rgb(240, 240, 154);
+    font-family: sans-serif;
+    margin-bottom: 7vh;
+}
+
+.info-form form {
+    margin: 0.8em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-form .input-wrap-2 {
+    margin-bottom: 1em;
+}
+
+.info-form button {
+    background: none;
+    outline: none;
+    color: rgb(240, 240, 154);
+    font-size: 1em;
+    padding: 6px 15px;
+    border: 1px solid;
+    border-radius: 1px;
+    cursor: pointer;
+    margin-top: 1.4em;
+}
+
+.info-form input.input-field {
+    width: 100%;
+}
+
 
 /* END LIGHTBOX*/
 
@@ -1762,8 +1833,9 @@ p.message-login.success{
   color:#1C941D;
 }
 
-p.message-login.fail{
+.fail{
   color:red;
+  font-family: sans-serif;
 }
 
 
