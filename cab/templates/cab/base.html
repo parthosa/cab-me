@@ -30,9 +30,15 @@
                  <li>Deals </li>
                  <li>C Cash</li>
              </ul>
-             <ul class="account-menu">
-                 <li id="sign-in-trigger">Sign In</li>
-             </ul>
+             {% if user.is_authenticated == 1 %}
+                 <ul class="account-menu">
+                     <li id="sign-in-trigger">Hi {{name}}</li>
+                 </ul>
+             {% else %}   
+                 <ul class="account-menu">
+                     <li id="sign-in-trigger">Sign In</li>
+                 </ul>
+             {% endif %}
          </div>
      </div>
  </div>
