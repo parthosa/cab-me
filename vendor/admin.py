@@ -4,3 +4,4 @@ from vendor.models import *
 
 admin.site.register(Vendor)
 admin.site.register(Driver)
+admin.site.register(Cab)

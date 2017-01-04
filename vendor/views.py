@@ -20,6 +20,10 @@ def Init_Reg(request):
 		contact = int(request.POST['Contact'])
 		password = request.POST['Password']
 		password_confirm = request.POST['Password_confirm']
+		member_type = request.POST['member_type']
+		cab_type = request.POST['cab_type']
+		date_of_birth = request.POST['date_of_birth']
+		cab_number = request.POST['cab_number']
 		if (password == password_confirm):
 
 			registered_members = UserProfile.objects.all()			
@@ -32,17 +36,25 @@ def Init_Reg(request):
 				resp = {"status": 0, "message": 'Please enter a valid conatct number'}						
 			# user_c = User()
 			else:
+				cab = Cab()
+				cab.cab_type = cab_type
+				cab.cab_number = cab_number
 				if member_type == 'Vendor':
 					member = Vendor()
 					member.email = email
 					member.contact = contact
 					member.name = name
+					member.date_of_birth = date_of_birth
 				
 					user = User.objects.create_user(
-						username=email,
+						username=contact,
 						password=password)				
 					# user_c.save()	
 					member.user = user
+					member.save()
+					cab.driver = member
+					cab.save()
+					member.cabs.add(cab)
 					member.save()
 
 					status = { "registered" : True , "id" : user.id }
@@ -55,12 +67,17 @@ def Init_Reg(request):
 					member.email = email
 					member.contact = contact
 					member.name = name
+					member.date_of_birth = date_of_birth
 
 					user = User.objects.create_user(
-						username=email,
+						username=contact,
 						password=password
 						)
 					member.user = user
+					member.save()
+					cab.driver = member
+					cab.save()
+					member.cabs.add(cab)
 					member.save()
 
 					return JsonResponse({'status':1, 'message':'Successfully registered'})
@@ -75,7 +92,7 @@ def Init_Reg(request):
 def user_login(request):
 
 	if request.method == 'POST':
-		username = request.POST['email']
+		username = request.POST['phone']
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
 		if user:
@@ -105,3 +122,23 @@ def user_login(request):
 def user_logout(request):
 	logout(request)
 	return redirect('registration:login')	
+
+@csrf_exempt
+@login_required
+def add_cab(request):
+	if request.POST:
+		try:
+			driver = Driver.objects.get(user = request.user)
+		except ObjectDoesNotExist:
+			driver = Vendor.objects.get(user = request.user)
+		cab_type = request.POST['cab_type']
+		cab_number = request.POST['cab_number']
+		cab = Cab()
+		cab.cab_type = cab_type
+		cab.cab_number = cab_number
+		cab.driver = driver
+		cab.save()
+		driver.cabs.add(cab)
+		driver.save()
+
+	return JsonResponse({'status': 1, 'message': 'The cab has been successfully added'})
