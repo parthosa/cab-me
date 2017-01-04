@@ -169,19 +169,36 @@ function sendDataAjax(data,url,updateElement='') {
 		url:url,
 		data:data,
 		success:function (response) {
-				if(url=='/accounts/login/' && response.status ==1)
-					location.href='/dashboard/'
-				else if(url=='/accounts/logout/' && response.status ==1)
-					location.href='/main/'
-				else if(url=='/accounts/login/'||url=='/accounts/register/'
-||url=='/accounts/reset_password/'){
+				if(url=='/accounts/login/'){
+					if(response.status ==1){
+						location.href='/dashboard/'
+					}
+					else if(response.status==0){
+						$(updateElement+'.fail').html(response.message);
+					}
+				}
+				else if(url=='/accounts/logout/'){
+					if(response.status ==1)
+						location.href='/main/'
+					}
+				else if(url=='/accounts/register/'){
+					if(response.status == 1){
+						$(updateElement+'.success').html(response.message);
+						setTimeout(lightbox_trigger('mobile-verification'),200);
+					}
+					else if(response.status == 0)
+						$(updateElement+'.fail').html(response.message);
+				}
+				else if(url=='/accounts/reset_password/')
+				{
 					if(response.status == 1)
 						$(updateElement+'.success').html(response.message);
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
 				}
-				else
+				else{
 					$(updateElement).html(response.message);
+				}
 				
 		},
 		error:function(response){
@@ -234,6 +251,8 @@ $('#final-submit').click(function () {
 
 
 $('#sign-in-trigger').click(function () {
+	$('.message-login').html('');
+	$('input').val('');
 	lightbox_trigger('login-reg',false);
 })
 
@@ -375,7 +394,7 @@ $('#otp-submit').click(function(ev){
 	var data = {
 			'otp':$(this).closest('form').find('input[name=otp]').val(),
 	}
-	sendDataAjax(data,'/otp/','.message.fail')
+	sendDataAjax(data,'/accounts/verify_otp/','.message.fail')
 })
 
 

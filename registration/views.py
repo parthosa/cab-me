@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login ,logout
 from .models import *
 from cab.models import *
 import requests
+import json
 
 def Init_Reg(request):
 	if request.POST:
