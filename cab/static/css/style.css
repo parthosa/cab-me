@@ -54,14 +54,14 @@ html,body{
   margin: 10px 6px;
   padding: 5px 9px;
   color: #212f4c;
-  font-family: sans-serif;
+  font-family: Open Sans,arial,tahoma,verdana,sans-serif;
 }
 
 ul.account-menu {
     background: #212f4c;
     color: white;
     border-radius: 3px;
-    font-family: Verdana,sans-serif;
+    font-family: Verdana,Open Sans,arial,tahoma,verdana,sans-serif;
     cursor:pointer;
 }
 
@@ -107,7 +107,7 @@ ul.account-menu {
   position: absolute;
   width: 100%;
   top: -9vh;
-  font-family: sans-serif;
+  font-family: Open Sans,arial,tahoma,verdana,sans-serif;
   color: rgb(240, 240, 154);
 }
 .headers ul {
@@ -157,7 +157,7 @@ ul.account-menu {
   border: 2px solid #506f9e;
   margin-left: -2px;
   color: #506f9e;
-  font-family: sans-serif;
+  font-family: Open Sans,arial,tahoma,verdana,sans-serif;
   background: #f3f7f8;
   font-size: 1.2em;
   /* clear: both; */
@@ -252,7 +252,7 @@ input.input-field {
     margin-left: 0px;
     font-size: 1em;
     color: #b8b8b8;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     background: none;
 }
 
@@ -285,14 +285,14 @@ input.input-field:focus {
       background: white;
     padding: 6px 4px;
     font-size: 1.1em;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: #282727;
     border: 3px solid #506f9e;
     border-radius: 6px;
 }
 
 .input-wrap-2 {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: #282727;
 }
 
@@ -441,7 +441,7 @@ button.form-submit {
 
   .card-label{
         margin-left: 3%;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: #212f4c;
   }
 
@@ -522,7 +522,7 @@ button.form-submit {
   justify-content: center;
   align-items: center;
   color: white;
-  font-family: sans-serif;
+  font-family: Open Sans,arial,tahoma,verdana,sans-serif;
   font-size: 1.4em;
       border-radius: 5px;
 }
@@ -592,7 +592,7 @@ button.form-submit {
 }
 
 .text {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     top: -22px;
     position: relative;
     /* text-indent: 25px; */
@@ -654,7 +654,7 @@ button.form-submit {
 }
 
 .follow p{
-  font-family: sans-serif;
+  font-family: Open Sans,arial,tahoma,verdana,sans-serif;
   color: white;
       position: relative;
     left: -10%;
@@ -715,7 +715,7 @@ button.form-submit {
 }
 
 .follow p {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: white;
     font-size: 1.2em;
     margin: 0;
@@ -774,7 +774,7 @@ button.form-submit {
 }
 
 .right-footer h3 {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: white;
     margin: 0;
     margin-top: 16px;
@@ -783,7 +783,7 @@ button.form-submit {
 .right-footer ul {
     list-style: none;
     color: white;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     padding-left: 0;
     /* margin-top: 8px; */
 }
@@ -805,7 +805,7 @@ button.form-submit {
     display: inline-block;
     width: 13.67%;
     margin-right: 2%;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     border-right: 1px solid #b8b8b8;
 }
 
@@ -849,7 +849,7 @@ button.form-submit {
 .search-headbar {
      width: 94%; 
      padding: 0 3%;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     font-size: 0.9em;
     color: #9b9b9b;
     background: #f9f9f9;
@@ -858,7 +858,7 @@ button.form-submit {
 
 
 .search-results {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -917,12 +917,12 @@ div#outstation-summary {
 h4.cab-type {
     margin: 7px 0px;
     text-align: center;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
 }
 
 h4.search-data {
     font-size: 1.5em;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     margin: 0;
     margin-bottom: 6px;
     color: #444;
@@ -930,7 +930,7 @@ h4.search-data {
 
 .summary-headers p {
     margin: 0 auto;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: #444;
 }
 
@@ -942,7 +942,7 @@ h4.search-data {
 
 .fare-detail h3 {
     margin: 0;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     text-align: center;
     color: white;
     background: #212f4c;
@@ -958,7 +958,7 @@ h4.search-data {
   er; */
   align-items: center;
   padding-left: 10px;
-  font-family: sans-serif;
+  font-family: Open Sans,arial,tahoma,verdana,sans-serif;
   font-size: 0.8em;
 }
 
@@ -1005,7 +1005,7 @@ label.p-label {
     line-height: 30px;
     margin-top: 4px;
     margin-right: 9px;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
 }
 
 
@@ -1053,7 +1053,7 @@ p.p-label {
 
 .personal-info textarea {
     font-size: 1em;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     line-height: 30px;
     border-color: #b8b8b8;
 }
@@ -1176,7 +1176,7 @@ p.p-label {
 }
 
 h3.map-heading {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: #333;
     margin: 7px auto;
     font-size: 1.4em;
@@ -1187,7 +1187,7 @@ h3.map-heading {
 
 .cab-header {
     display: flex;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     font-size: 0.9em;
         margin: 5px 0 25px 0;
 }
@@ -1206,7 +1206,7 @@ h3.map-heading {
 .cab-item {
     display: flex;
     font-size: 1.2em;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     margin: 11px 0px;
 }
 
@@ -1225,7 +1225,7 @@ h3.map-heading {
 
 p.map-page-desc {
     font-size: 1em;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     margin-left: 3%;
     margin-top: 0px;
 }
@@ -1359,7 +1359,7 @@ ol.terms-list {
 
 .career-apply h3 {
     text-align: center;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     font-weight: normal;
     margin: 0;
     display: inline;
@@ -1519,7 +1519,7 @@ ol.terms-list {
 
 p.forgot-pass {
     color: #f0f09a;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     text-align: center;
     font-size: 0.8em;
     cursor: pointer;
@@ -1605,7 +1605,7 @@ form#login-form{
 
 .social-wrapper p {
     font-size: 1em;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: #f0f09a;
 }
 
@@ -1632,7 +1632,7 @@ form#login-form{
 }
 
 .post-cab-wrap h1 {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     margin: 0;
     font-size: 1.7em;
     text-align: center;
@@ -1641,7 +1641,7 @@ form#login-form{
 }
 
 .post-cab-wrap p {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     text-align: center;
     color: rgb(240, 240, 154);
     margin: 0;
@@ -1664,7 +1664,7 @@ form#login-form{
 }
 
 .info-header h3 {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: rgb(240, 240, 154);
     /* margin: 0; */
    padding: 10px 2px;
@@ -1691,7 +1691,7 @@ form#login-form{
 
 p.info-text {
     color: rgb(240, 240, 154);
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     margin-bottom: 7vh;
 }
 
@@ -1758,8 +1758,8 @@ p.info-text {
     margin: 5px 0px;
 }
 
-.field-wrapper .col1{/* float: left!important; */width: 130px;font-size: 0.8em;color: #828282;font-family: sans-serif;font-weight: 400;text-align: right;margin-right: 10px;}
-.field-wrapper .col2{/* float: left!important; */margin-right: 20px;font-size: 0.8em;color: #000;font-weight: 600;font-family: sans-serif;}
+.field-wrapper .col1{/* float: left!important; */width: 130px;font-size: 0.8em;color: #828282;font-family: Open Sans,arial,tahoma,verdana,sans-serif;font-weight: 400;text-align: right;margin-right: 10px;}
+.field-wrapper .col2{/* float: left!important; */margin-right: 20px;font-size: 0.8em;color: #000;font-weight: 600;font-family: Open Sans,arial,tahoma,verdana,sans-serif;}
 
 
 .dashboard-details {
@@ -1808,7 +1808,7 @@ input.dashboard-info-input.editable {
 .switch-opts {
     display: flex;
     align-items: center;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     margin-top: 14px;
     margin-left: 100px;
 }
@@ -1825,7 +1825,7 @@ input.dashboard-info-input.editable {
 
 p.message-login {
     margin: 0;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     font-size: 0.9em;
 }
 
@@ -1835,7 +1835,7 @@ p.message-login.success{
 
 .fail{
   color:red;
-  font-family: sans-serif;
+  font-family: Open Sans,arial,tahoma,verdana,sans-serif;
 }
 
 
@@ -1861,7 +1861,7 @@ p.message-login.success{
 
 .info-data {
     margin: 10px 4em;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
 }
 
 p.lg-info {
@@ -1877,7 +1877,7 @@ p.sm-info {
 }
 
 div.sm-info {
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     font-size: 0.9em;
     display: flex;
     justify-content: flex-start;
@@ -1900,7 +1900,7 @@ div.sm-info p {
     display: flex;
     justify-content: flex-start;
     font-size: 1.4em;
-    font-family: sans-serif;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
     color: #212f4c;
     flex-direction: column;
 }

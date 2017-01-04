@@ -169,19 +169,36 @@ function sendDataAjax(data,url,updateElement='') {
 		url:url,
 		data:data,
 		success:function (response) {
-				if(url=='/accounts/login/' && response.status ==1)
-					location.href='/dashboard/'
-				else if(url=='/accounts/logout/' && response.status ==1)
-					location.href='/main/'
-				else if(url=='/accounts/login/'||url=='/accounts/register/'
-||url=='/accounts/reset_password/'){
-					if(response.status == 1)
-						updateElement+='.success'
-					else if(response.status == 0)
-						updateElement+='.fail'
+				if(url=='/accounts/login/'){
+					if(response.status ==1){
+						location.href='/dashboard/'
+					}
+					else if(response.status==0){
+						$(updateElement+'.fail').html(response.message);
+					}
 				}
-				console.log(updateElement,response)
-				$(updateElement).html(response.message);
+				else if(url=='/accounts/logout/'){
+					if(response.status ==1)
+						location.href='/main/'
+					}
+				else if(url=='/accounts/register/'){
+					if(response.status == 1){
+						$(updateElement+'.success').html(response.message);
+						setTimeout(lightbox_trigger('mobile-verification'),200);
+					}
+					else if(response.status == 0)
+						$(updateElement+'.fail').html(response.message);
+				}
+				else if(url=='/accounts/reset_password/')
+				{
+					if(response.status == 1)
+						$(updateElement+'.success').html(response.message);
+					else if(response.status == 0)
+						$(updateElement+'.fail').html(response.message);
+				}
+				else{
+					$(updateElement).html(response.message);
+				}
 				
 		},
 		error:function(response){
@@ -234,6 +251,8 @@ $('#final-submit').click(function () {
 
 
 $('#sign-in-trigger').click(function () {
+	$('.message-login').html('');
+	$('input').val('');
 	lightbox_trigger('login-reg',false);
 })
 
@@ -288,21 +307,34 @@ $('.inner-dash ul li').click(function () {
 	});
 })
 
+var dashboard=$('.personal-info');
+var profileData;
 $('#edit_profile').click(function () {
+	
+	profileData={
+		name:dashboard.find('#name').val(),
+		email:dashboard.find('#email').val(),
+		phone:dashboard.find('#phone').val(),
+	}
+	$('.personal-info .dashboard-info-input').removeAttr('readonly');
 	$('.personal-info .dashboard-info-input').addClass('editable');
 	$(this).hide();
 	$('#save_profile,#cancel_profile').show();
 })
 
 $('#cancel_profile').click(function () {
+
+	dashboard.find('#name').val(profileData.name),
+	dashboard.find('#email').val(profileData.email),
+	dashboard.find('#phone').val(profileData.phone),
+
 	$('.personal-info .dashboard-info-input').removeClass('editable');
 	$('#edit_profile').show();
 	$('#save_profile,#cancel_profile').hide();
 })
 
 $('#save_profile').click(function () {
-	var dashboard=$('.personal-info');
-	var data={
+	profileData={
 		name:dashboard.find('#name').val(),
 		email:dashboard.find('#email').val(),
 		phone:dashboard.find('#phone').val(),
@@ -362,5 +394,7 @@ $('#otp-submit').click(function(ev){
 	var data = {
 			'otp':$(this).closest('form').find('input[name=otp]').val(),
 	}
-	sendDataAjax(data,'/otp/','.message.fail')
+	sendDataAjax(data,'/accounts/verify_otp/','.message.fail')
 })
+
+

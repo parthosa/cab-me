@@ -4,6 +4,12 @@ html,body{
   overflow-x: hidden;
 }
 
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: none;
+    background-image: none;
+    color: inherit;
+}
+
 .landing-wrapper{
   width: 100vw;
   margin: 0;
