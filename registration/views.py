@@ -139,11 +139,13 @@ def user_logout(request):
 
 def social_profile_build(request):
 	s_user = SocialAccount.objects.get(user=request.user)
+	request.user.is_active = False
+	request.user.save()
 	context = {}
 	try:
 		email = s_user.extra_data['email']
 	except:
-		context['email'] = True
+		email = None
 # p_user = UserProfile.objects.get()
 	if request.POST:
 		userp_exists = False
@@ -163,18 +165,24 @@ def social_profile_build(request):
 			
 		if userp_exists or user_exist:
 			context['error_message'] = 'This email is already registered.'
-			return render(request, 'main/social_account.html', context)
+			context['status'] = 0
+			return JsonResponse(context)
 		
-		p_user = UserProfile()
 		p_user.phone = request.POST['phone']
+		send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
+		send_otp = requests.get(send_otp_url)
+		otp_id = send_otp.text.split(',')[1][11:-2]	
+		request.session['contact'] = p_user.phone
+		key = request.session['contact']
+		cache.set(key,
+			{'name': name,
+			 'phone': p_user.phone,
+			 'otp_id': otp_id
+			})
 		try:
 			p_user.email_id = s_user.extra_data['email']
 		except:
 			p_user.email_id = request.POST['email']
-		p_user.email_verified = True
-		p_user.user = request.user
-		p_user.name = s_user.extra_data['first_name'] + ' ' + s_user.extra_data['last_name']
-		p_user.user.save()
-		p_user.save()
-		return HttpResponseRedirect('../dashboard/')
-	return render(request, 'main/social_account.html', context)		
+
+		return JsonResponse({'status' :1, 'message': 'An otp has been sent to your contact number to verify the same.'})
+	return JsonResponse({'status': 1, 'message': 'An otp has been sent to your contact number to verify the same'})		
