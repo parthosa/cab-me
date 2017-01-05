@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from allauth.socialaccount.models import *
 from cab.models import *
+from .models import *
 
 
 class UserProfile(models.Model):
@@ -14,6 +15,10 @@ class UserProfile(models.Model):
     postedcabs = models.ManyToManyField(PostCab, blank = True, default = '')
     bookedcabs = models.ManyToManyField(BookCab, blank = True, default = '')
     rating = models.DecimalField(max_digits = 3, decimal_places = 2, null = True)
+    invite_id = models.CharField(max_length = 20, null = True)
+    invited_by = models.ForeignKey(User, null = True, related_name = 'invited_by')
+    invites = models.ManyToManyField(User ,null = True, related_name = 'invites')
+
     def __unicode__(self):
         return self.name
 
