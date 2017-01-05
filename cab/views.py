@@ -22,8 +22,11 @@ def index(request):
 	else:
 		user = request.user
 		print user.username
-		customer = UserProfile.objects.get(email_id = user.username)
-		name = customer.name
+		try:
+			customer = UserProfile.objects.get(email_id = user.username)
+			name = customer.name
+		except ObjectDoesNotExist:
+			name = ' '
 		print name
 		context = {'name': name, 'login': 1}
 		return render(request, 'cab/index.html', context)

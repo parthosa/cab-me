@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.core.cache import cache
 from django.contrib.auth import authenticate, login
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 import json, ast
 from django.contrib.admin.views.decorators import staff_member_required
