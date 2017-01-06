@@ -1929,24 +1929,28 @@ div.sm-info p {
 .create-code p {
     text-align: center;
     font-family: sans-serif;
-    margin: 12px 0px;
+    margin: 12px 33px;
 }
 
 button#generate-referral-code {
     background: #212f4c;
     border: none;
-    padding: 11px 10px;
+    padding: 11px 21px;
     color: white;
-    font-size: 0.8em;
-    /* text-align: center; */
+    font-size: 1.6em;
+    border-radius: 2px;
 }
 
 .create-code {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
 }
 
 
+
+.dashboard-details.earn-money.row {
+    justify-content: center;
+    /* align-items: center; */
+}
 /* END DASHBOARD*/

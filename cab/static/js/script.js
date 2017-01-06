@@ -300,6 +300,9 @@ $('.inner-dash ul li').click(function () {
 	$('.inner-dash ul li').removeClass('active');
 	$(this).addClass('active');
 	var block=$(this).attr('data-block');
+
+	if(block == 'earn-money')
+		sendDataAjax({},'/refferal/get_invite_url/','#generate-referral-code')
 	location.hash=block;
 	$('.dashboard-details').hide();
 	$('.' + block).show().css({

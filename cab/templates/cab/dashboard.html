@@ -157,8 +157,8 @@
     <div class="dashboard-details earn-money row">
         <div class="earn-money-wrapper">
           <div class="create-code">
-             <p>Click below to generate a referal code</p>
-             <button id="generate-referral-code">Generate</button>
+             <p>Your invitation code</p>
+             <button id="generate-referral-code">Please Wait</button>
           </div>
         </div>
     </div>
@@ -179,7 +179,8 @@
       $(e).addClass('active')
     }
   });
-
+  if(tab == 'earn-money')
+    sendDataAjax({},'/refferal/get_invite_url/','#generate-referral-code')
   $('.dashboard-details').hide();
   $('.'+tab).show();
 </script>
