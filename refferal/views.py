@@ -28,7 +28,7 @@ def refer_registration(request, invite_code):
 		password = request.POST['Password']
 		password_confirm = request.POST['Password_confirm']
 		try:
-			cache.delete_pattern('*')
+			cache.clear()
 		except:
 			pass
 		if (password == password_confirm):
