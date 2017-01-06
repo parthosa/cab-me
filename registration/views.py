@@ -7,7 +7,9 @@ from .models import *
 from cab.models import *
 import requests
 import json
+from django.views.decorators.cache import cache_page
 
+@cache_page(60*10)
 def Init_Reg(request):
 	if request.POST:
 
@@ -17,6 +19,7 @@ def Init_Reg(request):
 		contact = int(request.POST['Contact'])
 		password = request.POST['Password']
 		password_confirm = request.POST['Password_confirm']
+		cache.delete_pattern('*')
 		if (password == password_confirm):
 
 			registered_members = User.objects.all()	
@@ -53,13 +56,15 @@ def Init_Reg(request):
 				otp_id = send_otp.text.split(',')[1][11:-2]	
 				print otp_id
 				request.session['contact'] = contact
+				print request.session['contact']
 				key = request.session['contact']
-				cache.set(key,
+				cust_cache = cache.set(key,
 					{'name': name,
 					 'email_id': email,
 					 'phone': contact,
 					 'otp_id': otp_id
 					})
+				print cust_cache
 
 				# return JsonResponse(status)
 				return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
@@ -70,9 +75,13 @@ def Init_Reg(request):
 			return JsonResponse(status)
 			# return HttpResponseRedirect('../../../register')
 
+@cache_page(60*10)
 def verify_otp(request):
 	cust_cache = cache.get(request.session['contact'])
+	print cust_cache
+	print request.session['contact']
 	otp = request.POST['otp']
+	print cust_cache['otp_id']
 	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
@@ -82,6 +91,7 @@ def verify_otp(request):
 		user.save()
 
 		member = UserProfile()
+		member.name = cust_cache['name']
 		member.email_id = cust_cache['email_id']
 		member.phone = cust_cache['phone']
 		member.user = user

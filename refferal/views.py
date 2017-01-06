@@ -27,6 +27,7 @@ def refer_registration(request, invite_code):
 		contact = int(request.POST['Contact'])
 		password = request.POST['Password']
 		password_confirm = request.POST['Password_confirm']
+		cache.delete_pattern('*')
 		if (password == password_confirm):
 
 			registered_members = User.objects.all()	
