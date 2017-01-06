@@ -40,24 +40,12 @@ def Init_Reg(request):
 				return JsonResponse(status)
 			
 			else:
-				print 3
-				member = UserProfile()
-				member.email_id = email
-				member.phone = contact
-				member.name = name
-
-				# member.save()				
 				user = User.objects.create_user(
 					username=email,
 					password=password)
 				user.is_active = False		
 				user.save()		
 				# user_c.save()	
-				print 4
-				member.user = user
-				print 5
-				member.save()
-				print 6
 
 				status = { "registered" : True , "id" : user.id }
 				send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)

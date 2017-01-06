@@ -6,6 +6,16 @@ from .models import *
 
 
 class UserProfile(models.Model):
+
+    stages = (
+        ('0', 'nothing'),
+        ('1', 'application downloaded'),
+        ('2', 'invited 5'),
+        ('3', 'invited 25'),
+        ('4', 'invited 65'),
+        ('5', 'invited 125'),
+        )
+
     name = models.CharField('First Name', max_length=200)
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=100)
@@ -18,7 +28,16 @@ class UserProfile(models.Model):
     invite_id = models.CharField(max_length = 20, null = True)
     invited_by = models.ForeignKey(User, null = True, related_name = 'invited_by')
     invites = models.ManyToManyField(User ,null = True, related_name = 'invites')
+    app_downloaded = models.BooleanField(default = False)
+    cabme_cash = models.BigIntegerField(default = 0)
+    refer_stage = models.CharField(max_length = 30, choices = stages, default = '0')
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.cabme_cash = 200*self.int(refer_stage)
+        super(UserProfile, self).save(*args, **kwargs)
+
+
 

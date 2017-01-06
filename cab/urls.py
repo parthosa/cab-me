@@ -1,28 +1,30 @@
 from django.views.generic import RedirectView
 from django.conf.urls import url, include
 from django.contrib import admin
-from . import views
+from cab.views import *
+from refferal import views
 
 
 urlpatterns = [
-    url(r'^bookcab/', views.bookcab, name='bookcab'),
-    url(r'^booknow/', views.booknow, name='booknow'),
-    url(r'^postcab/', views.postcab, name = 'postcab'),
-    url(r'^main/', views.index, name='index'),
-    url(r'^hotels/', views.hotels, name='hotels'),
-    url(r'^dashboard/', views.dashboard, name='dashboard'),
-    url(r'^buses/', views.bus, name='bus'),
-    url(r'^flights/', views.flights, name='flights'),
-    url(r'^blog/', views.blog, name='blog'),
-    url(r'^about/', views.about, name='about'),
-    url(r'^routes/', views.routes, name='routes'),
-    url(r'^press_release/', views.press_release, name='press_release'),
-    url(r'^faq/', views.faq, name='faq'),
-    url(r'^career/', views.career, name='career'),
-    url(r'^feedbacks/', views.feedback, name='feedback'),
-    url(r'^privacy_policy/', views.privacy_policy, name='privacy_policy'),
-    url(r'^terms_and_conditions/', views.terms_and_conditions, name='terms_and_conditions'),
-    # url(r'^search/', views.search, name='search'),
-    url(r'^summary/', views.summary, name='summary'),
-    url(r'^cab/cities/', views.cab_cities, name='cab_cities'),
+    url(r'^bookcab/', bookcab, name='bookcab'),
+    url(r'^booknow/', booknow, name='booknow'),
+    url(r'^postcab/', postcab, name = 'postcab'),
+    url(r'^main/', index, name='index'),
+    url(r'^hotels/', hotels, name='hotels'),
+    url(r'^dashboard/', dashboard, name='dashboard'),
+    url(r'^buses/', bus, name='bus'),
+    url(r'^flights/', flights, name='flights'),
+    url(r'^blog/', blog, name='blog'),
+    url(r'^about/', about, name='about'),
+    url(r'^routes/', routes, name='routes'),
+    url(r'^press_release/', press_release, name='press_release'),
+    url(r'^faq/', faq, name='faq'),
+    url(r'^career/', career, name='career'),
+    url(r'^feedbacks/', feedback, name='feedback'),
+    url(r'^privacy_policy/', privacy_policy, name='privacy_policy'),
+    url(r'^terms_and_conditions/', terms_and_conditions, name='terms_and_conditions'),
+    # url(r'^search/', search, name='search'),
+    url(r'^summary/', summary, name='summary'),
+    url(r'^cab/cities/', cab_cities, name='cab_cities'),
+    url(r'^wallet/', views.wallet, name='wallet'),
 ]
