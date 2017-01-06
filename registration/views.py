@@ -19,7 +19,10 @@ def Init_Reg(request):
 		contact = int(request.POST['Contact'])
 		password = request.POST['Password']
 		password_confirm = request.POST['Password_confirm']
-		cache.delete_pattern('*')
+		try:
+			cache.delete_pattern('*')
+		except:
+			pass
 		if (password == password_confirm):
 
 			registered_members = User.objects.all()	
