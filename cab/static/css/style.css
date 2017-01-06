@@ -1921,4 +1921,32 @@ div.sm-info p {
 .cab-img img {
     width: 260px;
 }
+
+
+
+/* EARN MONEY*/
+
+.create-code p {
+    text-align: center;
+    font-family: sans-serif;
+    margin: 12px 0px;
+}
+
+button#generate-referral-code {
+    background: #212f4c;
+    border: none;
+    padding: 11px 10px;
+    color: white;
+    font-size: 0.8em;
+    /* text-align: center; */
+}
+
+.create-code {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
 /* END DASHBOARD*/
