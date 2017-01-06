@@ -13,7 +13,9 @@
    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
    <link href="https://fonts.googleapis.com/css?family=Montserrat|Poiret+One|Raleway" rel="stylesheet">
+
    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
 </head>
 
 <body>
@@ -143,7 +145,7 @@
                             <p>OR</p>
                             <div class="social-button-wrapper">
                                 <div class="facebook-login social-button">
-                                <a href="/accounts/social/facebook/login">
+                                <a href="javascript:allauth.facebook.login%28%27%27%2C%20%27authenticate%27%2C%20%27login%27%29">
                                     <img src="{% static 'img/login-fb.png' %}">
                                     </a>
                                 </div>
@@ -293,5 +295,12 @@
   ga('send', 'pageview');
 
 </script>
+
+<div id="fb-root"></div>
+<script id="allauth-facebook-settings" type="application/json">
+{"cancelUrl": "http://cabme.in/accounts/social/social/login/cancelled/", "loginByTokenUrl": "http://cabme.in/accounts/social/facebook/login/token/", "version": "v2.4", "logoutUrl": "http://cabme.in/accounts/social/logout/", "loginOptions": {"scope": "email"}, "appId": "1726808974303193", "locale": "en_US", "loginUrl": "http://cabme.in/accounts/social/facebook/login/", "csrfToken": "gPtPxINGyhzenr5U8zkf1T9V75O8EG51", "errorUrl": "http://cabme.in/accounts/social/social/login/error/"}
+</script>
+ <script type="text/javascript" src="/static/facebook/js/fbconnect.js"></script>
+
 </body>
 </html>
