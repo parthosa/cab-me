@@ -16,8 +16,10 @@ def create_invite_code(request):
 	response = {'status': 1, 'message': 'Your invite url is' + invite_url}
 	return JsonResponse(response)
 
+
 @csrf_exempt
 def refer_registration(request, invite_code):
+	#test
 	user_i = UserProfile.objects.get(invite_id = invite_code)
 	if request.POST:
 
