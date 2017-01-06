@@ -51,6 +51,7 @@ def Init_Reg(request):
 				send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
 				send_otp = requests.get(send_otp_url)
 				otp_id = send_otp.text.split(',')[1][11:-2]	
+				print otp_id
 				request.session['contact'] = contact
 				key = request.session['contact']
 				cache.set(key,
@@ -72,9 +73,10 @@ def Init_Reg(request):
 def verify_otp(request):
 	cust_cache = cache.get(request.session['contact'])
 	otp = request.POST['otp']
-	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%status'''%(cust_cache['otp_id'], otp)
+	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
+		print 1
 		user = User.objects.get(username = cust_cache['email_id'])
 		user.is_active = True
 		user.save()
