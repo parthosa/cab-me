@@ -2,11 +2,14 @@ html,body{
 	margin: 0;
 	width: 100vw;
 	background: #efefef;
+	overflow-x:hidden 
 }
 
 .login-wrap {
+       margin: 0 auto;
     margin-top: 4em;
     margin-bottom: 2em;
+    max-width: 428px;
 }
 
 .input-wrap {
