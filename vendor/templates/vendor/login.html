@@ -1,0 +1,31 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Vendor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/vendor-app-style.css' %}">
+</head>
+<body>
+<div class="login-wrap">
+<form action="/vendor/login/" method="POST">
+{% csrf_token %}
+  <div class="input-wrap">
+  	<p class="label">PHONE</p>
+  	<input class="input-field" type="text" name="phone" required=""></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">PASSWORD</p>
+  	<input class="input-field" type="password" name="password" required=""></input>
+  </div>
+  <div class="button-wrap">
+    <button type="submit" class="submit">SIGN IN</button>
+  </div>
+</form>
+<div class="message">
+	<p>{{ message }}</p>
+</div>
+</div>
+</body>
+</html>

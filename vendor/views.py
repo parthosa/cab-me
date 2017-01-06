@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # import moment
 from datetime import datetime
 from django.core.cache import cache
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 import json, ast
@@ -15,7 +15,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 @csrf_exempt
 def Init_Reg(request):
 	if request.POST:
-
+		print request.POST
 		name = request.POST['Name']
 		email = request.POST['Email']
 		contact = int(request.POST['Contact'])
@@ -30,11 +30,13 @@ def Init_Reg(request):
 			registered_members = UserProfile.objects.all()			
 			list_of_registered_emails = [x.email for x in registered_members]
 			if email in list_of_registered_emails:
-				status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
-				return JsonResponse(status)	
+				context = {'message':'This email is already registered '}
+				return render(request, 'vendor/register.html',context)
 				# return HttpResponseRedirect('../../../register')
 			elif len(str(contact)) < 10: 
-				resp = {"status": 0, "message": 'Please enter a valid conatct number'}						
+				context = {'message':'Please enter a valid conatct number'}
+
+				return render(request, 'vendor/register.html',context)
 			# user_c = User()
 			else:
 				cab = Cab()
@@ -60,7 +62,9 @@ def Init_Reg(request):
 
 					status = { "registered" : True , "id" : user.id }
 
-					return JsonResponse(status)
+					return render(request, 'vendor/register_success.html')
+
+					# return JsonResponse(status)
 					# return HttpResponseRedirect('../../../login')
 
 				else:
@@ -80,14 +84,19 @@ def Init_Reg(request):
 					cab.save()
 					member.cabs.add(cab)
 					member.save()
+					return render(request, 'vendor/register_success.html')
 
-					return JsonResponse({'status':1, 'message':'Successfully registered'})
+					# return JsonResponse({'status':1, 'message':'Successfully registered'})
 
 		else:
-			status = { "status": 0 , "message": "Passwords do not match"}
+			context = {'message':'Passwords do not match'}
 
-			return JsonResponse(status)
+			return render(request, 'vendor/register.html',context)
+			# return JsonResponse(status)
 			# return HttpResponseRedirect('../../../register')
+	else:
+		return render(request, 'vendor/register.html')
+
 
 @csrf_exempt
 def user_login(request):
@@ -95,6 +104,7 @@ def user_login(request):
 	if request.method == 'POST':
 		username = request.POST['phone']
 		password = request.POST['password']
+		print request.POST
 		user = authenticate(username=username, password=password)
 		if user:
 			if user.is_active:
@@ -103,26 +113,29 @@ def user_login(request):
 				# 	return HttpResponseRedirect('../dashboard')	
 				# else:
 				login(request, user)
-				resp = {'successful': True, 'auth': 'User successfully logged in(success)'}
-				return JsonResponse(resp)  #HttpResponseRedirect('../dashboard/')
+				# resp = {'successful': True, 'auth': 'User successfully logged in(success)'}
+				# return JsonResponse(resp)  HttpResponseRedirect('../dashboard/')
 				#return HttpResponseRedirect('../../../user/')
+				return render(request, 'vendor/login_success.html')
 			else:
 				pass
 				# # context = {'error_heading' : "Account Inactive", 'error_message' :  'Your account is currently INACTIVE.'}
 				# # return JsonResponse(resp)
 				# return HttpResponseRedirect('../../../login/')
 		else:
-			context = {'successful': True, 'auth': 'User successfully logged in(failiure)'}
-			return JsonResponse(context)
+			context = {'message':'Try Again'}
+			# context = {'successful': True, 'auth': 'User successfully logged in(failiure)'}
+			# return JsonResponse(context)
+			return render(request, 'vendor/login.html',context)
 			# return HttpResponseRedirect('../../../login')
 	else:
-		print 'something'
-		return HttpResponseRedirect('../users/authenticate')		
+		return render(request, 'vendor/login.html')
+		# return HttpResponseRedirect('../users/authenticate')		
 
 @csrf_exempt
 def user_logout(request):
 	logout(request)
-	return redirect('registration:login')	
+	return render(request, 'vendor/login.html')
 
 @csrf_exempt
 @login_required
