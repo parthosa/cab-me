@@ -1,0 +1,67 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register Vendor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/vendor-app-style.css' %}">
+</head>
+<body>
+<div class="login-wrap">
+<form action="/vendor/register/" method="POST">
+{% csrf_token %}
+  <div class="input-wrap">
+  	<p class="label">NAME</p>
+  	<input class="input-field" type="text" name="Name" required=""></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">EMAIL ID</p>
+  	<input class="input-field" name="Email" type="email"></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">PHONE</p>
+  	<input class="input-field" name="Contact" type="text"></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">DATE OF BIRTH</p>
+  	<input class="input-field" type="date" name="date_of_birth" required=""></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">PASSWORD</p>
+  	<input class="input-field" type="password" name="Password" required=""></input>
+	</div>
+   <div class="input-wrap">
+  	<p class="label">CONFIRM PASSWORD</p>
+  	<input class="input-field" type="password" name="Password_confirm" required=""></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">CAB TYPE</p>
+  	<input class="input-field radio" type="radio" name="cab_type" value="HATCHBACK"><span class="radio-label">HATCHBACK</span><br>
+	<input class="input-field radio" type="radio" name="cab_type" value="SEDAN"><span class="radio-label">SEDAN</span><br>
+	<input class="input-field radio" type="radio" name="cab_type" value="SUV"><span class="radio-label">SUV</span>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">PROCEEDS</p>
+  	<input class="input-field radio" type="radio" name="proceeds" value="ONE WAY"><span class="radio-label">ONE WAY</span><br>
+	<input class="input-field radio" type="radio" name="proceeds" value="TWO WAY"><span class="radio-label">TWO WAY</span>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">USER TYPE</p>
+  	<input class="input-field radio" type="radio" name="member_type" value="INDIVIDUAL"><span class="radio-label">INDIVIDUAL</span><br>
+	<input class="input-field radio" type="radio" name="member_type" value="AGENCY"><span class="radio-label">AGENCY</span>
+  </div>
+  <div class="input-wrap">
+  	<p class="label">CAB NUMBER</p>
+  	<input class="input-field" name="cab_number" type="text"></input>
+  </div>
+  <div class="button-wrap">
+    <button  type="submit" class="submit">SIGN UP</button>
+  </div>
+</form>
+<div class="message">
+	<p>{{ message }}</p>
+</div>
+</div>
+</body>
+</html>

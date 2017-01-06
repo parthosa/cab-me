@@ -184,7 +184,7 @@ function sendDataAjax(data,url,updateElement='') {
 				else if(url=='/accounts/register/'){
 					if(response.status == 1){
 						$(updateElement+'.success').html(response.message);
-						setTimeout(lightbox_trigger('mobile-verification'),200);
+						setTimeout(lightbox_trigger('verify_otp'),200);
 					}
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
