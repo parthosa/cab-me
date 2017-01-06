@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def create_invite_code(request):
 	user_p = UserProfile.objects.get(user = request.user)
-	invite_code = user_p.name[0] + user_p.id + user_p.phone
+	invite_code = str(user_p.name[0]) + str(user_p.id) + str(user_p.phone)
 	invite_url = '''http://cabme.in/refer/invite/%s''' % (invite_code)
 
 	response = {'status': 1, 'message': 'Your invite url is' + invite_url}
