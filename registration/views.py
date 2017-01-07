@@ -138,7 +138,7 @@ def user_login(request):
 
 def user_logout(request):
 	logout(request)
-	return HttpResponseRedirect('../../main/')
+	return HttpResponseRedirect('../../')
 
 def social_profile_build(request):
 	s_user = SocialAccount.objects.get(user=request.user)
