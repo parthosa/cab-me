@@ -27,18 +27,25 @@ def Init_Reg(request):
 		cab_number = request.POST['cab_number']
 		if (password == password_confirm):
 
-			registered_members = UserProfile.objects.all()			
-			list_of_registered_emails = [x.email for x in registered_members]
+			registered_drivers = Driver.objects.all()	
+			registered_vendors = Vendor.objects.all()	
+			list_of_registered_emails = [x.email for x in registered_drivers] + [x.email for x in registered_vendors]
+			list_of_registered_contacts = [x.contact for x in registered_drivers] + [x.contact for x in registered_vendors]
 			if email in list_of_registered_emails:
 				context = {'message':'This email is already registered '}
 				return render(request, 'vendor/register.html',context)
+			elif contact in list_of_registered_contacts:
+				context = {'message':'This email is already registered '}
+				return render(request, 'vendor/register.html',context)
 				# return HttpResponseRedirect('../../../register')
-			elif len(str(contact)) < 10: 
+			elif len(str(contact)) != 10: 
+				print 2
 				context = {'message':'Please enter a valid conatct number'}
 
 				return render(request, 'vendor/register.html',context)
 			# user_c = User()
 			else:
+				print 1
 				cab = Cab()
 				cab.cab_type = cab_type
 				cab.cab_number = cab_number

@@ -86,7 +86,8 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 STATIC_ROOT = 'static'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
