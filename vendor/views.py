@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponseRedirect
@@ -69,7 +69,7 @@ def Init_Reg(request):
 
 					status = { "registered" : True , "id" : user.id }
 
-					return render(request, 'vendor/register_success.html')
+					return redirect('../register_success')
 
 					# return JsonResponse(status)
 					# return HttpResponseRedirect('../../../login')
@@ -91,7 +91,7 @@ def Init_Reg(request):
 					cab.save()
 					member.cabs.add(cab)
 					member.save()
-					return render(request, 'vendor/register_success.html')
+					return redirect('../register_success')
 
 					# return JsonResponse({'status':1, 'message':'Successfully registered'})
 
@@ -104,6 +104,10 @@ def Init_Reg(request):
 	else:
 		return render(request, 'vendor/register.html')
 
+
+@csrf_exempt
+def register_success(request):
+	return render(request, 'vendor/register_success.html')
 
 @csrf_exempt
 def user_login(request):
@@ -123,7 +127,7 @@ def user_login(request):
 				# resp = {'successful': True, 'auth': 'User successfully logged in(success)'}
 				# return JsonResponse(resp)  HttpResponseRedirect('../dashboard/')
 				#return HttpResponseRedirect('../../../user/')
-				return render(request, 'vendor/login_success.html')
+				return redirect('../login_success')
 			else:
 				pass
 				# # context = {'error_heading' : "Account Inactive", 'error_message' :  'Your account is currently INACTIVE.'}
@@ -138,6 +142,10 @@ def user_login(request):
 	else:
 		return render(request, 'vendor/login.html')
 		# return HttpResponseRedirect('../users/authenticate')		
+
+@csrf_exempt
+def login_success(request):
+	return render(request, 'vendor/login_success.html')
 
 @csrf_exempt
 def user_logout(request):
