@@ -20,7 +20,7 @@ $(document).ready(function(){
   });
 
 	$("#owl-demo-3").owlCarousel({
-	    jsonPath : "data.json" ,
+	    jsonPath : "/static/data.json" ,
   });
 
 
