@@ -170,4 +170,22 @@ def add_cab(request):
 		driver.cabs.add(cab)
 		driver.save()
 
-	return JsonResponse({'status': 1, 'message': 'The cab has been successfully added'})
+	response = {'status': 1, 'message': 'The cab has been successfully added'}
+	return render(request, 'vendor/view_cabs.html',response)
+
+@csrf_exempt
+@login_required
+def view_cabs(request):
+	try:
+		driver = Driver.objects.get(user = request.user)
+
+	except ObjectDoesNotExist:
+		driver = Vendor.objects.get(user = request.user)
+
+	cab_list = []
+
+	for cab in driver.cabs:
+		cab_list.append({'cab_type': cab.cab_type, 'cab_number': cab.cab_number})
+
+	response = {'cabs': cab_list}
+	return render(request, 'vendor/view_cabs.html',response)

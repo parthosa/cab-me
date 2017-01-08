@@ -1,11 +1,11 @@
 html,body{
-	margin: 0;
-	width: 100vw;
-	background: #efefef;
-	overflow-x:hidden 
+    margin: 0;
+    width: 100vw;
+    background: #efefef;
+    overflow-x:hidden 
 }
 
-.login-wrap {
+.container-wrap{
        margin: 0 auto;
     margin-top: 4em;
     margin-bottom: 2em;
@@ -43,6 +43,7 @@ button.submit {
     width: 100%;
     padding: 15px;
     font-size: 0.9em;
+    cursor: pointer;
 }
 
 input.input-field.radio {
@@ -64,4 +65,15 @@ span.radio-label {
     font-family: sans-serif;
     padding: 12px;
     text-align: center;
+}
+
+p.cab-item-detail {
+    margin: 21px 12px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    color: #333;
+}
+
+form.hidden_form{
+    display: none;
 }
