@@ -62,7 +62,7 @@ def Init_Reg(request):
 					# user_c.save()	
 					member.user = user
 					member.save()
-					cab.driver = member
+					cab.vendor = member
 					cab.save()
 					member.cabs.add(cab)
 					member.save()
@@ -178,9 +178,12 @@ def view_cabs(request):
 	if request.POST:
 		try:
 			driver = Driver.objects.get(user = request.user)
+			print driver
 		except ObjectDoesNotExist:
 			driver = Vendor.objects.get(user = request.user)
+			print driver
 
+		print driver.cabs
 		cab_list = []
 
 		for cab in driver.cabs:

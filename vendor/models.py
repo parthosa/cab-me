@@ -45,8 +45,12 @@ class Cab(models.Model):
 		('Hatchback', 'Hatchback')
 		)
 	cab_type = models.CharField(choices = cab_type, max_length = 50)	
-	driver = models.OneToOneField(Driver, Vendor)
+	driver = models.ForeignKey(Driver, null = True)
+	vendor = models.ForeignKey(Vendor, null = True)
 	cab_number = models.CharField(max_length = 60, null = True)
 
 	def __unicode__(self):
-		return self.driver.name
+		try:
+			return self.driver.name
+		except:
+			return self.vendor.name
