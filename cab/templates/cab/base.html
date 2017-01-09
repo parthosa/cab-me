@@ -50,7 +50,7 @@
                </ul>
                <ul class="account-menu sm-menu">
                       
-                     <li id="menu-trigger">☰</li>
+                     <li id="menu-trigger"><img src="{% static 'img/ham2.svg' %}" style="width: 30px;"></li>
                    
                </ul>
          </div>
@@ -348,7 +348,7 @@
 </script>
  <script type="text/javascript" src="/static/facebook/js/fbconnect.js"></script>
 <script type="text/javascript">
-  var i=location.href.indexOf('?')
+  var i=location.href.indexOf('#')
 if(i!=-1)
 {
   var lightBox = location.href.substr(i+1);
