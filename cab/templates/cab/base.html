@@ -5,8 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-   <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8"> 
-   <link rel="stylesheet" href="{% static 'css/responsive.css' %}" media="screen" title="no title" charset="utf-8">
+   <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
    </script>
    <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}">
@@ -22,6 +21,113 @@
 </head>
 
 <body>
+
+<div id="fb-root"></div>
+<script>
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1726808974303193', // Set YOUR APP ID
+      channelUrl : 'http://cabme.in', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+ 
+    FB.Event.subscribe('auth.authResponseChange', function(response) 
+    {
+     if (response.status === 'connected') 
+    {
+        document.getElementById("message").innerHTML +=  "<br>Connected to Facebook";
+        //SUCCESS
+ 
+    }    
+    else if (response.status === 'not_authorized') 
+    {
+        document.getElementById("message").innerHTML +=  "<br>Failed to Connect";
+ 
+        //FAILED
+    } else 
+    {
+        document.getElementById("message").innerHTML +=  "<br>Logged Out";
+ 
+        //UNKNOWN ERROR
+    }
+    }); 
+ 
+    };
+ 
+    function Login()
+    {
+ 
+        FB.login(function(response) {
+           if (response.authResponse) 
+           {
+                getUserInfo();
+            } else 
+            {
+             console.log('User cancelled login or did not fully authorize.');
+            }
+         },{scope: 'email,user_photos,user_videos'});
+ 
+    }
+ 
+  function getUserInfo() {
+        FB.api('/me', function(response) {
+ 
+      var str="<b>Name</b> : "+response.name+"<br>";
+          str +="<b>Link: </b>"+response.link+"<br>";
+          str +="<b>Username:</b> "+response.username+"<br>";
+          str +="<b>id: </b>"+response.id+"<br>";
+          str +="<b>Email:</b> "+response.email+"<br>";
+          str +="<input type='button' value='Get Photo' onclick='getPhoto();'/>";
+          str +="<input type='button' value='Logout' onclick='Logout();'/>";
+          document.getElementById("status").innerHTML=str;
+ 
+    });
+    }
+    function getPhoto()
+    {
+      FB.api('/me/picture?type=normal', function(response) {
+ 
+          var str="<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";
+          document.getElementById("status").innerHTML+=str;
+ 
+    });
+ 
+    }
+    function Logout()
+    {
+        FB.logout(function(){document.location.reload();});
+    }
+ 
+  // Load the SDK asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+ 
+</script>
+<div align="center">
+<h2>Facebook OAuth Javascript</h2>
+ 
+<div id="status">
+ Click on Below Image to login: <br/>
+<img src="http://hayageek.com/examples/oauth/facebook/oauth-javascript/LoginWithFacebook.png" style="cursor:pointer;" onclick="Login()"/>
+</div>
+ 
+<br/><br/><br/><br/><br/>
+ 
+<div id="message">
+Logs:<br/>
+</div>
+ 
+</div>
+ 
+</script>
 
    <div class="landing-wrapper">
        <div class="nav">
@@ -289,43 +395,6 @@
   </div>
 </div>
 </div>
-</div>
-<div class="sm-footer">
-   <div class="row">
-        <div class="col-s1 left-footer">
-        <div class="row logo-footer">
-            <img src="{% static 'img/logo-inv.png' %}" alt="">
-        </div>
-        <div class="row follow">
-           <ul>
-                <li><img src="{% static 'img/fb-logo.png' %}"></li>
-                <li><img src="{% static 'img/twitter-logo.png' %}"></li>
-                <li><img src="{% static 'img/insta-logo.png' %}"></li>
-            </ul>
-        </div>
-        <div class="row apps">
-            <div class="col">
-                <img src="{% static 'img/playstore.png' %}" alt="">
-            </div>
-            <div class="col">
-                <img src="{% static 'img/applestore.png' %}" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="right-footer">
-        <ul class="sm-footer-links">
-   <li><a href="{% url 'cab:about' %}">About</a></li>
-            <li><a href="{% url 'cab:faq' %}">FAQ</a></li>
-            <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
-            <li><a href="{% url 'cab:press_release' %}">Press Release</a></li>
-            <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions
-           <li><a href="{% url 'cab:blog' %}">Blog</a></li>
-          <li><a href="{% url 'cab:career' %}">Career</a></li>
-          <li><a href="{% url 'cab:index' %}">Testimonials</a></li>
-          <li><a href="{% url 'cab:index' %}">Feedback</a></li>
-        </ul>
-    </div>
-    </div>
 </div>
 </div>
 <script src="{% static 'js/script.js' %}"></script>
