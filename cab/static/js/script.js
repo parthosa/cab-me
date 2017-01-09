@@ -369,11 +369,11 @@ $('.login-reg .headers li').click(function () {
 	$(this).addClass('active');
 	if($(this).html()=='Sign In'){
 		$('.form-inner form').hide();
-		$('form#login-form').show();
+		$('form#login-form').show().css('display','flex');
 	}
 	else{
 		$('.form-inner form').hide();
-		$('form#register-form').show();
+		$('form#register-form').show().css('display','flex');
 	}
 })
 

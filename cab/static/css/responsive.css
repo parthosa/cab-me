@@ -8,6 +8,11 @@
     display: none;
   }
 
+
+  .menu{
+    display: flex;
+  }
+
   .logo{
     left: 0;
   }
@@ -18,6 +23,7 @@
 
 ul.account-menu.sm-menu{
     display: inline-block;
+    padding: 0;
   }
 
   .card{
@@ -182,5 +188,57 @@ ul.sm-footer-links {
 button.form-submit {
     width: 80%;
     padding: 12px 14px;
+}
+
+.no-header{
+  top:-14vh;
+}
+
+.search-headers .col-s5 {
+    width: 100%;
+    border-right: none;
+    /* border-bottom: 1px solid #b8b8b8; */
+    padding: 3px 0px;
+}
+
+
+.login-form-wrapper.row .col-s2 {
+    width: 100%;
+}
+
+.login-form-wrapper.row {
+    flex-direction: column;
+    margin: 0;
+}
+
+.lightbox-inner.login-reg {
+    height: auto;
+    min-height: 63vh;
+}
+
+form#login-form {
+    width: 100%;
+}
+
+input.input-field {
+    width: 80vw !important;
+    margin: 10px;
+    font-size: 1.2em !important;
+}
+
+.form-inner {
+    width: 100%;
+}
+
+button#sign-in {
+    font-size: 1.4em;
+}
+
+p.message-login {
+    font-size: 1em;
+}
+
+p.forgot-pass {
+    font-size: 1em;
 }
 }

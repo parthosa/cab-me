@@ -1584,7 +1584,7 @@ p.forgot-pass {
 }
 
 form#login-form{
-  display: block;
+  display: flex;
 }
 
 .forgot-pass-text{
