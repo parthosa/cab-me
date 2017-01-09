@@ -18,7 +18,7 @@
  </p>
  </div>
 {% endfor %}
-
+{% if isVendor %}
 <form action="/vendor/add_cab/" method="POST" class="hidden_form">
 {% csrf_token %}
   <div class="input-wrap">
@@ -42,6 +42,7 @@
  <div class="button-wrap">
     <button type="submit" class="submit view_form" onclick="view_form()">ADD CAB</button>
   </div>
+{% endif %}
 </div>
 
 <div class="message">
@@ -50,16 +51,16 @@
 </div>
 <script type="text/javascript">
 var add_cab_form=document.querySelector('.hidden_form');
-var view_form=document.querySelector('.view_form');
+var view_form_btn=document.querySelector('.view_form');
 
 function view_form() {
 	add_cab_form.style.display='block';
-	view_form.style.display='none';
+	view_form_btn.style.display='none';
 }
 
 function hide_form() {
 	add_cab_form.style.display='none';
-	view_form.style.display='block';
+	view_form_btn.style.display='block';
 }
 
 

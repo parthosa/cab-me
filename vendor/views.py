@@ -153,7 +153,7 @@ def user_logout(request):
 	return render(request, 'vendor/login.html')
 
 @csrf_exempt
-@login_required
+@login_required(login_url='/vendor/login')
 def add_cab(request):
 	if request.POST:
 		try:
@@ -173,8 +173,9 @@ def add_cab(request):
 	response = {'status': 1, 'message': 'The cab has been successfully added'}
 	return render(request, 'vendor/view_cabs.html',response)
 
+
 @csrf_exempt
-@login_required
+@login_required(login_url='/vendor/login')
 def view_cabs(request):
 	try:
 		driver = Driver.objects.get(user = request.user)
@@ -183,9 +184,12 @@ def view_cabs(request):
 		driver = Vendor.objects.get(user = request.user)
 
 	cab_list = []
-
-	for cab in driver.cabs:
-		cab_list.append({'cab_type': cab.cab_type, 'cab_number': cab.cab_number})
-
-	response = {'cabs': cab_list}
+	print driver.cabs
+	try:
+		# many related objects is not iterable aa rha hai
+		for cab in driver.cabs:
+			cab_list.append({'cab_type': cab.cab_type, 'cab_number': cab.cab_number})
+	except:
+		pass
+	response = {'cabs': cab_list,'isVendor':isinstance(driver,Vendor)}
 	return render(request, 'vendor/view_cabs.html',response)

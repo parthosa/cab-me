@@ -49,4 +49,4 @@ class Cab(models.Model):
 	cab_number = models.CharField(max_length = 60, null = True)
 
 	def __unicode__(self):
-		return self.driver.name
+		return self.cab_number
