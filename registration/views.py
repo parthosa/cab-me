@@ -88,21 +88,38 @@ def verify_otp(request):
 	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
-		print 1
-		user = User.objects.get(username = cust_cache['email_id'])
-		user.is_active = True
-		user.save()
+		if not 'fbid' in cust_cache:
+			user = User.objects.get(username = cust_cache['email_id'])
+			user.is_active = True
+			user.save()
 
-		member = UserProfile()
-		member.name = cust_cache['name']
-		member.email_id = cust_cache['email_id']
-		member.phone = cust_cache['phone']
-		member.user = user
-		member.save()
+			member = UserProfile()
+			member.name = cust_cache['name']
+			member.email_id = cust_cache['email_id']
+			member.phone = cust_cache['phone']
+			member.user = user
+			member.save()
 
-		cache.delete(request.session['contact'])
+			cache.delete(request.session['contact'])
 
-		resp = {'status': 1 , 'message': 'You have successfully verified your phone number. You can login now'}
+			resp = {'status': 1 , 'message': 'You have successfully verified your phone number. You can login now'}
+
+		else:
+			user = User.objects.get(username = cust_cache['fbid'])
+			user.is_active = True
+			user.save()
+
+			member = UserProfile()
+			member.name = cust_cache['name']
+			member.email_id = cust_cache['email_id']
+			member.phone = cust_cache['phone']
+			member.fbid = cust_cache['fbid']
+			member.user = user
+			member.save()
+
+			cache.delete(request.session['contact'])
+
+			resp = {'status': 1 , 'message': 'You have successfully verified your phone number. You can login now'}
 
 	else:
 		resp = {'status': 0, 'message': 'The OTP you entered is incorrect. Kindly check it again'}
@@ -140,52 +157,56 @@ def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect('../../')
 
-def social_profile_build(request):
-	s_user = SocialAccount.objects.get(user=request.user)
-	request.user.is_active = False
-	request.user.save()
-	context = {}
-	try:
-		email = s_user.extra_data['email']
-	except:
-		email = None
-# p_user = UserProfile.objects.get()
+@cache_page(60*10)
+def social_login_fb(request):
 	if request.POST:
-		userp_exists = False
-		user_exist = False
-
+		cache.clear()
+		fbid = request.POST['fbid']
+		name = request.POST['Name']
+		email = request.POST['Email']
 		try:
-			UserProfile.objects.get(email_id=request.POST['email'])
-			userp_exists = True
+			user_p = UserProfile.objects.get(fbid=fbid)
 		except:
-			pass
+			request.session['fbid'] = fbid
+			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
+			user.create(
+				username = fbid,
+				password = fbid
+				)
+			user.is_active = False
+			user.save()
+			key = request.session['fbid']
+			cache.set(key,
+				{'name': name,
+				 'fbid': fbid,
+				 'email': email
+				})
 
-		try:
-			User.objects.get(email=request.POST['email'])
-			user_exist = True
-		except:
-			pass
-			
-		if userp_exists or user_exist:
-			context['error_message'] = 'This email is already registered.'
-			context['status'] = 0
-			return JsonResponse(context)
-		
-		p_user.phone = request.POST['phone']
-		send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
-		send_otp = requests.get(send_otp_url)
-		otp_id = send_otp.text.split(',')[1][11:-2]	
-		request.session['contact'] = p_user.phone
-		key = request.session['contact']
-		cache.set(key,
-			{'name': name,
-			 'phone': p_user.phone,
-			 'otp_id': otp_id
-			})
-		try:
-			p_user.email_id = s_user.extra_data['email']
-		except:
-			p_user.email_id = request.POST['email']
+		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})
 
-		return JsonResponse({'status' :1, 'message': 'An otp has been sent to your contact number to verify the same.'})
-	return JsonResponse({'status': 1, 'message': 'An otp has been sent to your contact number to verify the same'})		
+@cache_page(60*10)
+def social_contact(request):
+	contact = request.POST['phone']
+	send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
+	send_otp = requests.get(send_otp_url)
+	otp_id = send_otp.text.split(',')[1][11:-2]
+	prev_cache = cache.get(request.session['fbid'])
+	request.session['contact'] = contact
+
+	name = prev_cache.name
+	email = prev_cache.email
+	fbid = prev_cache.fbid
+	cache.clear()
+
+	key = request.session['contact']
+	cust_cache = cache.set(key,
+		{'name': name,
+		 'email_id': email,
+		 'phone': contact,
+		 'otp_id': otp_id,
+		 'fbid': fbid
+		})
+
+	# return JsonResponse(status)
+	return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/verify_otp'})
+
