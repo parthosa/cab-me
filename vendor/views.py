@@ -62,7 +62,7 @@ def Init_Reg(request):
 					# user_c.save()	
 					member.user = user
 					member.save()
-					cab.driver = member
+					cab.vendor = member
 					cab.save()
 					member.cabs.add(cab)
 					member.save()
@@ -179,17 +179,18 @@ def add_cab(request):
 def view_cabs(request):
 	try:
 		driver = Driver.objects.get(user = request.user)
-
+		cabs = Cab.objects.filter(driver = driver)
+		print driver
 	except ObjectDoesNotExist:
 		driver = Vendor.objects.get(user = request.user)
+		cabs = Cab.objects.filter(vendor = driver)
 
+	print cabs
 	cab_list = []
-	print driver.cabs
-	try:
-		# many related objects is not iterable aa rha hai
-		for cab in driver.cabs:
-			cab_list.append({'cab_type': cab.cab_type, 'cab_number': cab.cab_number})
-	except:
-		pass
-	response = {'cabs': cab_list,'isVendor':isinstance(driver,Vendor)}
+
+	for cab in cabs:
+		cab_list.append({'cab_type': cab.cab_type, 'cab_number': cab.cab_number})
+
+	response = {'cabs': cab_list, 'isVendor':isinstance(driver,Vendor)}
+	
 	return render(request, 'vendor/view_cabs.html',response)
