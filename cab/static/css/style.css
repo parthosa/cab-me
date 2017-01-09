@@ -21,6 +21,11 @@ html,body{
     align-items: center; 
 }
 
+ul.account-menu.sm-menu{
+  display: none;
+
+}
+
 .nav-inner{
   color: #212f4c;
   padding: 9px 26px;
@@ -613,6 +618,9 @@ button.form-submit {
     font-weight: 600;
 }
 
+.sm-footer {
+  display: none;
+}
 
 .footer{
   display: flex;
@@ -1954,3 +1962,5 @@ button#generate-referral-code {
     /* align-items: center; */
 }
 /* END DASHBOARD*/
+
+
