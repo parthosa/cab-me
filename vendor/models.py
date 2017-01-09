@@ -50,7 +50,6 @@ class Cab(models.Model):
 	cab_number = models.CharField(max_length = 60, null = True)
 
 	def __unicode__(self):
-		try:
-			return self.driver.name
-		except:
-			return self.vendor.name
+
+		return self.cab_number
+

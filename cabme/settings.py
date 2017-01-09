@@ -57,8 +57,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
 )
 
-AUTHENTICATION_BACKENDS = ('social_auth.backends.facebook.FacebookBackend',
-                            'django.contrib.auth.backends.ModelBackend')
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

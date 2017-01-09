@@ -1,0 +1,70 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View Cabs Vendor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/vendor-app-style.css' %}">
+</head>
+<body>
+
+<div class="container-wrap">
+{% for cab in cabs %}
+ <div class="cab-item">
+ <p class="cab-item-detail">
+ <span class="cab-type">{{cab.cab_type}}</span>&nbsp;-&nbsp;
+ <span class="cab-number">{{cab.cab_number}}</span>
+ </p>
+ </div>
+{% endfor %}
+{% if isVendor %}
+<form action="/vendor/add_cab/" method="POST" class="hidden_form">
+{% csrf_token %}
+  <div class="input-wrap">
+  	<p class="label">CAB TYPE</p>
+  	<input class="input-field" type="text" name="cab_type" required=""></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">CAB NUMBER</p>
+  	<input class="input-field" type="text" name="cab_number" required=""></input>
+  </div>
+  <div class="two-button-wrap">
+  <div class="button-wrap">
+    <button type="submit" class="submit">ADD CAB</button>
+  </div>
+  <div class="button-wrap">
+    <button class="submit cancel_form" onclick="hide_form()">CANCEL</button>
+  </div>
+  </div>
+</form>
+
+ <div class="button-wrap">
+    <button type="submit" class="submit view_form" onclick="view_form()">ADD CAB</button>
+  </div>
+{% endif %}
+</div>
+
+<div class="message">
+	<p>{{ message }}</p>
+</div>
+</div>
+<script type="text/javascript">
+var add_cab_form=document.querySelector('.hidden_form');
+var view_form_btn=document.querySelector('.view_form');
+
+function view_form() {
+	add_cab_form.style.display='block';
+	view_form_btn.style.display='none';
+}
+
+function hide_form() {
+	add_cab_form.style.display='none';
+	view_form_btn.style.display='block';
+}
+
+
+
+</script>
+</body>
+</html>

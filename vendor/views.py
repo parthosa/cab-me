@@ -153,7 +153,7 @@ def user_logout(request):
 	return render(request, 'vendor/login.html')
 
 @csrf_exempt
-@login_required
+@login_required(login_url='/vendor/login')
 def add_cab(request):
 	if request.POST:
 		try:
@@ -170,24 +170,27 @@ def add_cab(request):
 		driver.cabs.add(cab)
 		driver.save()
 
-	return JsonResponse({'status': 1, 'message': 'The cab has been successfully added'})
+	response = {'status': 1, 'message': 'The cab has been successfully added'}
+	return render(request, 'vendor/view_cabs.html',response)
+
 
 @csrf_exempt
-@login_required
+@login_required(login_url='/vendor/login')
 def view_cabs(request):
-	if request.POST:
-		try:
-			driver = Driver.objects.get(user = request.user)
-			print driver
-		except ObjectDoesNotExist:
-			driver = Vendor.objects.get(user = request.user)
-			print driver
+	try:
+		driver = Driver.objects.get(user = request.user)
+		cabs = Cab.objects.filter(driver = driver)
+		print driver
+	except ObjectDoesNotExist:
+		driver = Vendor.objects.get(user = request.user)
+		cabs = Cab.objects.filter(vendor = driver)
 
-		print driver.cabs
-		cab_list = []
+	print cabs
+	cab_list = []
 
-		for cab in driver.cabs:
-			cab_list.append({'cab_type': cab.cab_type, 'cab_number': cab.cab_number})
+	for cab in cabs:
+		cab_list.append({'cab_type': cab.cab_type, 'cab_number': cab.cab_number})
 
-		response = {'cabs': cab_list}
-		return JsonResponse(response)
+	response = {'cabs': cab_list, 'isVendor':isinstance(driver,Vendor)}
+	
+	return render(request, 'vendor/view_cabs.html',response)
