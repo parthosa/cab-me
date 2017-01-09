@@ -397,6 +397,43 @@ Logs:<br/>
 </div>
 </div>
 </div>
+<div class="sm-footer">
+   <div class="row">
+        <div class="col-s1 left-footer">
+        <div class="row logo-footer">
+            <img src="{% static 'img/logo-inv.png' %}" alt="">
+        </div>
+        <div class="row follow">
+           <ul>
+                <li><img src="{% static 'img/fb-logo.png' %}"></li>
+                <li><img src="{% static 'img/twitter-logo.png' %}"></li>
+                <li><img src="{% static 'img/insta-logo.png' %}"></li>
+            </ul>
+        </div>
+        <div class="row apps">
+            <div class="col">
+                <img src="{% static 'img/playstore.png' %}" alt="">
+            </div>
+            <div class="col">
+                <img src="{% static 'img/applestore.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="right-footer">
+        <ul class="sm-footer-links">
+   <li><a href="{% url 'cab:about' %}">About</a></li>
+            <li><a href="{% url 'cab:faq' %}">FAQ</a></li>
+            <li><a href="{% url 'cab:privacy_policy' %}">Privacy Policy</a></li>
+            <li><a href="{% url 'cab:press_release' %}">Press Release</a></li>
+            <li><a href="{% url 'cab:terms_and_conditions' %}">Terms And Conditions
+           <li><a href="{% url 'cab:blog' %}">Blog</a></li>
+          <li><a href="{% url 'cab:career' %}">Career</a></li>
+          <li><a href="{% url 'cab:index' %}">Testimonials</a></li>
+          <li><a href="{% url 'cab:index' %}">Feedback</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
 </div>
 <script src="{% static 'js/script.js' %}"></script>
 
