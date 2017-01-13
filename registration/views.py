@@ -210,3 +210,66 @@ def social_contact(request):
 	# return JsonResponse(status)
 	return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/verify_otp'})
 
+def user_login_app(request):
+
+	if request.method == 'POST':
+		# m sending email...
+		# email = request.POST['email']
+		username = request.POST['email']
+		password = request.POST['password']
+		print username
+		print password
+		user = authenticate(username=username, password=password)
+		user_p = UserProfile.objects.get(user = user)
+		if user:
+			if user_p.refer_stage > 0:
+				if cache.get(request.user.id) is not None:
+					login(request, user)
+					return HttpResponseRedirect('../../feedback/')	
+				else:
+					login(request, user)
+					return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
+
+			else:
+				user_p.refer_stage == '1'
+				user_p.save()
+				if cache.get(request.user.id) is not None:
+					login(request, user)
+					return HttpResponseRedirect('../../feedback/')	
+				else:
+					login(request, user)
+					return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
+		else:
+			context = {'status': 0,'error_heading' : "Invalid Login Credentials", 'message' :  'Invalid Login Credentials. Please try again'}
+			return JsonResponse(context) #render(request, 'main/login.html', context)
+	else:
+		return render(request, 'main/login.html')	
+
+@cache_page(60*10)
+def social_login_fb_app(request):
+	if request.POST:
+		cache.clear()
+		fbid = request.POST['fbid']
+		name = request.POST['Name']
+		email = request.POST['Email']
+		try:
+			user_p = UserProfile.objects.get(fbid=fbid)
+			user_p.refer_stage = '1'
+			user_p.save()
+		except:
+			request.session['fbid'] = fbid
+			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
+			user.create(
+				username = fbid,
+				password = fbid
+				)
+			user.is_active = False
+			user.save()
+			key = request.session['fbid']
+			cache.set(key,
+				{'name': name,
+				 'fbid': fbid,
+				 'email': email
+				})
+
+		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})	
