@@ -297,6 +297,19 @@ $('#sign-up').click(function (ev) {
 })
 
 
+$('#refer-sign-up').click(function (ev) {
+	ev.preventDefault();
+	var data={
+		Name:$(this).closest('#register-form').find('input[name=name]').val(),
+		Contact:$(this).closest('#register-form').find('input[name=phone]').val(),
+		Email:$(this).closest('#register-form').find('input[name=email]').val(),
+		Password:$(this).closest('#register-form').find('input[name=password]').val(),
+		Password_confirm:$(this).closest('#register-form').find('input[name=password_confirm]').val()
+	}
+	sendDataAjax(data,location.pathname,'.message-login');
+})
+
+
 
 
 $('#reset-pass').click(function(ev){
@@ -320,7 +333,7 @@ $('.inner-dash ul li').click(function () {
 	var block=$(this).attr('data-block');
 
 	if(block == 'earn-money')
-		sendDataAjax({},'/refferal/get_invite_url/','#generate-referral-code')
+		sendDataAjax({},'/refferal/get_invite_url/','#invite_message')
 	location.hash=block;
 	$('.dashboard-details').hide();
 	$('.' + block).show().css({
