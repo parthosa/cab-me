@@ -1712,7 +1712,7 @@ p.info-text {
 }
 
 .info-form .input-wrap-2 {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
 .info-form button {
@@ -1731,7 +1731,10 @@ p.info-text {
     width: 100%;
 }
 
-
+p.info-inner-text {
+    color: rgb(240, 240, 154);
+    margin: 0;
+}
 /* END LIGHTBOX*/
 
 

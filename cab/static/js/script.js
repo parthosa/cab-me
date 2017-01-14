@@ -196,8 +196,9 @@ function sendDataAjax(data,url,updateElement='') {
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
 				}
-				else if(url == '/accounts/facebook/login/')
+				else if(url == '/accounts/facebook/login/' && response.status == 1)
 				{
+					lightbox_trigger('additional-info')
 					// var data;
 					//  FB.api('/me', function(response) {
 					//  	data = {
@@ -206,7 +207,11 @@ function sendDataAjax(data,url,updateElement='') {
 					// 		'fbid': response.id
 					// 	}
 					// });
-					console.log(data)
+					// console.log(data)
+				}
+				else if(url == '/accounts/social/facebook/info/' && response.status == 1)
+				{
+					lightbox_trigger('verify_otp')
 				}
 				else{
 					$(updateElement).html(response.message);
@@ -397,9 +402,10 @@ $('#view_bookings').click(function(){
 $('#social-info-submit').click(function(ev){
 	ev.preventDefault();
 	var data = {
-			'phone':$(this).closest('form').find('input[name=phone]').val(),
+			'Phone':$(this).closest('form').find('input[name=phone]').val(),
+			'Email':$(this).closest('form').find('input[name=email]').val(),
 	}
-	sendDataAjax(data,'/accounts/social/phoneUpdate/','.message.fail')
+	sendDataAjax(data,'/accounts/social/facebook/info/','.message.fail')
 })
 
 
@@ -435,7 +441,6 @@ $('#otp-submit').click(function(ev){
         FB.api('/me', function(response) {
         	console.log(response)
 		data = {
-							'Email': response.email,
 							'Name': response.name,
 							'fbid': response.id
 						} 		
