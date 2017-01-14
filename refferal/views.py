@@ -44,30 +44,50 @@ def refer_registration(request, invite_code):
 			list_of_registered_emails = [x.username for x in registered_members]
 			registered_contacts = UserProfile.objects.all()
 			list_of_registered_contacts = [x.phone for x in registered_contacts]
-			if email in list_of_registered_emails:
+			try User.objects.get(username = email).is_active:
+			# if email in list_of_registered_emails:
 				status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
 
 				return JsonResponse(status)	
 				# return HttpResponseRedirect('../../../register')
+			except:
+				if len(str(contact)) != 10: 
+					resp = {"status": 0, "message": 'Please enter a valid contact number'}	
+					
+					return JsonResponse(resp)					
+				# user_c = User()
+				elif contact in list_of_registered_contacts:
+					status = { "status" : 0 , "message" : "This phone number is already registered! Please Refresh the page to register with another contact number . " }
 
-			elif len(str(contact)) != 10: 
-				resp = {"status": 0, "message": 'Please enter a valid contact number'}	
+					return JsonResponse(status)
 				
-				return JsonResponse(resp)					
-			# user_c = User()
-			elif contact in list_of_registered_contacts:
-				status = { "status" : 0 , "message" : "This phone number is already registered! Please Refresh the page to register with another contact number . " }
+				else:
+					user = User.objects.create_user(
+						username=email,
+						password=password)
+					user.is_active = False		
+					user.save()		
+					# user_c.save()	
 
-				return JsonResponse(status)
-			
+					status = { "registered" : True , "id" : user.id }
+					send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
+					send_otp = requests.get(send_otp_url)
+					otp_id = send_otp.text.split(',')[1][11:-2]	
+					request.session['contact'] = contact
+					key = request.session['contact']
+					cache.set(key,
+						{'name': name,
+						 'email_id': email,
+						 'phone': contact,
+						 'otp_id': otp_id,
+						 'invite_code': invite_code
+						})
+
+					# return JsonResponse(status)
+					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
+
 			else:
-				user = User.objects.create_user(
-					username=email,
-					password=password)
-				user.is_active = False		
-				user.save()		
-				# user_c.save()	
-
+				cache.clear()
 				status = { "registered" : True , "id" : user.id }
 				send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
 				send_otp = requests.get(send_otp_url)
@@ -83,8 +103,7 @@ def refer_registration(request, invite_code):
 					})
 
 				# return JsonResponse(status)
-				return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
-
+				return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})	
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
 
