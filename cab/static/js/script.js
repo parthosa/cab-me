@@ -209,7 +209,7 @@ function sendDataAjax(data,url,updateElement='') {
 					// });
 					// console.log(data)
 				}
-				else if(url == '/accounts/social/facebook/info/' && response.status == 1)
+				else if(url == '/accounts/social/contact/' && response.status == 1)
 				{
 					lightbox_trigger('verify_otp')
 				}
@@ -402,10 +402,10 @@ $('#view_bookings').click(function(){
 $('#social-info-submit').click(function(ev){
 	ev.preventDefault();
 	var data = {
-			'Phone':$(this).closest('form').find('input[name=phone]').val(),
+			'phone':$(this).closest('form').find('input[name=phone]').val(),
 			'Email':$(this).closest('form').find('input[name=email]').val(),
 	}
-	sendDataAjax(data,'/accounts/social/facebook/info/','.message.fail')
+	sendDataAjax(data,'/accounts/social/contact/','.message.fail')
 })
 
 
