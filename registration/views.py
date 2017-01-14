@@ -158,7 +158,7 @@ def user_login(request):
 		print username
 		print password
 		user = authenticate(username=username, password=password)
-		if user:
+		if user.is_active:
 			print 2
 			if cache.get(request.user.id) is not None:
 				login(request, user)
@@ -166,6 +166,8 @@ def user_login(request):
 			else:
 				login(request, user)
 				return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
+		elif not user.is_active:
+			return JsonResponse({'status': 0, 'message': 'Kindly complete your registration first by verifying your contact number'})
 		else:
 			context = {'status': 0,'error_heading' : "Invalid Login Credentials", 'message' :  'Invalid Login Credentials. Please try again'}
 			return JsonResponse(context) #render(request, 'main/login.html', context)
@@ -259,6 +261,9 @@ def user_login_app(request):
 				else:
 					login(request, user)
 					return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
+		elif not user.is_active:
+			return JsonResponse({'status': 0, 'message': 'Kindly complete your registration first by verifying your contact number'})
+
 		else:
 			context = {'status': 0,'error_heading' : "Invalid Login Credentials", 'message' :  'Invalid Login Credentials. Please try again'}
 			return JsonResponse(context) #render(request, 'main/login.html', context)
