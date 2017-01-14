@@ -196,16 +196,16 @@ function sendDataAjax(data,url,updateElement='') {
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
 				}
-				else if(url == '/accounts/facebook/login')
+				else if(url == '/accounts/facebook/login/')
 				{
-					var data;
-					 FB.api('/me', function(response) {
-					 	data = {
-							'Email': response.email,
-							'Name': response.name,
-							'fbid': response.id
-						}
-					});
+					// var data;
+					//  FB.api('/me', function(response) {
+					//  	data = {
+					// 		'Email': response.email,
+					// 		'Name': response.name,
+					// 		'fbid': response.id
+					// 	}
+					// });
 					console.log(data)
 				}
 				else{
@@ -412,3 +412,56 @@ $('#otp-submit').click(function(ev){
 })
 
 
+
+// FACEBOOK LOGIN
+
+ function Login()
+    {
+ 
+        FB.login(function(response) {
+           if (response.authResponse) 
+           {
+                getUserInfo();
+            } else 
+            {
+             console.log('User cancelled login or did not fully authorize.');
+            }
+         },{scope: 'email,user_photos,user_videos'});
+ 
+    }
+ 
+  function getUserInfo() {
+  	var data;
+        FB.api('/me', function(response) {
+		data = {
+							'Email': response.email,
+							'Name': response.name,
+							'fbid': response.id
+						} 		
+
+        sendDataAjax(data,'/accounts/facebook/login/')
+      // var str="<b>Name</b> : "+response.name+"<br>";
+      //     str +="<b>Link: </b>"+response.link+"<br>";
+      //     str +="<b>Username:</b> "+response.username+"<br>";
+      //     str +="<b>id: </b>"+response.id+"<br>";
+      //     str +="<b>Email:</b> "+response.email+"<br>";
+      //     str +="<input type='button' value='Get Photo' onclick='getPhoto();'/>";
+      //     str +="<input type='button' value='Logout' onclick='Logout();'/>";
+      //     document.getElementById("status").innerHTML=str;
+ 
+    });
+    }
+    function getPhoto()
+    {
+      FB.api('/me/picture?type=normal', function(response) {
+ 
+          var str="<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";
+          document.getElementById("status").innerHTML+=str;
+ 
+    });
+ 
+    }
+    function Logout()
+    {
+        FB.logout(function(){document.location.reload();});
+    }

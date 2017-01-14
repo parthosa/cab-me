@@ -24,12 +24,12 @@
 <body>
 <!-- test -->
 <div id="fb-root"></div>
-<!-- <script>
+<script>
 
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '1726808974303193', // Set YOUR APP ID
-      channelUrl : 'http://cabme.i n', // Channel File
+      channelUrl : 'http://cabme.in', // Channel File
       status     : true, // check login status
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
@@ -58,50 +58,7 @@
  
     };
  
-    function Login()
-    {
- 
-        FB.login(function(response) {
-           if (response.authResponse) 
-           {
-                getUserInfo();
-            } else 
-            {
-             console.log('User cancelled login or did not fully authorize.');
-            }
-         },{scope: 'email,user_photos,user_videos'});
- 
-    }
- 
-  function getUserInfo() {
-        FB.api('/me', function(response) {
- 
-      var str="<b>Name</b> : "+response.name+"<br>";
-          str +="<b>Link: </b>"+response.link+"<br>";
-          str +="<b>Username:</b> "+response.username+"<br>";
-          str +="<b>id: </b>"+response.id+"<br>";
-          str +="<b>Email:</b> "+response.email+"<br>";
-          str +="<input type='button' value='Get Photo' onclick='getPhoto();'/>";
-          str +="<input type='button' value='Logout' onclick='Logout();'/>";
-          document.getElementById("status").innerHTML=str;
- 
-    });
-    }
-    function getPhoto()
-    {
-      FB.api('/me/picture?type=normal', function(response) {
- 
-          var str="<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";
-          document.getElementById("status").innerHTML+=str;
- 
-    });
- 
-    }
-    function Logout()
-    {
-        FB.logout(function(){document.location.reload();});
-    }
- 
+   
   // Load the SDK asynchronously
   (function(d){
      var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
@@ -112,7 +69,7 @@
    }(document));
  
 </script>
-<div align="center">
+<!-- <div align="center">
 <h2>Facebook OAuth Javascript</h2>
  
 <div id="status">
@@ -260,7 +217,7 @@ Logs:<br/>
                             <p>OR</p>
                             <div class="social-button-wrapper">
                                 <div class="facebook-login social-button">
-                                <a href="javascript:allauth.facebook.login%28%27%27%2C%20%27authenticate%27%2C%20%27login%27%29">
+                                <a href="javascript:Login()">
                                     <img src="{% static 'img/login-fb.png' %}">
                                     </a>
                                 </div>
