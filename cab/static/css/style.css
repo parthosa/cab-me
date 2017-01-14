@@ -1966,3 +1966,51 @@ button#generate-referral-code {
 }
 /* END DASHBOARD*/
 
+
+
+
+/*START REFERAL REGISTER*/
+.refer-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+p.input-label {
+    margin: 10px 22px;
+    min-width: 100px;
+    text-align: right;
+}
+.refer-wrap .input-wrap-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+}
+.refer-wrap button#sign-up {
+    background: #212f4c;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 13px 45px;
+    font-size: 1.2em;
+    /* width: 80%; */
+    /* display: flex; */
+}
+.refer-title h3 {
+    color: #212f4c;
+    font-family: sans-serif;
+    font-size: 1.9em;
+    margin: 0.7em;
+
+}
+
+.refer-wrap .form-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*   END REFERAL REGISTER*/
+

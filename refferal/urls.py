@@ -9,8 +9,9 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^invite/?P<invite_code>[\w\-]+)/$', views.refer_registeration, name='refer_registeration'),
+    url(r'^invite/?P<invite_code>([\w\-]+)/$', views.refer_registration, name='refer_registration'),
     url(r'^get_invite_url/$', views.create_invite_code, name='create_invite_code'),
     url(r'^verify_otp/$', views.verify_otp, name='verify_otp'),
-    url(r'^contact/', views.social_profile_build, name='contact')
+    url(r'^register/$', views.register, name='register'),
+    url(r'^contact/', views.social_contact, name='contact')
 ]

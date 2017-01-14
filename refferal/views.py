@@ -7,6 +7,10 @@ from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
 
+def register(request):
+	return render(request, 'cab/refer_register.html')
+
+
 @csrf_exempt
 @login_required
 def create_invite_code(request):
