@@ -199,6 +199,8 @@ function sendDataAjax(data,url,updateElement='') {
 				else if(url == '/accounts/social/facebook/login/' && response.status == 1)
 				{
 					lightbox_trigger('additional-info')
+					$(updateElement).html(response.message);
+					
 					// var data;
 					//  FB.api('/me', function(response) {
 					//  	data = {
@@ -212,6 +214,16 @@ function sendDataAjax(data,url,updateElement='') {
 				else if(url == '/accounts/social/contact/' && response.status == 1)
 				{
 					lightbox_trigger('verify_otp')
+					$(updateElement).html(response.message);
+
+				}
+				
+				else if(url == '/accounts/verify_otp/' && response.status == 1)
+				{
+					setTimeout(function(){
+						lightbox_trigger('login-reg')
+					},1000);
+					$(updateElement).html(response.message);
 				}
 				else{
 					$(updateElement).html(response.message);
