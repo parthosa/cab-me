@@ -109,6 +109,8 @@ def refer_registration(request, invite_code):
 			status = { "status": 0 , "message": "Passwords do not match"}
 
 			return JsonResponse(status)
+	else:
+		return render(request, 'cab/refer_registration.html')
 			# return HttpResponseRedirect('../../../register')
 
 

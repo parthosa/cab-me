@@ -189,7 +189,7 @@ def social_login_fb(request):
 		name = request.POST['Name']
 		# email = request.POST['Email']
 		try:
-			user_p = UserProfile.objects.get(fbid=fbid)
+			user_p = User.objects.get(username=fbid)
 		except:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
@@ -280,7 +280,7 @@ def social_login_fb_app(request):
 		name = request.POST['Name']
 		email = request.POST['Email']
 		try:
-			user_p = UserProfile.objects.get(fbid=fbid)
+			user_p = User.objects.get(fbid=fbid)
 			user_p.refer_stage = '1'
 			user_p.save()
 		except:
