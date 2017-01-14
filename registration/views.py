@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponseRedirect,Http404,HttpResponse, JsonResponse
 from django.core.cache import cache
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login ,logout
 from .models import *
 from cab.models import *
@@ -26,13 +27,13 @@ def Init_Reg(request):
 		if (password == password_confirm):
 
 			registered_members = User.objects.all()	
-			print 1		
 			list_of_registered_emails = [x.username for x in registered_members]
 			registered_contacts = UserProfile.objects.all()
 			list_of_registered_contacts = [x.phone for x in registered_contacts]
 			try:
 				tmp_user = User.objects.get(username = email)
 				if tmp_user.is_active:
+					print 'active user'
 					status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
 					return JsonResponse(status)	
 				else:
@@ -184,7 +185,7 @@ def social_login_fb(request):
 		cache.clear()
 		fbid = request.POST['fbid']
 		name = request.POST['Name']
-		email = request.POST['Email']
+		# email = request.POST['Email']
 		try:
 			user_p = UserProfile.objects.get(fbid=fbid)
 		except:
@@ -200,7 +201,6 @@ def social_login_fb(request):
 			cache.set(key,
 				{'name': name,
 				 'fbid': fbid,
-				 'email': email
 				})
 
 		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})
@@ -208,6 +208,7 @@ def social_login_fb(request):
 @cache_page(60*10)
 def social_contact(request):
 	contact = request.POST['phone']
+	email = request.POST['Email']
 	send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
 	send_otp = requests.get(send_otp_url)
 	otp_id = send_otp.text.split(',')[1][11:-2]
