@@ -30,7 +30,8 @@ def Init_Reg(request):
 			list_of_registered_emails = [x.username for x in registered_members]
 			registered_contacts = UserProfile.objects.all()
 			list_of_registered_contacts = [x.phone for x in registered_contacts]
-			try User.objects.get(username = email).is_active:
+			try:
+				User.objects.get(username = email).is_active
 			# if email in list_of_registered_emails:
 				status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
 				return JsonResponse(status)	
