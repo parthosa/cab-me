@@ -439,7 +439,7 @@ $('#otp-submit').click(function(ev){
 							'fbid': response.id
 						} 		
 
-        sendDataAjax(data,'/accounts/facebook/login/')
+        sendDataAjax(data,'/accounts/social/facebook/login/')
       // var str="<b>Name</b> : "+response.name+"<br>";
       //     str +="<b>Link: </b>"+response.link+"<br>";
       //     str +="<b>Username:</b> "+response.username+"<br>";
