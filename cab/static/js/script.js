@@ -1,4 +1,4 @@
-$(document).ready(function(){
+
 
 	$("#owl-demo-1").owlCarousel({
  
@@ -126,7 +126,7 @@ $(document).ready(function(){
 		
 		sendData(data,'../self_drive/');
 	});
-});
+
 
 
 function getCookie(name) {
@@ -198,11 +198,15 @@ function sendDataAjax(data,url,updateElement='') {
 				}
 				else if(url == '/accounts/facebook/login')
 				{
-					data = FB.api('/me', function(response) {
-						'Email': response.email,
-						'Name': response.name,
-						'fbid': response.id,
-					}
+					var data;
+					 FB.api('/me', function(response) {
+					 	data = {
+							'Email': response.email,
+							'Name': response.name,
+							'fbid': response.id
+						}
+					});
+					console.log(data)
 				}
 				else{
 					$(updateElement).html(response.message);
@@ -327,8 +331,8 @@ $('#edit_profile').click(function () {
 		email:dashboard.find('#email').val(),
 		phone:dashboard.find('#phone').val(),
 	}
-	$('.personal-info .dashboard-info-input').removeAttr('readonly');
-	$('.personal-info .dashboard-info-input').addClass('editable');
+	$('.personal-info .dashboard-info-input:not(#phone)').removeAttr('readonly');
+	$('.personal-info .dashboard-info-input:not(#phone)').addClass('editable');
 	$(this).hide();
 	$('#save_profile,#cancel_profile').show();
 })
@@ -348,9 +352,8 @@ $('#save_profile').click(function () {
 	profileData={
 		name:dashboard.find('#name').val(),
 		email:dashboard.find('#email').val(),
-		phone:dashboard.find('#phone').val(),
 	}
-	sendData(data,'../updateProfile');
+	sendData(profileData,'../updateProfile');
 })
 
 $('#save_password').click(function () {
