@@ -14,5 +14,8 @@ urlpatterns = [
     url(r'^logout/', views.user_logout, name = 'logout'),
     url(r'^verify_otp/', views.verify_otp, name='verify_otp'),
     url(r'^social/contact/', views.social_contact, name='social_contact'),
-    url(r'^social/facebook/login/', views.social_login_fb, name = 'social_login_fb')
+    url(r'^social/facebook/login/', views.social_login_fb, name = 'social_login_fb'),
+    url(r'^app/login/', views.user_login_app, name='login'),
+    url(r'^app/social/facebook/login/', views.social_login_fb_app, name = 'social_login_fb')
 ]
+
