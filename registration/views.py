@@ -56,6 +56,7 @@ def Init_Reg(request):
 				# return HttpResponseRedirect('../../../register')
 
 			except:
+				print 'no user'
 				if len(str(contact)) != 10: 
 					resp = {"status": 0, "message": 'Please enter a valid contact number'}	
 					return JsonResponse(resp)					
@@ -191,7 +192,7 @@ def social_login_fb(request):
 		except:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
-			user.create(
+			user = User.objects.create(
 				username = fbid,
 				password = fbid
 				)

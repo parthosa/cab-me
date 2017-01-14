@@ -1,4 +1,4 @@
-
+$(document).ready(function(){
 
 	$("#owl-demo-1").owlCarousel({
  
@@ -20,7 +20,7 @@
   });
 
 	$("#owl-demo-3").owlCarousel({
-	    jsonPath : "/static/data.json" ,
+	    jsonPath : "data.json" ,
   });
 
 
@@ -126,7 +126,7 @@
 		
 		sendData(data,'../self_drive/');
 	});
-
+});
 
 
 function getCookie(name) {
@@ -169,48 +169,19 @@ function sendDataAjax(data,url,updateElement='') {
 		url:url,
 		data:data,
 		success:function (response) {
-				if(url=='/accounts/login/'){
-					if(response.status ==1){
-						location.href='/dashboard/'
-					}
-					else if(response.status==0){
-						$(updateElement+'.fail').html(response.message);
-					}
-				}
-				else if(url=='/accounts/logout/'){
-					if(response.status ==1)
-						location.href='/main/'
-					}
-				else if(url=='/accounts/register/'){
-					if(response.status == 1){
-						$(updateElement+'.success').html(response.message);
-						setTimeout(lightbox_trigger('verify_otp'),200);
-					}
-					else if(response.status == 0)
-						$(updateElement+'.fail').html(response.message);
-				}
-				else if(url=='/accounts/reset_password/')
-				{
+				if(url=='/accounts/login/' && response.status ==1)
+					location.href='/dashboard/'
+				else if(url=='/accounts/logout/' && response.status ==1)
+					location.href='/main/'
+				else if(url=='/accounts/login/'||url=='/accounts/register/'
+||url=='/accounts/reset_password/'){
 					if(response.status == 1)
-						$(updateElement+'.success').html(response.message);
+						updateElement+='.success'
 					else if(response.status == 0)
-						$(updateElement+'.fail').html(response.message);
+						updateElement+='.fail'
 				}
-				else if(url == '/accounts/facebook/login/')
-				{
-					// var data;
-					//  FB.api('/me', function(response) {
-					//  	data = {
-					// 		'Email': response.email,
-					// 		'Name': response.name,
-					// 		'fbid': response.id
-					// 	}
-					// });
-					console.log(data)
-				}
-				else{
-					$(updateElement).html(response.message);
-				}
+				console.log(updateElement,response)
+				$(updateElement).html(response.message);
 				
 		},
 		error:function(response){
@@ -263,8 +234,6 @@ $('#final-submit').click(function () {
 
 
 $('#sign-in-trigger').click(function () {
-	$('.message-login').html('');
-	$('input').val('');
 	lightbox_trigger('login-reg',false);
 })
 
@@ -312,9 +281,6 @@ $('.inner-dash ul li').click(function () {
 	$('.inner-dash ul li').removeClass('active');
 	$(this).addClass('active');
 	var block=$(this).attr('data-block');
-
-	if(block == 'earn-money')
-		sendDataAjax({},'/refferal/get_invite_url/','#generate-referral-code')
 	location.hash=block;
 	$('.dashboard-details').hide();
 	$('.' + block).show().css({
@@ -322,38 +288,26 @@ $('.inner-dash ul li').click(function () {
 	});
 })
 
-var dashboard=$('.personal-info');
-var profileData;
 $('#edit_profile').click(function () {
-	
-	profileData={
-		name:dashboard.find('#name').val(),
-		email:dashboard.find('#email').val(),
-		phone:dashboard.find('#phone').val(),
-	}
-	$('.personal-info .dashboard-info-input:not(#phone)').removeAttr('readonly');
-	$('.personal-info .dashboard-info-input:not(#phone)').addClass('editable');
+	$('.personal-info .dashboard-info-input').addClass('editable');
 	$(this).hide();
 	$('#save_profile,#cancel_profile').show();
 })
 
 $('#cancel_profile').click(function () {
-
-	dashboard.find('#name').val(profileData.name),
-	dashboard.find('#email').val(profileData.email),
-	dashboard.find('#phone').val(profileData.phone),
-
 	$('.personal-info .dashboard-info-input').removeClass('editable');
 	$('#edit_profile').show();
 	$('#save_profile,#cancel_profile').hide();
 })
 
 $('#save_profile').click(function () {
-	profileData={
+	var dashboard=$('.personal-info');
+	var data={
 		name:dashboard.find('#name').val(),
 		email:dashboard.find('#email').val(),
+		phone:dashboard.find('#phone').val(),
 	}
-	sendData(profileData,'../updateProfile');
+	sendData(data,'../updateProfile');
 })
 
 $('#save_password').click(function () {
@@ -372,11 +326,11 @@ $('.login-reg .headers li').click(function () {
 	$(this).addClass('active');
 	if($(this).html()=='Sign In'){
 		$('.form-inner form').hide();
-		$('form#login-form').show().css('display','flex');
+		$('form#login-form').show();
 	}
 	else{
 		$('.form-inner form').hide();
-		$('form#register-form').show().css('display','flex');
+		$('form#register-form').show();
 	}
 })
 
@@ -408,61 +362,5 @@ $('#otp-submit').click(function(ev){
 	var data = {
 			'otp':$(this).closest('form').find('input[name=otp]').val(),
 	}
-	sendDataAjax(data,'/accounts/verify_otp/','.message.fail')
+	sendDataAjax(data,'/otp/','.message.fail')
 })
-
-
-
-// FACEBOOK LOGIN
-
- function Login()
-    {
- 
-        FB.login(function(response) {
-           if (response.authResponse) 
-           {
-                getUserInfo();
-            } else 
-            {
-             console.log('User cancelled login or did not fully authorize.');
-            }
-         },{scope: 'email,user_photos,user_videos'});
- 
-    }
- 
-  function getUserInfo() {
-  	var data;
-        FB.api('/me', function(response) {
-        	console.log(response)
-		data = {
-							'Email': response.email,
-							'Name': response.name,
-							'fbid': response.id
-						} 		
-
-        sendDataAjax(data,'/accounts/social/facebook/login/')
-      // var str="<b>Name</b> : "+response.name+"<br>";
-      //     str +="<b>Link: </b>"+response.link+"<br>";
-      //     str +="<b>Username:</b> "+response.username+"<br>";
-      //     str +="<b>id: </b>"+response.id+"<br>";
-      //     str +="<b>Email:</b> "+response.email+"<br>";
-      //     str +="<input type='button' value='Get Photo' onclick='getPhoto();'/>";
-      //     str +="<input type='button' value='Logout' onclick='Logout();'/>";
-      //     document.getElementById("status").innerHTML=str;
- 
-    });
-    }
-    function getPhoto()
-    {
-      FB.api('/me/picture?type=normal', function(response) {
- 
-          var str="<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";
-          document.getElementById("status").innerHTML+=str;
- 
-    });
- 
-    }
-    function Logout()
-    {
-        FB.logout(function(){document.location.reload();});
-    }
