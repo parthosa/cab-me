@@ -433,6 +433,7 @@ $('#otp-submit').click(function(ev){
   function getUserInfo() {
   	var data;
         FB.api('/me', function(response) {
+        	console.log(response)
 		data = {
 							'Email': response.email,
 							'Name': response.name,
