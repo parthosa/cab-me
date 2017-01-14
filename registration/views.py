@@ -30,7 +30,6 @@ def Init_Reg(request):
 			list_of_registered_emails = [x.username for x in registered_members]
 			registered_contacts = UserProfile.objects.all()
 			list_of_registered_contacts = [x.phone for x in registered_contacts]
-			user = User.objects.get(username = email)
 			try:
 				tmp_user = User.objects.get(username = email)
 				if tmp_user.is_active:
@@ -190,6 +189,7 @@ def social_login_fb(request):
 		# email = request.POST['Email']
 		try:
 			user_p = User.objects.get(username=fbid)
+			login(user)
 		except:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
