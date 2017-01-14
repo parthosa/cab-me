@@ -31,10 +31,27 @@ def Init_Reg(request):
 			registered_contacts = UserProfile.objects.all()
 			list_of_registered_contacts = [x.phone for x in registered_contacts]
 			try:
-				User.objects.get(username = email).is_active
-			# if email in list_of_registered_emails:
-				status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
-				return JsonResponse(status)	
+				tmp_user = User.objects.get(username = email)
+				if tmp_user.is_active:
+					status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
+					return JsonResponse(status)	
+				else:
+					status = { "registered" : True , "id" : user.id }
+					send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
+					send_otp = requests.get(send_otp_url)
+					otp_id = send_otp.text.split(',')[1][11:-2]	
+					request.session['contact'] = contact
+					print request.session['contact']
+					key = request.session['contact']
+					cust_cache = cache.set(key,
+						{'name': name,
+						 'email_id': email,
+						 'phone': contact,
+						 'otp_id': otp_id
+						})
+
+					# return JsonResponse(status)
+					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
 				# return HttpResponseRedirect('../../../register')
 
 			except:
@@ -73,25 +90,7 @@ def Init_Reg(request):
 
 					# return JsonResponse(status)
 					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
-			else:
-				cache.clear()
-				status = { "registered" : True , "id" : user.id }
-				send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
-				send_otp = requests.get(send_otp_url)
-				otp_id = send_otp.text.split(',')[1][11:-2]	
-				print otp_id
-				request.session['contact'] = contact
-				print request.session['contact']
-				key = request.session['contact']
-				cust_cache = cache.set(key,
-					{'name': name,
-					 'email_id': email,
-					 'phone': contact,
-					 'otp_id': otp_id
-					})
 
-				# return JsonResponse(status)
-				return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
 
