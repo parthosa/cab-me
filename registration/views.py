@@ -9,6 +9,7 @@ from cab.models import *
 import requests
 import json
 from django.views.decorators.cache import cache_page
+from django.core.exceptions import ObjectDoesNotExist
 
 @cache_page(60*10)
 def Init_Reg(request):
@@ -37,7 +38,8 @@ def Init_Reg(request):
 					status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
 					return JsonResponse(status)	
 				else:
-					status = { "registered" : True , "id" : user.id }
+					print 'not active'
+					status = { "registered" : True , "id" : tmp_user.id }
 					send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
 					send_otp = requests.get(send_otp_url)
 					otp_id = send_otp.text.split(',')[1][11:-2]	
@@ -55,7 +57,7 @@ def Init_Reg(request):
 					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
 				# return HttpResponseRedirect('../../../register')
 
-			except:
+			except ObjectDoesNotExist:
 				print 'no user'
 				if len(str(contact)) != 10: 
 					resp = {"status": 0, "message": 'Please enter a valid contact number'}	
@@ -190,14 +192,13 @@ def social_login_fb(request):
 		# email = request.POST['Email']
 		try:
 			user_p = User.objects.get(username=fbid)
-			login(request, user)
-		except:
+			login(request, user_p)
+		except ObjectDoesNotExist:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
 			user = User.objects.create_user(
 				username = fbid,
-				password = fbid
-				)
+				password = fbid)
 			user.is_active = False
 			user.save()
 			key = request.session['fbid']
@@ -284,7 +285,7 @@ def social_login_fb_app(request):
 			user_p = User.objects.get(fbid=fbid)
 			user_p.refer_stage = '1'
 			user_p.save()
-		except:
+		except ObjectDoesNotExist:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
 			user.create(
