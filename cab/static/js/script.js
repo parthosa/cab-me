@@ -169,7 +169,6 @@ function sendDataAjax(data,url,updateElement='') {
 		url:url,
 		data:data,
 		success:function (response) {
-				console.log('hi',url == '/accounts/facebook/login/',response.status == 1)
 				if(url=='/accounts/login/'){
 					if(response.status ==1){
 						location.href='/dashboard/'
@@ -197,7 +196,7 @@ function sendDataAjax(data,url,updateElement='') {
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
 				}
-				else if(url == '/accounts/facebook/login/' && response.status == 1)
+				else if(url == '/accounts/social/facebook/login/' && response.status == 1)
 				{
 					lightbox_trigger('additional-info')
 					// var data;
