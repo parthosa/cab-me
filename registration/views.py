@@ -159,16 +159,17 @@ def user_login(request):
 		print username
 		print password
 		user = authenticate(username=username, password=password)
-		if user.is_active:
-			print 2
-			if cache.get(request.user.id) is not None:
-				login(request, user)
-				return HttpResponseRedirect('../../feedback/')	
+		if user:
+			if user.is_active:
+				print 2
+				if cache.get(request.user.id) is not None:
+					login(request, user)
+					return HttpResponseRedirect('../../feedback/')	
+				else:
+					login(request, user)
+					return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 			else:
-				login(request, user)
-				return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
-		elif not user.is_active:
-			return JsonResponse({'status': 0, 'message': 'Kindly complete your registration first by verifying your contact number'})
+				return JsonResponse({'status': 0, 'message': 'Kindly complete your registration first by verifying your contact number'})
 		else:
 			context = {'status': 0,'error_heading' : "Invalid Login Credentials", 'message' :  'Invalid Login Credentials. Please try again'}
 			return JsonResponse(context) #render(request, 'main/login.html', context)
@@ -189,11 +190,11 @@ def social_login_fb(request):
 		# email = request.POST['Email']
 		try:
 			user_p = User.objects.get(username=fbid)
-			login(user)
+			login(request, user)
 		except:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
-			user = User.objects.create(
+			user = User.objects.create_user(
 				username = fbid,
 				password = fbid
 				)
