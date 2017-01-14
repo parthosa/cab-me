@@ -262,11 +262,18 @@ Logs:<br/>
                      <h3>Step 2</h3>
                      </div>
                      <div class="info-form">
-                     <p class="info-text">Phone Number</p>
+                     <!-- <p class="info-text">Phone Number</p> -->
                       <form id="social-info-form">
                          {% csrf_token %}
-                            <div class="input-wrap-2"><input class="input-field" type="text"  name="phone" required="" maxlength="10"></input>
+                            <div class="input-wrap-2">
+                           <p class="info-inner-text">Email</p>
+                            <input class="input-field" type="email"  name="email" required="" ></input>
                             </div>
+                            <div class="input-wrap-2">
+                           <p class="info-inner-text">Phone Number</p>
+                            <input class="input-field" type="text"  name="phone" required="" maxlength="10"></input>
+                            </div>
+
                           <button type="submit" id="social-info-submit">Confirm</button>
                           <p class="message fail"></p>
                       </form>
