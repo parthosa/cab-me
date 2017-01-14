@@ -194,7 +194,7 @@ def social_login_fb(request):
 		except:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
-			user = User.objects.create(
+			user = User.objects.create_user(
 				username = fbid,
 				password = fbid
 				)
