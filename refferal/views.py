@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect,Http404,HttpResponse, JsonResponse
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
+from django.core.exceptions import ObjectDoesNotExist
 import requests
 
 def register(request):
@@ -52,13 +53,30 @@ def refer_registration(request, invite_code):
 			registered_contacts = UserProfile.objects.all()
 			list_of_registered_contacts = [x.phone for x in registered_contacts]
 			try:
-				User.objects.get(username = email).is_active
-			# if email in list_of_registered_emails:
-				status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
+				tmp_user = User.objects.get(username = email)
+				if tmp_user.is_active:
+					print 'active user'
+					status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another EmailID . " }
+					return JsonResponse(status)	
+				else:
+					status = { "registered" : True , "id" : tmp_user.id }
+					send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
+					send_otp = requests.get(send_otp_url)
+					otp_id = send_otp.text.split(',')[1][11:-2]	
+					request.session['contact'] = contact
+					print request.session['contact']
+					key = request.session['contact']
+					cust_cache = cache.set(key,
+						{'name': name,
+						 'email_id': email,
+						 'phone': contact,
+						 'otp_id': otp_id
+						})
 
-				return JsonResponse(status)	
+					# return JsonResponse(status)
+					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
 				# return HttpResponseRedirect('../../../register')
-			except:
+			except ObjectDoesNotExist:
 				if len(str(contact)) != 10: 
 					resp = {"status": 0, "message": 'Please enter a valid contact number'}	
 					
@@ -94,24 +112,6 @@ def refer_registration(request, invite_code):
 					# return JsonResponse(status)
 					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
 
-			else:
-				cache.clear()
-				status = { "registered" : True , "id" : user.id }
-				send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
-				send_otp = requests.get(send_otp_url)
-				otp_id = send_otp.text.split(',')[1][11:-2]	
-				request.session['contact'] = contact
-				key = request.session['contact']
-				cache.set(key,
-					{'name': name,
-					 'email_id': email,
-					 'phone': contact,
-					 'otp_id': otp_id,
-					 'invite_code': invite_code
-					})
-
-				# return JsonResponse(status)
-				return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})	
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
 
@@ -220,8 +220,8 @@ def social_login_fb(request):
 		name = request.POST['Name']
 		email = request.POST['Email']
 		try:
-			user_p = UserProfile.objects.get(fbid=fbid)
-		except:
+			user_p = User.objects.get(username=fbid)
+		except ObjectDoesNotExist:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
 			user.create(

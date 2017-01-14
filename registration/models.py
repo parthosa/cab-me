@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from allauth.socialaccount.models import *
 from cab.models import *
 from .models import *
 
@@ -21,7 +20,7 @@ class UserProfile(models.Model):
     state = models.CharField(max_length=100)
     phone = models.BigIntegerField(unique = True)
     email_id = models.EmailField(unique=True)
-    user = models.OneToOneField(User, SocialAccount, null=True)
+    user = models.OneToOneField(User, null=True)
     postedcabs = models.ManyToManyField(PostCab, blank = True, default = '')
     bookedcabs = models.ManyToManyField(BookCab, blank = True, default = '')
     rating = models.DecimalField(max_digits = 3, decimal_places = 2, null = True)
