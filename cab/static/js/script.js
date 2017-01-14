@@ -333,7 +333,7 @@ $('.inner-dash ul li').click(function () {
 	var block=$(this).attr('data-block');
 
 	if(block == 'earn-money')
-		sendDataAjax({},'/refferal/get_invite_url/','#generate-referral-code')
+		sendDataAjax({},'/refferal/get_invite_url/','#invite_message')
 	location.hash=block;
 	$('.dashboard-details').hide();
 	$('.' + block).show().css({
