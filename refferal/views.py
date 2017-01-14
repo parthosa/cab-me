@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect,Http404,HttpResponse, JsonResponse
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
+import requests
 
 def register(request):
 	return render(request, 'cab/refer_register.html')
@@ -19,9 +20,11 @@ def create_invite_code(request):
 		return JsonResponse({'status': 1, 'message': 'Kindly download and login through the android application to get your invite code.'})
 	else:
 		invite_code = str(user_p.name[0]) + str(user_p.id) + str(user_p.phone)
-		invite_url = '''http://cabme.in/refer/invite/%s''' % (invite_code)
+		user_p.invite_id = invite_code
+		user_p.save()
+		invite_url = '''http://cabme.in/refferal/invite/%s''' % (invite_code)
 
-		response = {'status': 1, 'message': 'Your invite url is' + invite_url}
+		response = {'status': 1, 'message': 'Your invite url is <a href=' + invite_url + '>'+ invite_url+'</a>'}
 		return JsonResponse(response)
 
 
@@ -114,7 +117,7 @@ def refer_registration(request, invite_code):
 
 			return JsonResponse(status)
 	else:
-		return render(request, 'cab/refer_registration.html')
+		return render(request, 'cab/refer_register.html')
 			# return HttpResponseRedirect('../../../register')
 
 

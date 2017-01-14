@@ -1959,7 +1959,10 @@ div.sm-info p {
     align-items: center;
 }
 
-
+.create-code a{
+  text-decoration: none;
+  color:inherit;
+}
 
 .dashboard-details.earn-money.row {
     justify-content: center;
@@ -2012,6 +2015,8 @@ p.input-label {
     justify-content: center;
     align-items: center;
 }
+
+
 
 /*   END REFERAL REGISTER*/
 
