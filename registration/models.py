@@ -31,6 +31,7 @@ class UserProfile(models.Model):
     app_downloaded = models.BooleanField(default = False)
     cabme_cash = models.BigIntegerField(default = 0)
     refer_stage = models.CharField(max_length = 30, choices = stages, default = '0')
+    fbid = models.CharField(max_length = 70, null = True)
 
     def __unicode__(self):
         return self.name

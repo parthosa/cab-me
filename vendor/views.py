@@ -165,7 +165,10 @@ def add_cab(request):
 		cab = Cab()
 		cab.cab_type = cab_type
 		cab.cab_number = cab_number
-		cab.driver = driver
+		if isinstance(driver, Driver) == True:
+			cab.driver = driver
+		else:
+			cab.vendor = driver
 		cab.save()
 		driver.cabs.add(cab)
 		driver.save()

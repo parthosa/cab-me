@@ -196,6 +196,14 @@ function sendDataAjax(data,url,updateElement='') {
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
 				}
+				else if(url == '/accounts/facebook/login')
+				{
+					data = FB.api('/me', function(response) {
+						'Email': response.email,
+						'Name': response.name,
+						'fbid': response.id,
+					}
+				}
 				else{
 					$(updateElement).html(response.message);
 				}
