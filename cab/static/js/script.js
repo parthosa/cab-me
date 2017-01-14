@@ -433,13 +433,14 @@ $('#otp-submit').click(function(ev){
   function getUserInfo() {
   	var data;
         FB.api('/me', function(response) {
+        	console.log(response)
 		data = {
 							'Email': response.email,
 							'Name': response.name,
 							'fbid': response.id
 						} 		
 
-        sendDataAjax(data,'/accounts/facebook/login/')
+        sendDataAjax(data,'/accounts/social/facebook/login/')
       // var str="<b>Name</b> : "+response.name+"<br>";
       //     str +="<b>Link: </b>"+response.link+"<br>";
       //     str +="<b>Username:</b> "+response.username+"<br>";
