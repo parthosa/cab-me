@@ -169,6 +169,7 @@ function sendDataAjax(data,url,updateElement='') {
 		url:url,
 		data:data,
 		success:function (response) {
+				console.log('hi',url == '/accounts/facebook/login/',response.status == 1)
 				if(url=='/accounts/login/'){
 					if(response.status ==1){
 						location.href='/dashboard/'
