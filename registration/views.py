@@ -191,9 +191,9 @@ def social_login_fb(request):
 		try:
 			user_p = User.objects.get(username=fbid)
 			if user_p.is_active:
-				user_l = authenticate(username = fbid, password = fbid)
-				login(request, user_l)
-				return JsonResponse({'status': 2, 'message': 'Succesfully logged in'})
+				user = authenticate(username = fbid, password = fbid)
+				login(request, user)
+				return JsonResponse({'status': 1, 'message': 'Succesfully logged in'})
 			
 			else:
 				key = request.session['fbid']
@@ -202,7 +202,7 @@ def social_login_fb(request):
 					 'fbid': fbid,
 					})
 
-				return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})
+				return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 		
 		except ObjectDoesNotExist:
 			request.session['fbid'] = fbid
@@ -218,7 +218,7 @@ def social_login_fb(request):
 				 'fbid': fbid,
 				})
 
-			return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})
+			return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 
 @cache_page(60*10)
 def social_contact(request):
