@@ -184,7 +184,6 @@ def user_logout(request):
 @cache_page(60*10)
 def social_login_fb(request):
 	if request.POST:
-		cache.clear()
 		fbid = request.POST['fbid']
 		name = request.POST['Name']
 		# email = request.POST['Email']
@@ -245,13 +244,13 @@ def social_contact(request):
 		send_otp = requests.get(send_otp_url)
 		otp_id = send_otp.text.split(',')[1][11:-2]
 		prev_cache = cache.get(request.session['fbid'])
+		print prev_cache
 		request.session['contact'] = contact
 
 		name = prev_cache.name
 		email = prev_cache.email
 		fbid = prev_cache.fbid
-		cache.clear()
-
+		
 		key = request.session['contact']
 		cust_cache = cache.set(key,
 			{'name': name,
