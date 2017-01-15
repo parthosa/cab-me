@@ -247,10 +247,9 @@ def social_contact(request):
 		print prev_cache
 		request.session['contact'] = contact
 
-		name = prev_cache.name
-		email = prev_cache.email
-		fbid = prev_cache.fbid
-		
+		name = prev_cache['name']
+		fbid = prev_cache['fbid']
+
 		key = request.session['contact']
 		cust_cache = cache.set(key,
 			{'name': name,
