@@ -124,9 +124,10 @@ def refer_registration(request, invite_code):
 @cache_page(60*10)
 @csrf_exempt
 def verify_otp(request):
-	user_i = UserProfile.objects.get(invite_id = invite_code)
+
 
 	cust_cache = cache.get(request.session['contact'])
+	user_i = UserProfile.objects.get(invite_id = cust_cache['invite_code'])
 	otp = request.POST['otp']
 	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)

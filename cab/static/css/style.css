@@ -2010,12 +2010,15 @@ p.input-label {
 
 }
 
-.refer-wrap .form-wrap {
+.refer-wrap .col-s2 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.refer-wrap .social-wrapper p{
+  color:#212f4c;
+}
 
 
 /*   END REFERAL REGISTER*/
