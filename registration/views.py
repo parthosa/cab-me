@@ -196,6 +196,7 @@ def social_login_fb(request):
 				return JsonResponse({'status': 1, 'message': 'Succesfully logged in'})
 			
 			else:
+				request.session['fbid'] = fbid
 				key = request.session['fbid']
 				cache.set(key,
 					{'name': name,
