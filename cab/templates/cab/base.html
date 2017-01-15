@@ -97,7 +97,16 @@ Logs:<br/>
           </div>
           <div class="menu">
               <ul class="nav-menu">
-                 <li>Deals </li>
+                 <li> 
+                 {% if user.is_authenticated == 1 %}
+                   <a href='javascript:location.href="/dashboard/#earn-money"' style="text-decoration: none;color: inherit;">
+                 {% else %}   
+                   <a href='/refferal/register' style="text-decoration: none;color: inherit;">
+                 {% endif %}
+               
+                 Earn Money
+                 </a> 
+                 </li>
                  <li>C Cash</li>
                  <li>For Bookings: 8890605392</li>
                 {% if user.is_authenticated == 1 %}
