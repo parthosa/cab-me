@@ -27,4 +27,7 @@ urlpatterns = [
     url(r'^summary/', summary, name='summary'),
     url(r'^cab/cities/', cab_cities, name='cab_cities'),
     url(r'^wallet/', views.wallet, name='wallet'),
+    url(r'^forgot_password/', views.forgot_password, name='forgot_password'),
+    url(r'^change_password/', views.change_password, name='change_password'),
+    url(r'^edit_profile/', views.edit_profile, name='edit_profile'),
 ]

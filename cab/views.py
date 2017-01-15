@@ -529,11 +529,9 @@ def edit_profile(request):
 	user = request.user
 	user_pro = UserProfile.objects.get(user = user)
 	email = request.POST['email_id']
-	contact = request.POST['phone']
 	name = request.POST['name']
 	user_pro.email_id = email
 	user_pro.name = name
-	user_pro.phone = contact
 	user_pro.save()
 	return JsonResponse({'status': 'Successful', 'message': 'Your details have been saved'})
 
