@@ -196,9 +196,12 @@ function sendDataAjax(data,url,updateElement='') {
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
 				}
-				else if(url == '/accounts/social/facebook/login/' && response.status == 1)
+				else if(url == '/accounts/social/facebook/login/')
 				{
-					lightbox_trigger('additional-info')
+					if(response.status == 2)
+						lightbox_trigger('additional-info')
+					else
+						location.pathname='/dashboard/'
 					$(updateElement).html(response.message);
 
 					// var data;
