@@ -190,7 +190,7 @@ def social_login_fb(request):
 		# email = request.POST['Email']
 		try:
 			user_p = User.objects.get(username=fbid)
-			if user.is_active:
+			if user_p.is_active:
 				user_l = authenticate(username = fbid, password = fbid)
 				login(request, user_l)
 				return JsonResponse({'status': 2, 'message': 'Succesfully logged in'})

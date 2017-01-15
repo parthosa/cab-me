@@ -196,9 +196,14 @@ function sendDataAjax(data,url,updateElement='') {
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
 				}
-				else if(url == '/accounts/facebook/login/' && response.status == 1)
+				else if(url == '/accounts/social/facebook/login/')
 				{
-					lightbox_trigger('additional-info')
+					if(response.status == 2)
+						lightbox_trigger('additional-info')
+					else
+						location.pathname='/dashboard/'
+					$(updateElement).html(response.message);
+
 					// var data;
 					//  FB.api('/me', function(response) {
 					//  	data = {
@@ -212,6 +217,24 @@ function sendDataAjax(data,url,updateElement='') {
 				else if(url == '/accounts/social/contact/' && response.status == 1)
 				{
 					lightbox_trigger('verify_otp')
+					$(updateElement).html(response.message);
+
+				}
+				
+				else if(url == '/accounts/verify_otp/' && response.status == 1)
+				{
+					setTimeout(function(){
+						lightbox_trigger('login-reg')
+					},1000);
+					$(updateElement).html(response.message);
+				}
+				else if(url.includes('/refferal/invite')){
+					if(response.status == 1){
+						$(updateElement+'.success').html(response.message);
+						setTimeout(lightbox_trigger('verify_otp'),200);
+					}
+					else if(response.status == 0)
+						$(updateElement+'.fail').html(response.message);
 				}
 				else{
 					$(updateElement).html(response.message);
@@ -296,6 +319,19 @@ $('#sign-up').click(function (ev) {
 })
 
 
+$('#refer-sign-up').click(function (ev) {
+	ev.preventDefault();
+	var data={
+		Name:$(this).closest('#register-form').find('input[name=name]').val(),
+		Contact:$(this).closest('#register-form').find('input[name=phone]').val(),
+		Email:$(this).closest('#register-form').find('input[name=email]').val(),
+		Password:$(this).closest('#register-form').find('input[name=password]').val(),
+		Password_confirm:$(this).closest('#register-form').find('input[name=password_confirm]').val()
+	}
+	sendDataAjax(data,location.pathname,'.message-login');
+})
+
+
 
 
 $('#reset-pass').click(function(ev){
@@ -319,7 +355,7 @@ $('.inner-dash ul li').click(function () {
 	var block=$(this).attr('data-block');
 
 	if(block == 'earn-money')
-		sendDataAjax({},'/refferal/get_invite_url/','#generate-referral-code')
+		sendDataAjax({},'/refferal/get_invite_url/','#invite_message')
 	location.hash=block;
 	$('.dashboard-details').hide();
 	$('.' + block).show().css({
