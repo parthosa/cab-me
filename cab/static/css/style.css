@@ -2014,12 +2014,25 @@ p.input-label {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .refer-wrap .social-wrapper p{
   color:#212f4c;
+  text-align: center;
+  margin: 0.4em;
 }
 
+.refer-img img{
+  width:100%;
+}
+
+.refer-social .social-button-wrapper{
+  display: flex;
+}
+.refer-social .social-button {
+    margin: 1em 1em;
+}
 
 /*   END REFERAL REGISTER*/
 
