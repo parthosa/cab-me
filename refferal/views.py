@@ -7,6 +7,7 @@ from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
+import requests
 
 def register(request):
 	return render(request, 'cab/refer_register.html')
@@ -20,9 +21,11 @@ def create_invite_code(request):
 		return JsonResponse({'status': 1, 'message': 'Kindly download and login through the android application to get your invite code.'})
 	else:
 		invite_code = str(user_p.name[0]) + str(user_p.id) + str(user_p.phone)
-		invite_url = '''http://cabme.in/refer/invite/%s''' % (invite_code)
+		user_p.invite_id = invite_code
+		user_p.save()
+		invite_url = '''http://cabme.in/refferal/invite/%s''' % (invite_code)
 
-		response = {'status': 1, 'message': 'Your invite url is' + invite_url}
+		response = {'status': 1, 'message': 'Your invite url is <a href=' + invite_url + '>'+ invite_url+'</a>'}
 		return JsonResponse(response)
 
 
@@ -114,16 +117,17 @@ def refer_registration(request, invite_code):
 
 			return JsonResponse(status)
 	else:
-		return render(request, 'cab/refer_registration.html')
+		return render(request, 'cab/refer_register.html')
 			# return HttpResponseRedirect('../../../register')
 
 
 @cache_page(60*10)
 @csrf_exempt
 def verify_otp(request):
-	user_i = UserProfile.objects.get(invite_id = invite_code)
+
 
 	cust_cache = cache.get(request.session['contact'])
+	user_i = UserProfile.objects.get(invite_id = cust_cache['invite_code'])
 	otp = request.POST['otp']
 	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)

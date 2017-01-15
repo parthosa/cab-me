@@ -9,9 +9,7 @@
      <h3>Register</h3>
     </div>
     <div class="row">
-    <div class="col-s2 refer-img">
-    <img src="{% static 'img/refer.png'%}">
-    </div>
+
     <div class="col-s2 form-wrap">
      <form id="register-form">
                             {% csrf_token %}
@@ -48,6 +46,21 @@
 
                         </form>
                         </div>
+                        <div class="col-s2 social-wrapper">
+                            <p>OR</p>
+                            <div class="social-button-wrapper">
+                                <div class="facebook-login social-button">
+                                <a href="javascript:Login()">
+                                    <img src="{% static 'img/login-fb.png' %}">
+                                    </a>
+                                </div>
+                                <div class="google-login social-button">
+                                <a href="/accounts/social/google/login/">
+                                    <img src="{% static 'img/login-google.png' %}">
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
                         </div>
                         </div>
   </div>

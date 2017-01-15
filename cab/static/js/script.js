@@ -200,7 +200,7 @@ function sendDataAjax(data,url,updateElement='') {
 				{
 					lightbox_trigger('additional-info')
 					$(updateElement).html(response.message);
-					
+
 					// var data;
 					//  FB.api('/me', function(response) {
 					//  	data = {
@@ -224,6 +224,14 @@ function sendDataAjax(data,url,updateElement='') {
 						lightbox_trigger('login-reg')
 					},1000);
 					$(updateElement).html(response.message);
+				}
+				else if(url.includes('/refferal/invite')){
+					if(response.status == 1){
+						$(updateElement+'.success').html(response.message);
+						setTimeout(lightbox_trigger('verify_otp'),200);
+					}
+					else if(response.status == 0)
+						$(updateElement+'.fail').html(response.message);
 				}
 				else{
 					$(updateElement).html(response.message);
