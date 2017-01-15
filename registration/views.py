@@ -151,8 +151,6 @@ def verify_otp(request):
 
 def user_login(request):
 
-
-
 	if request.method == 'POST':
 		# m sending email...
 		# email = request.POST['email']
@@ -192,7 +190,8 @@ def social_login_fb(request):
 		# email = request.POST['Email']
 		try:
 			user_p = User.objects.get(username=fbid)
-			login(request, user_p)
+			user_l = authenticate(username = fbid, password = fbid)
+			login(request, user_l)
 		except ObjectDoesNotExist:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
