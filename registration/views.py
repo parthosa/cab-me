@@ -151,8 +151,6 @@ def verify_otp(request):
 
 def user_login(request):
 
-
-
 	if request.method == 'POST':
 		# m sending email...
 		# email = request.POST['email']
@@ -192,7 +190,21 @@ def social_login_fb(request):
 		# email = request.POST['Email']
 		try:
 			user_p = User.objects.get(username=fbid)
-			login(request, user_p)
+			if user_p.is_active:
+				user = authenticate(username = fbid, password = fbid)
+				login(request, user)
+				return JsonResponse({'status': 1, 'message': 'Succesfully logged in'})
+			
+			else:
+				request.session['fbid'] = fbid
+				key = request.session['fbid']
+				cache.set(key,
+					{'name': name,
+					 'fbid': fbid,
+					})
+
+				return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
+		
 		except ObjectDoesNotExist:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
@@ -207,7 +219,7 @@ def social_login_fb(request):
 				 'fbid': fbid,
 				})
 
-		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})
+			return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 
 @cache_page(60*10)
 def social_contact(request):
@@ -243,8 +255,6 @@ def user_login_app(request):
 		# email = request.POST['email']
 		username = request.POST['email']
 		password = request.POST['password']
-		print username
-		print password
 		user = authenticate(username=username, password=password)
 		user_p = UserProfile.objects.get(user = user)
 		if user:
@@ -285,6 +295,7 @@ def social_login_fb_app(request):
 			user_p = User.objects.get(fbid=fbid)
 			user_p.refer_stage = '1'
 			user_p.save()
+			user_l = authenticate(username = fbid, password = fbid)
 		except ObjectDoesNotExist:
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)

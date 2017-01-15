@@ -36,7 +36,7 @@ class UserProfile(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.cabme_cash = 200*int(self.refer_stage)
+        self.cabme_cash = 200*(int(self.refer_stage)+1)
         super(UserProfile, self).save(*args, **kwargs)
 
 
