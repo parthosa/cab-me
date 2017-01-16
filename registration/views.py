@@ -272,25 +272,26 @@ def user_login_app(request):
 		user = authenticate(username=username, password=password)
 		user_p = UserProfile.objects.get(user = user)
 		if user:
-			if user_p.refer_stage > 0:
-				if cache.get(request.user.id) is not None:
-					login(request, user)
-					return HttpResponseRedirect('../../feedback/')	
-				else:
-					login(request, user)
-					return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
+			if user.is_active:
+				if user_p.refer_stage > 0:
+					if cache.get(request.user.id) is not None:
+						login(request, user)
+						return HttpResponseRedirect('../../feedback/')	
+					else:
+						login(request, user)
+						return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 
-			else:
-				user_p.refer_stage == '1'
-				user_p.save()
-				if cache.get(request.user.id) is not None:
-					login(request, user)
-					return HttpResponseRedirect('../../feedback/')	
 				else:
-					login(request, user)
-					return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
-		elif not user.is_active:
-			return JsonResponse({'status': 0, 'message': 'Kindly complete your registration first by verifying your contact number'})
+					user_p.refer_stage == '1'
+					user_p.save()
+					if cache.get(request.user.id) is not None:
+						login(request, user)
+						return HttpResponseRedirect('../../feedback/')	
+					else:
+						login(request, user)
+						return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
+			else:
+				return JsonResponse({'status': 0, 'message': 'Kindly complete your registration first by verifying your contact number'})
 
 		else:
 			context = {'status': 0,'error_heading' : "Invalid Login Credentials", 'message' :  'Invalid Login Credentials. Please try again'}
@@ -307,8 +308,11 @@ def social_login_fb_app(request):
 		email = request.POST['Email']
 		try:
 			user_p = User.objects.get(fbid=fbid)
-			user_p.refer_stage = '1'
-			user_p.save()
+			if user_p.refer_stage < 1:
+				user_p.refer_stage = '1'
+				user_p.save()
+			else:
+				pass
 			user_l = authenticate(username = fbid, password = fbid)
 		except ObjectDoesNotExist:
 			request.session['fbid'] = fbid
