@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login User</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
+   </script>
+    <script type="text/javascript" src="{% static 'js/app-script.js' %}">
+   </script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login-app-style.css' %}">
+</head>
+<body>
+<div class="container-wrap">
+<form id="login-form">
+{% csrf_token %}
+  <div class="input-wrap">
+  	<p class="label">EMAIL</p>
+  	<input class="input-field" type="text" name="email" required=""></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">PASSWORD</p>
+  	<input class="input-field" type="password" name="password" required=""></input>
+  </div>
+  <div class="button-wrap">
+    <p class="submit">SIGN IN</p>
+  </div>
+</form>
+<div class="message">
+  <p id="message_box"></p>
+</div>
+</div>
+</body>
+</html>

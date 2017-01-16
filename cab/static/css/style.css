@@ -61,6 +61,9 @@ ul.account-menu.sm-menu{
   color: #212f4c;
   font-family: Open Sans,arial,tahoma,verdana,sans-serif;
 }
+.nav-menu li{
+  cursor: pointer;
+}
 
 ul.account-menu {
     background: #212f4c;

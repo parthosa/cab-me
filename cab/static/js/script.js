@@ -171,7 +171,8 @@ function sendDataAjax(data,url,updateElement='') {
 		success:function (response) {
 			if(url=='/accounts/login/'){
 				if(response.status ==1){
-					location.href='/dashboard/'
+					openTab('earn-money')
+					
 				}
 				else if(response.status==0){
 					$(updateElement+'.fail').html(response.message);
@@ -201,7 +202,7 @@ function sendDataAjax(data,url,updateElement='') {
 				if(response.status == 2)
 					lightbox_trigger('additional-info')
 				else
-					location.pathname='/dashboard/'
+					openTab('earn-money')
 				$(updateElement).html(response.message);
 
 					// var data;
@@ -539,3 +540,21 @@ if(location.pathname.includes('dashboard')){
 $('.add_money').click(function(){
 	$('.inner-dash ul li[data-block="earn-money"]').click();
 })
+
+
+// $('.dash-trigger').click(function(){
+//     {% if user.is_authenticated == 1 %}
+//     	var tab = $(this).attr('class').split(' ')[1]
+// 		$('.inner-dash ul li[data-block="'+tab+'"]').click();
+
+// 	 {% else %}  
+// 	   location.href='/refferal/register' 
+//      {% endif %}
+
+// })
+
+function openTab(option){
+	location.href='/dashboard/#'+option
+	$('.inner-dash ul li[data-block="'+option+'"]').click();
+
+}
