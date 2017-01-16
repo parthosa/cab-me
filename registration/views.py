@@ -243,12 +243,14 @@ def social_contact(request):
 		list_of_registered_emails = [x.username for x in registered_members] + [x.email_id for x in UserProfile.objects.all()]
 		registered_contacts = UserProfile.objects.all()
 		list_of_registered_contacts = [x.phone for x in registered_contacts]
+		print 'done yahan tak'
 
 		if len(str(contact)) != 10: 
 			resp = {"status": 0, "message": 'Please enter a valid contact number'}	
 			return JsonResponse(resp)					
 		# user_c = User()
 		elif contact in list_of_registered_contacts:
+			print 'contact exists'
 			status = { "status" : 0 , "message" : "This phone number is already registered! Please Refresh the page to register with another contact number . " }
 			return JsonResponse(status)
 		elif email in list_of_registered_emails:
