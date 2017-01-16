@@ -51,8 +51,8 @@ def dashboard(request):
 			Date_return = cab.Date_return
 			distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
 			distance_json = urlopen(distance_url)
-			distance = distance_json.read()['rows'][0]['elements'][0]['distance']['text'] #google api call
-			fare = cab.price*distance #distance*cab.price
+			distance = int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
+			fare = cab.price*distance*1.609 #distance*cab.price
 			book_cab.append({'cab_type': cab_type, 'route': route, 'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'fare': fare})
 	
 	context = {'name': name, 'email': email, 'contact': contact, 'book_cab': book_cab}
@@ -529,11 +529,9 @@ def edit_profile(request):
 	user = request.user
 	user_pro = UserProfile.objects.get(user = user)
 	email = request.POST['email_id']
-	contact = request.POST['phone']
 	name = request.POST['name']
 	user_pro.email_id = email
 	user_pro.name = name
-	user_pro.phone = contact
 	user_pro.save()
 	return JsonResponse({'status': 'Successful', 'message': 'Your details have been saved'})
 

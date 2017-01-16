@@ -181,7 +181,7 @@ def wallet(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	cash = user_p.cabme_cash
 	if user_p.refer_stage == '0':
-		response = {'cabme_cash': cash, 'message': 'Your wallet is empty. Kindly download our application and login with it to get rs200 in you cabme wallet.'}
+		response = {'cabme_cash': cash, 'message': 'Kindly download our application and login with it to get rs200 in you cabme wallet.'}
 
 	elif user_p.invites < 5:
 		user_p.refer_stage == '1'
@@ -249,10 +249,10 @@ def social_contact(request):
 	prev_cache = cache.get(request.session['fbid'])
 	request.session['contact'] = contact
 
-	name = prev_cache.name
-	email = prev_cache.email
-	fbid = prev_cache.fbid
-	invite_code = prev_cache.invite_code
+	name = prev_cache['name']
+	email = prev_cache['email']
+	fbid = prev_cache['fbid']
+	invite_code = prev_cache['invite_code']
 	cache.clear()
 
 	key = request.session['contact']
