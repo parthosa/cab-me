@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^get_invite_url/$', views.create_invite_code, name='create_invite_code'),
     url(r'^verify_otp/$', views.verify_otp, name='verify_otp'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^wallet/$', views.wallet, name='wallet'),
     url(r'^contact/', views.social_contact, name='contact')
 ]

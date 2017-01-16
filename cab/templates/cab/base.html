@@ -97,21 +97,22 @@ Logs:<br/>
           </div>
           <div class="menu">
               <ul class="nav-menu">
-                 <li> 
-                 {% if user.is_authenticated == 1 %}
-                   <a href='javascript:location.href="/dashboard/#earn-money"' style="text-decoration: none;color: inherit;">
+               {%  if user.is_authenticated == 1 %}
+
+
+                 <li class="dash-trigger" onclick="openTab('earn-money')"> Earn Money </li>
+                 <li class="dash-trigger" onclick="openTab('wallet')">C Cash</li>
+
                  {% else %}   
-                   <a href='/refferal/register' style="text-decoration: none;color: inherit;">
+                 <li class="dash-trigger" onclick="lightbox_trigger('login-reg')"> Earn Money </li>
+
+                   <li class="dash-trigger" onclick="lightbox_trigger('login-reg')"> Wallet </li>
                  {% endif %}
-               
-                 Earn Money
-                 </a> 
-                 </li>
-                 <li>C Cash</li>
+
                  <li>For Bookings: 8890605392</li>
                 {% if user.is_authenticated == 1 %}
-                  <li><a href="/dashboard/" style="text-decoration: none;color:inherit;">Dashboard</li>
-                  <li><a href="/accounts/logout/" style="text-decoration: none;color:inherit;">Logout</li>
+                  <li><a href="/dashboard/" style="text-decoration: none;color:inherit;">Dashboard</a></li>
+                  <li><a href="/accounts/logout/" style="text-decoration: none;color:inherit;">Logout</a></li>
                {% endif %}
              </ul>
                <ul class="account-menu">
@@ -428,12 +429,12 @@ Logs:<br/>
 </script>
  <script type="text/javascript" src="/static/facebook/js/fbconnect.js"></script>
 <script type="text/javascript">
-  var i=location.href.indexOf('#')
-if(i!=-1)
-{
-  var lightBox = location.href.substr(i+1);
-  lightbox_trigger(lightBox);
-}
+//   var i=location.href.indexOf('#')
+// if(i!=-1)
+// {
+//   var lightBox = location.href.substr(i+1);
+//   lightbox_trigger(lightBox);
+// }
 </script>
 </body>
 </html>

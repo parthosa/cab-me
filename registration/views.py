@@ -11,6 +11,14 @@ import json
 from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
 
+
+def register_success(request):
+	return render(request, 'registration/register_success.html')		
+
+def login_success(request):
+	return render(request, 'registration/login_success.html')		
+
+
 @cache_page(60*10)
 def Init_Reg(request):
 	if request.POST:
@@ -100,6 +108,10 @@ def Init_Reg(request):
 
 			return JsonResponse(status)
 			# return HttpResponseRedirect('../../../register')
+	else:
+		return render(request, 'registration/register.html')		
+
+
 
 @cache_page(60*10)
 def verify_otp(request):
@@ -175,7 +187,7 @@ def user_login(request):
 			return JsonResponse(context) #render(request, 'main/login.html', context)
 	else:
 		print 1
-		return render(request, 'main/login.html')		
+		return render(request, 'registration/login.html')		
 
 def user_logout(request):
 	logout(request)
@@ -246,7 +258,6 @@ def social_contact(request):
 		prev_cache = cache.get(request.session['fbid'])
 		print prev_cache
 		request.session['contact'] = contact
-
 		name = prev_cache['name']
 		fbid = prev_cache['fbid']
 

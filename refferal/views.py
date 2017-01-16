@@ -180,36 +180,37 @@ def verify_otp(request):
 def wallet(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	cash = user_p.cabme_cash
+	response = {}
 	if user_p.refer_stage == '0':
-		response = {'cabme_cash': cash, 'message': 'Kindly download our application and login with it to get rs200 in you cabme wallet.'}
+		response = {'cabme_cash': cash, 'message': 'Kindly download our application and login with it to get Rs 200 in you cabme wallet.'}
 
 	elif user_p.invites < 5:
 		user_p.refer_stage == '1'
 		user_p.save()
 		invites_left = 5-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn rs200 more.'}
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 
 	elif user_p.invites < 20:
 		user_p.refer_stage == '2'
 		user_p.save()
 		invites_left = 20-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn rs200 more.'}
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 
 	elif user_p.invites < 40:
 		user_p.refer_stage == '3'
 		user_p.save()
 		invites_left = 40-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn rs200 more.'}
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 	
 	elif user_p.invites < 60:
 		user_p.refer_stage == '4'
 		user_p.save()
 		invites_left = 60-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn rs200 more.'}
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 	
 	else:
 		pass
-
+	print user_p.invites
 	return JsonResponse(response)
 
 @cache_page(60*10)
