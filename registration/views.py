@@ -249,11 +249,11 @@ def social_contact(request):
 			resp = {"status": 0, "message": 'Please enter a valid contact number'}	
 			return JsonResponse(resp)					
 		# user_c = User()
-		elif contact in list_of_registered_contacts:
+		elif not contact in list_of_registered_contacts:
 			print 'contact exists'
 			status = { "status" : 0 , "message" : "This phone number is already registered! Please Refresh the page to register with another contact number . " }
 			return JsonResponse(status)
-		elif email in list_of_registered_emails:
+		elif not email in list_of_registered_emails:
 			status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another email . " }
 			return JsonResponse(status)
 		else:
