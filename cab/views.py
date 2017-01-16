@@ -84,7 +84,7 @@ def summary(request):
 	cab_date_return = cab.Date_return
 	distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
 	distance_json = urlopen(distance_url)
-	distance = distance_json['rows'][0]['elements'][0]['distance']['text'] #google api call
+	distance = int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
 	price = cab.price*distance #distance*cab.price
 	service_tax = float(.06*price)
 	total_price = price+service_tax
