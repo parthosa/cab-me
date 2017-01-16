@@ -85,11 +85,11 @@ DATABASES = {
     }
 }
 
-CACHES = { 
-  'default' : { 
-     'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache', 
-     'LOCATION' : '127.0.0.1:11211',
-  }
+CCACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
 }
 
 # Internationalization
