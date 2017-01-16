@@ -209,10 +209,11 @@ def social_login_fb(request):
 			else:
 				request.session['fbid'] = fbid
 				key = request.session['fbid']
-				cache.set(key,
+				prev_cache = cache.set(key,
 					{'name': name,
 					 'fbid': fbid,
 					})
+				print prev_cache
 
 				return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 		
@@ -229,6 +230,7 @@ def social_login_fb(request):
 				{'name': name,
 				 'fbid': fbid,
 				})
+			print prev_cache
 
 			return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 
@@ -269,6 +271,7 @@ def social_contact(request):
 			 'otp_id': otp_id,
 			 'fbid': fbid
 			})
+		print cust_cache
 
 		# return JsonResponse(status)
 		return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/verify_otp'})
