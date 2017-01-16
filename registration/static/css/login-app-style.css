@@ -81,7 +81,20 @@ form.hidden_form{
 }
 
 
-#verify_otp{
+#verify_otp,#get_additional_info{
     display: none;
 }
 
+.social-button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.social-wrap p {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.social-wrap {
+    margin-bottom: 1em;
+}
