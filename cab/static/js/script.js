@@ -236,6 +236,10 @@ function sendDataAjax(data,url,updateElement='') {
 					else if(response.status == 0)
 						$(updateElement+'.fail').html(response.message);
 				}
+				else if(url == '/refferal/wallet/'){
+					$('#wallet_amount').html(response.cabme_cash);
+					$(updateElement).html(response.message);
+				}
 				else{
 					$(updateElement).html(response.message);
 				}
@@ -356,6 +360,8 @@ $('.inner-dash ul li').click(function () {
 
 	if(block == 'earn-money')
 		sendDataAjax({},'/refferal/get_invite_url/','#invite_message')
+	if(block == 'wallet')
+		sendDataAjax({},'/refferal/wallet/','#wallet_status')
 	location.hash=block;
 	$('.dashboard-details').hide();
 	$('.' + block).show().css({
@@ -521,6 +527,8 @@ if(location.pathname.includes('dashboard')){
 	});
 	if(tab == 'earn-money')
 		sendDataAjax({},'/refferal/get_invite_url/','#invite_message')
+	if(tab == 'wallet')
+		sendDataAjax({},'/refferal/wallet/','#wallet_status')
 
 	$('.dashboard-details').hide();
 	$('.' + tab).show().css({
