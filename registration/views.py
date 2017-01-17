@@ -299,7 +299,8 @@ def user_login_app(request):
 						return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 
 				else:
-					user_p.refer_stage == '1'
+					user_p.refer_stage = '1'
+					user_p.app_downloaded = True
 					user_p.save()
 					if cache.get(request.user.id) is not None:
 						login(request, user)
@@ -327,6 +328,7 @@ def social_login_fb_app(request):
 			user_p = User.objects.get(fbid=fbid)
 			if user_p.refer_stage < 1:
 				user_p.refer_stage = '1'
+				user_p.app_downloaded = True
 				user_p.save()
 			else:
 				pass
