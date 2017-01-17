@@ -11,6 +11,7 @@ import random
 import string
 import json
 from urllib2 import urlopen
+from vendor.models import *
 
 
 def index(request):
