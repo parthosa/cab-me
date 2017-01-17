@@ -286,7 +286,7 @@ $('.cab-select-submit').click(function(){
 $('#final-submit').click(function () {
 	var data={
 		'cab_id':$('.summary-headers').attr('cab-id'),
-		'Sharing':$(this).closest('.form-data').find('input[name=Sharing]:checked').val(),
+		'sharing':$(this).closest('.form-data').find('input[name=Sharing]:checked').val(),
 		'phone':$(this).closest('.form-data').find('.phone-data').val(),
 		'pickup_time':$(this).closest('.form-data').find('.time-hr-data').val() + ' '+ $(this).closest('.form-data').find('.time-min-data').val() +' '+$(this).closest('.form-data').find('.time-type-data').val(),
 		'pickup_address':$(this).closest('.form-data').find('.pickup-address-data').val(),

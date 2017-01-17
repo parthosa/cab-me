@@ -11,7 +11,8 @@ import random
 import string
 import json
 from urllib2 import urlopen
-from vendor.models import *
+from vendor.models import Driver, Vendor
+from vendor.models import Cab as vendor_cab
 
 
 def index(request):
@@ -354,24 +355,26 @@ def booknow(request):
 		Driver/Owner name: Reddy Kumar Simha
 		Driver/Owner number: 8890605392
 		Cab Type: %s
-		''' % (user_p.name, From, To, cab_b.Type)
-			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body_cust)
+		''' % (user_p.name, cab_b.From, cab_b.To, cab_b.Type)
+			user_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal''' % (phone, sms_body_cust)
+			requests.get(user_sms_url)
 			
 			sms_body_simha = '''%s has requested a cab from %s to %s.
 		Customer name: %s
 		Customer number: %s
 		Cab Type: %s
 		Follow the link to confirm the booking: http://cabme.in/vendor/dashboard/confirm_booking
-		''' % (user_p.name, From, To, user_p.name, user_p.phone, cab_b.Type)
-			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=8890605392&text=%s&priority=dnd&stype=normal') % (sms_body_simha)
+		''' % (user_p.name, cab_b.From, cab_b.To, user_p.name, user_p.phone, cab_b.Type)
+			simha_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=8890605392&text=%s&priority=dnd&stype=normal''' % (sms_body_simha)
+			requests.get(simha_sms_url)	
 			b_cab = BookCab()
 			b_cab.From = cab_b.From #request.POST['From']
 			b_cab.To = cab_b.To #request.POST['To']
 			b_cab.Date = cab_b.Date #request.POST['Date']
 			b_cab.Date_return = cab_b.Date_return #request.POST['Date_return']
 			# b_cab.Time = request.POST['Time']
-			b_cab.OneWay = cab_b.OneWay #request.POST['OneWay']
-			b_cab.Sharing = request.POST['Sharing']
+			b_cab.OneWay = request.POST['OneWay']
+			b_cab.Sharing = request.POST['sharing']
 
 			b_cab.save()
 
