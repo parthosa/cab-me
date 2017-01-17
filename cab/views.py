@@ -323,7 +323,7 @@ def bookcab(request):
 			return render(request, 'cab/search.html', resp) #JsonResponse(resp)
 @login_required(login_url='/#login-reg')
 @csrf_exempt
-def booknow(request,user):
+def booknow(request):
 	if request.POST:
 		# time space seperated string: 09 30 AM
 		pickup_time = request.POST['pickup_time']
