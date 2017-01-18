@@ -12,7 +12,70 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/login-app-style.css' %}">
 </head>
 <body>
+<!-- test -->
+<div id="fb-root"></div>
+<script>
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1726808974303193', // Set YOUR APP ID
+      channelUrl : 'http://cabme.in', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+ 
+    FB.Event.subscribe('auth.authResponseChange', function(response) 
+    {
+     if (response.status === 'connected') 
+    {
+        document.getElementById("message").innerHTML +=  "<br>Connected to Facebook";
+        //SUCCESS
+ 
+    }    
+    else if (response.status === 'not_authorized') 
+    {
+        document.getElementById("message").innerHTML +=  "<br>Failed to Connect";
+ 
+        //FAILED
+    } else 
+    {
+        document.getElementById("message").innerHTML +=  "<br>Logged Out";
+ 
+        //UNKNOWN ERROR
+    }
+    }); 
+ 
+    };
+ 
+   
+  // Load the SDK asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+ 
+</script>
 <div class="container-wrap">
+<div class="social-wrap">
+ <div class="social-button-wrapper">
+        <div class="facebook-login social-button">
+        <a href="javascript:Login()">
+            <img src="{% static 'img/login-fb.png' %}">
+            </a>
+        </div>
+        <div class="google-login social-button">
+        <a href="/accounts/social/google/login/">
+            <img src="{% static 'img/login-google.png' %}">
+            </a>
+        </div>
+
+    </div>
+    <p>OR</p>
+    </div>
 <form id="register-form">
 {% csrf_token %}
   <div class="input-wrap">
@@ -51,6 +114,22 @@
   
   <div class="button-wrap">
     <p   class="submit">VERIFY</p>
+  </div>
+</form>
+<form id="get_additional_info">
+{% csrf_token %}
+  <div class="input-wrap">
+    <p class="label">EMAIL ID</p>
+    <input class="input-field" name="email" type="email"></input>
+  </div>
+   <div class="input-wrap">
+    <p class="label">PHONE</p>
+    <input class="input-field" name="phone" type="text"></input>
+  </div>
+   
+  
+  <div class="button-wrap">
+    <p   class="submit">SUBMIT</p>
   </div>
 </form>
 <div class="message">

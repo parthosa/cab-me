@@ -1,7 +1,7 @@
 
 
 $("#owl-demo-1").owlCarousel({
-
+	// jsonPath : "/static/data-1.json",
 	slideSpeed : 500,
 	autoPlay : 3000,
 	pagination:false,
