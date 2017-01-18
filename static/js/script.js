@@ -276,7 +276,11 @@ function lightbox_trigger(lightbox_name,show_temp=false){
 
 $('.cab-select-submit').click(function(){
 	var data={
-		'cab_id':$(this).closest('.search-results').attr('cab-id')
+		'cab_id':$(this).closest('.search-results').attr('cab-id'),
+		'From':$(this).closest('.search-results').attr('From'),
+		'To':$(this).closest('.search-results').attr('To'),
+		'Date':$(this).closest('.search-results').attr('Date'),
+		'Date_return':$(this).closest('.search-results').attr('Date_return'),
 	};
 	sendData(data,'../summary/');
 })

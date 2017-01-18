@@ -13,6 +13,7 @@ import json
 from urllib2 import urlopen
 from vendor.models import Driver, Vendor
 from vendor.models import Cab as vendor_cab
+import uuid
 
 
 def index(request):
@@ -77,14 +78,17 @@ def search(request):
 
 @csrf_exempt
 def summary(request):
-	print request.POST['cab_id']
+	print request.POST
+	print request.session['uid']
+	print cache.get(request.session['uid'])
 	cab_id = request.POST['cab_id']
 	cab = Cab.objects.get(cab_id = cab_id)
 	cab_type = cab.Type
-	cab_from = cab.From
-	cab_to = cab.To
-	cab_date = cab.Date
-	cab_date_return = cab.Date_return
+	cab_cache = cache.get(request.session['uid'])
+	cab_from = cab_cache['From']
+	cab_to = cab_cache['To']
+	cab_date = cab_cache['Date']
+	cab_date_return = cab_cache['Date_return']
 	distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
 	distance_json = urlopen(distance_url)
 	distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) #int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
@@ -135,11 +139,23 @@ def cab_cities(request):
 @csrf_exempt
 def bookcab(request):
 	if request.POST:
+		cache.clear()
+		tempuidlist = str(uuid.uuid1()).split('-')
+		request.session['uid'] = str(('').join(tempuidlist))
+		key = request.session['uid']
 		b_cab = BookCab()
 		b_cab.From = request.POST['From']
 		b_cab.To = request.POST['To']
 		b_cab.Date = request.POST['Date']
 		b_cab.Date_return = request.POST['Date_return']
+		cust_cache = cache.set(key,
+			{'From': b_cab.From,
+			 'To': b_cab.To,
+			 'Date': b_cab.Date,
+			 'Date_return': b_cab.Date_return
+			}
+			)
+
 		distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(b_cab.From, b_cab.To)
 		distance_json = urlopen(distance_url)
 		distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) 
@@ -254,11 +270,26 @@ def bookcab(request):
 					# cab_response_dict['cab_id': name]
 					# cab_response_dict['cust_names': name]
 				# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+				master_cab_suv = Cab.objects.get(cab_id = 'MSUV')
+				master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
+				master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
+
+				cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price*distance, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+				cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price*distance, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+				cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price*distance, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
+
 				resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 				print 1
 				return render(request, 'cab/search.html', resp)
 			except:
-				resp = {'status': 'No cabs Found', 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
+				master_cab_suv = Cab.objects.get(cab_id = 'MSUV')
+				master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
+				master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
+
+				cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price*distance, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+				cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price*distance, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+				cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price*distance, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
+				resp = {'cabs': cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 				print 2
 				return render(request, 'cab/search.html', resp)
 
@@ -287,6 +318,14 @@ def bookcab(request):
 				# cab_response_dict['cab_id': name]
 				# cab_response_dict['cust_names': name]
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			master_cab_suv = Cab.objects.get(cab_id = 'MSUV')
+			master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
+			master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
+
+			cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price*distance, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+			cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price*distance, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+			cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price*distance, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
+
 			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}			
 			# resp = {'Driver_name': D_name, 'D_phone': D_phone, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			print resp
@@ -326,13 +365,14 @@ def bookcab(request):
 			master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
 			master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
 
-			cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
-			cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
-			cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
+			cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price*distance, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+			cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price*distance, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+			cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price*distance, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
 			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			print 4
 			return render(request, 'cab/search.html', resp) #JsonResponse(resp)
+
 @login_required(login_url='/#login-reg')
 @csrf_exempt
 def booknow(request):
@@ -343,6 +383,10 @@ def booknow(request):
 		phone = request.POST['phone']
 		driver_phone_list = Driver.objects.all().values('contact')
 		vendor_phone_list = Vendor.objects.all().values('contact')
+		cab_cache = cache.get(request.session['uid'])
+
+		city_from = City.objects.get_or_create(name = cab_cache['From'].lower())
+		city_to = City.objects.get_or_create(name = cab_cache['To'].lower())
 
 		if request.POST['sharing'] == 'Yes':
 			sharing = True
@@ -378,10 +422,11 @@ def booknow(request):
 			simha_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=8890605392&text=%s&priority=dnd&stype=normal''' % (sms_body_simha)
 			requests.get(simha_sms_url)	
 			b_cab = BookCab()
-			b_cab.From = cab_b.From #request.POST['From']
-			b_cab.To = cab_b.To #request.POST['To']
-			b_cab.Date = cab_b.Date #request.POST['Date']
-			b_cab.Date_return = cab_b.Date_return #request.POST['Date_return']
+
+			b_cab.From = city_from #request.POST['From']
+			b_cab.To = city_to #request.POST['To']
+			b_cab.Date = cab_cache['Date'] #request.POST['Date']
+			b_cab.Date_return = cab_cache['Date_return'] #request.POST['Date_return']
 			# b_cab.Time = request.POST['Time']
 			b_cab.OneWay = request.POST['OneWay']
 			b_cab.Sharing = request.POST['sharing']
@@ -425,8 +470,8 @@ def booknow(request):
 			'key': key,
 			 'name': user_p.name,
 			 'contact': user_p.phone,
-			 'From': From,
-			 'To': To,
+			 'From': city_from,
+			 'To': city_to,
 			 'pickup_time': pickup_time,
 			 'pickup_address':pickup_address})
 		# sms_body = '''Hi %s,
