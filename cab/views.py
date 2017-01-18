@@ -140,6 +140,9 @@ def bookcab(request):
 		b_cab.To = request.POST['To']
 		b_cab.Date = request.POST['Date']
 		b_cab.Date_return = request.POST['Date_return']
+		distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(b_cab.From, b_cab.To)
+		distance_json = urlopen(distance_url)
+		distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) 
 		# b_cab.Time = request.POST['Time']
 		if request.POST['OneWay'] == 'One Way':
 			b_cab.OneWay = True
@@ -185,7 +188,7 @@ def bookcab(request):
 					D_pcabuserp = UserProfile.objects.get(user = D_pcab)
 					D_name.append(D_pcabuserp.name)
 					D_phone.append(D_pcabuserp.phone)
-					Price.append(p_cabs.price)
+					Price.append(p_cabs.price*distance)
 					# price_pcab = p_cabs.price
 					# type_c = cab.Type 
 					type_cab.append(p_cabs.type)
@@ -263,7 +266,7 @@ def bookcab(request):
 			for cab in cabs:# try:
 				D_name.append(cab.DriverName)
 				D_phone.append('9982312111')
-				Price.append(200*cab.price)
+				Price.append(distance*cab.price)
 				# price_pcab = p_cab.price
 				type_cab.append(cab.Type) 
 				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
@@ -297,7 +300,7 @@ def bookcab(request):
 			# days = request.POST['Days']
 				D_name.append(cab.DriverName)
 				D_phone.append('9982312111')
-				Price.append(cab.price)
+				Price.append(distance*cab.price)
 				# price_pcab = p_cab.price
 				type_cab.append(cab.Type) 
 				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
@@ -319,6 +322,13 @@ def bookcab(request):
 				# cab_response_dict['cab_id': name]
 				# cab_response_dict['cust_names': name]
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			master_cab_suv = Cab.objects.get(cab_id = 'MSUV')
+			master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
+			master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
+
+			cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+			cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+			cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
 			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			print 4
