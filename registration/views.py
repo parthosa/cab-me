@@ -290,7 +290,7 @@ def user_login_app(request):
 		user_p = UserProfile.objects.get(user = user)
 		if user:
 			if user.is_active:
-				if user_p.refer_stage > 0:
+				if int(user_p.refer_stage) > 0:
 					if cache.get(request.user.id) is not None:
 						login(request, user)
 						return HttpResponseRedirect('../../feedback/')	

@@ -18,10 +18,10 @@ class BookCab(models.Model):
 	Price = models.IntegerField()
 	Type = models.CharField(max_length=20)
 	Sharing = models.BooleanField(default=False)
-	Cust = models.ManyToManyField('registration.UserProfile', related_name = 'userprofile') 
+	Cust = models.ManyToManyField('registration.UserProfile', related_name = 'userprofile', null = True) 
 
 	def __unicode__(self):
-		return self.id
+		return str(self.id)
 
 class Cab(models.Model):
 	From = models.CharField(max_length = 100, choices=cities, null = True ,blank = True)
