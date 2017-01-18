@@ -14,6 +14,7 @@ from urllib2 import urlopen
 from vendor.models import Driver, Vendor
 from vendor.models import Cab as vendor_cab
 import uuid
+import re
 
 
 def index(request):
