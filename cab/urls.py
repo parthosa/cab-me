@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^hotels/', hotels, name='hotels'),
     url(r'^dashboard/', dashboard, name='dashboard'),
+    url(r'^earn_money/', earn_money, name='earn_money'),
     url(r'^buses/', bus, name='bus'),
     url(r'^flights/', flights, name='flights'),
     url(r'^blog/', blog, name='blog'),

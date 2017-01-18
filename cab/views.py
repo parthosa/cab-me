@@ -62,6 +62,9 @@ def dashboard(request):
 
 	return render(request, 'cab/dashboard.html', context)
 
+def earn_money(request):
+	return render(request, 'cab/earn_money.html')
+
 def hotels(request):
 	return render(request, 'cab/hotels.html')
 
@@ -520,9 +523,9 @@ def forgot_password(request):
 	New password: %s
 	'''(user.name, password)
 		requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user.phone, forgot_password_body)
-		return JsonResponse({'status': 'Success', 'message': 'Your new password has been sent to your registered phone number'})
+		return JsonResponse({'status': '1', 'message': 'Your new password has been sent to your registered phone number'})
 	except:
-		return JsonResponse({'status': 'Failed', 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
+		return JsonResponse({'status': '1', 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
 
 @login_required(login_url='/#login-reg')
 def change_password(request):

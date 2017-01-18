@@ -91,7 +91,7 @@ ul.account-menu {
   background: white;
   height: auto;
   margin: 0 auto;
-  box-shadow: -6px 7px 16px -4px black;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
   margin-top: 6vh;
   top: -12vh;
 }
@@ -342,7 +342,7 @@ button.form-submit {
 
 
 .cab-offers .row:nth-of-type(1) .col-s2:nth-of-type(1){
-  background:url('../img/slider/Scroll-IconsArtboard-6.png');
+  background:url('../img/slider/Scroll-IconsArtboard-3.png');
       background-position: center;
     background-size: cover;
     background-repeat:no-repeat;
@@ -368,7 +368,7 @@ button.form-submit {
 }
 
 .cab-offers .row:nth-of-type(3) .col-s2:nth-of-type(1){
-  background:url('../img/slider/Scroll-IconsArtboard-3.png');
+  background:url('../img/slider/Scroll-IconsArtboard-6.png');
       background-position: center;
     background-size: cover;
     background-repeat:no-repeat;
@@ -1847,10 +1847,23 @@ input.dashboard-info-input.editable {
     cursor: pointer;
 }
 
+.dashboard-details .message {
+    font-family: sans-serif;
+    color: #212f4c;
+    /* text-align: center; */
+}
+
+.message_box {
+    margin-top: 14px;
+    margin-left: 100px;
+}
+
 p.message-login {
-    margin: 0;
+   margin: 0;
     font-family: Open Sans,arial,tahoma,verdana,sans-serif;
-    font-size: 0.9em;
+    font-size: 0.8em;
+    color: #cccccc;
+    text-align: justify;
 }
 
 p.message-login.success{
@@ -2090,3 +2103,32 @@ p.input-label {
 
 /*   END REFERAL REGISTER*/
 
+
+
+
+/*START EARN MONEY  */
+.earn-money-details-wrapper{
+  /*margin-top:24px;*/
+}
+
+.earn-money-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.earn-money-details img{
+  width: 70%;
+  margin: 2% 0;
+}
+
+.earn-money-details:not(.step-1){
+  display: none;
+}
+
+.earn-money-details .col-s1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*END EARN MONEY*/

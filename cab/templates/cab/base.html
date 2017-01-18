@@ -7,9 +7,9 @@
     <title>CabMe | Cabs | Rentals | Self Drive</title>
    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title" charset="utf-8">
    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" media="screen" title="no title" charset="utf-8">
-   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
+   <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js">
    </script>
-   <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}">
+   <script type="text/javascript" src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js">
    </script>
 
    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
@@ -97,14 +97,15 @@ Logs:<br/>
           </div>
           <div class="menu">
               <ul class="nav-menu">
+                 <li class="dash-trigger"><a href="/earn_money/" style="
+                 text-decoration: none;color: inherit;" target="_blank"> Earn Money</a> </li>
                {%  if user.is_authenticated == 1 %}
 
 
-                 <li class="dash-trigger" onclick="openTab('earn-money')"> Earn Money </li>
                  <li class="dash-trigger" onclick="openTab('wallet')">C Cash</li>
 
                  {% else %}   
-                 <li class="dash-trigger" onclick="lightbox_trigger('login-reg')"> Earn Money </li>
+                 
 
                    <li class="dash-trigger" onclick="lightbox_trigger('login-reg')"> Wallet </li>
                  {% endif %}
@@ -203,19 +204,16 @@ Logs:<br/>
                            
                            <div class="input-wrap-2 forgot-pass-text">
                                 <h3>Forgot Password? </h3>
-                                <p>We will send a new password on your registered email address</p>
+                                <p>We will send a new password on your registered phone number</p>
 
                             </div>
                             <div class="input-wrap-2">
-                                <input class="input-field" type="email" placeholder="Email" name="email" required=""></input>
+                                <input class="input-field"  placeholder="Phone" name="phone" required=""></input>
                             </div>
                            
                             <button type="submit" id="reset-pass">Reset Password</button>
                              <div class="foot-note">
-                                 <p class="message-login success">
-                                </p>
-                                 <p class="message-login fail">
-                                </p>
+                                 <p class="message-login"></p>
                                
                             </div>
                         </form>

@@ -21,7 +21,7 @@ $('#login-form .submit').click(function(ev){
 		'password':$(this).closest('form').find('input[name="password"]').val(),
 
 	}
-	sendDataAjax(data,'/accounts/login/','#message_box')
+	sendDataAjax(data,'/accounts/app/login/','#message_box')
 })
 
 $('#verify_otp .submit').click(function(ev){
@@ -79,13 +79,13 @@ function sendDataAjax(data,url,updateElement='') {
 				$('form').hide();
 				$('#verify_otp').show();
 			}
-			else if(url == '/accounts/login/' && response.status == 1){
+			else if(url == '/accounts/app/login/' && response.status == 1){
 				location.href='/accounts/login_success'
 			}
 			else if(url == '/accounts/verify_otp/' && response.status == 1){
 				location.href='/accounts/register_success'
 			}
-			else if(url == '/accounts/social/facebook/login/' && response.status == 1){
+			else if(url == '/accounts/app/social/facebook/login/' && response.status == 1){
 				$('form').hide();
 				$('#get_additional_info').show();
 			}
@@ -124,7 +124,7 @@ function getUserInfo() {
 			'fbid': response.id
 		} 		
 
-		sendDataAjax(data,'/accounts/social/facebook/login/')
+		sendDataAjax(data,'/accounts/app/social/facebook/login/')
       // var str="<b>Name</b> : "+response.name+"<br>";
       //     str +="<b>Link: </b>"+response.link+"<br>";
       //     str +="<b>Username:</b> "+response.username+"<br>";

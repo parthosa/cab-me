@@ -1,0 +1,77 @@
+{% extends 'cab/base.html' %}
+
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="back-drop"> </div>
+<div class="row earn-money-panel">
+  <div class="card type-1">
+    <div class="headers">
+      <ul>
+        <li class="active"><a href="{% url 'cab:about' %}">Earn Money</a></li> 
+      </ul>
+    </div>
+    <div class="row">
+      <div class="headers inner-dash">
+        <ul>
+          <li class="active" data-block='step-1'>Step 1</li> 
+          <li data-block='step-2'>Step 2</li> 
+          <li data-block='step-3'>Step 3</li> 
+          <li data-block='step-4'>Step 4</li> 
+          <li data-block='step-5'>Step 5</li> 
+        </ul>
+      </div>
+    </div>
+    <div class="row earn-money-details-wrapper">
+      <div class="earn-money-details step-1 row">
+  
+        <div class="col-s1">
+            <img src="{% static 'img/earn_money/step-1.png' %}">
+        </div>
+
+
+    </div>
+  
+      <div class="earn-money-details step-2 row">
+  
+        <div class="col-s1">
+            <img src="{% static 'img/earn_money/step-2.png'%}">
+        </div>
+
+
+    </div>
+  
+    <div class="earn-money-details step-3 row">
+  
+        <div class="col-s1">
+            <img src="{% static 'img/earn_money/step-3.png'%}">
+        </div>
+
+
+    </div>
+  
+    <div class="earn-money-details step-4 row">
+  
+        <div class="col-s1">
+            <img src="{% static 'img/earn_money/step-4.png'%}">
+        </div>
+
+
+    </div>
+  
+      <div class="earn-money-details step-5 row">
+  
+        <div class="col-s1">
+            <img src="{% static 'img/earn_money/step-5.png'%}">
+        </div>
+
+
+    </div>
+  
+ 
+    
+  </div>
+</div>
+
+{% endblock %}
