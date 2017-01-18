@@ -81,6 +81,7 @@ def bus(request):
 def search(request):
 	return render(request, 'cab/search.html')
 
+@login_required
 @csrf_exempt
 def summary(request):
 	print request.POST
@@ -100,7 +101,7 @@ def summary(request):
 	price = cab.price*distance #distance*cab.price
 	service_tax = float(.06*price)
 	total_price = price+service_tax
-	resp = {'cab_id': cab_id, 'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price}
+	resp = {'cab_id': cab_id, 'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price,'Phone':UserProfile.objects.get(user=user).phone}
 	return render(request, 'cab/summary.html', resp)
 
 def blog(request):
