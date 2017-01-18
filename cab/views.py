@@ -91,6 +91,8 @@ def summary(request):
 	cab = Cab.objects.get(cab_id = cab_id)
 	cab_type = cab.Type
 	cab_cache = cache.get(request.session['uid'])
+	print cab_cache
+	print cab_cache['From']
 	cab_from = cab_cache['From']
 	cab_to = cab_cache['To']
 	cab_date = cab_cache['Date']

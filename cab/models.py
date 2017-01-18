@@ -35,7 +35,7 @@ class Cab(models.Model):
 	price = models.IntegerField(default = 7, blank = False)
 
 	def __unicode__(self):
-		return self.cab_id
+		return str(self.cab_id)
 
 class PostCab(models.Model):
 	From = models.CharField(max_length = 100, choices=cities, blank = False)
@@ -53,7 +53,7 @@ class PostCab(models.Model):
 	cab_id = models.CharField(max_length = 1000, default = '') #when posting the cab save this object by appending a character 'p' in front of the auto id of this object
 
 	def __unicode__(self):
-		return self.id		
+		return str(self.id)	
 class City(models.Model):
 	name = models.CharField(max_length = 100, blank = False)
 
