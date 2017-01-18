@@ -24,11 +24,11 @@ class BookCab(models.Model):
 		return self.id
 
 class Cab(models.Model):
-	From = models.CharField(max_length = 100, choices=cities, blank = False)
-	To = models.CharField(max_length = 100, choices=cities, blank = False)
+	From = models.CharField(max_length = 100, choices=cities, null = True)
+	To = models.CharField(max_length = 100, choices=cities, null = True)
 	DriverName = models.CharField(max_length = 100, blank = False, default = '')
-	Date = models.CharField(blank = False, null = False, max_length = 10)
-	Date_return = models.CharField(blank = False, null = False, max_length = 10, default = '')
+	Date = models.CharField(null = True, max_length = 10)
+	Date_return = models.CharField(null = True, max_length = 10, default = '')
 	Time = models.CharField(max_length = 10)
 	Type = models.CharField(max_length=20)	
 	cab_id = models.CharField(max_length = 1000, default = '')

@@ -9,7 +9,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
 import random
 import string
+import json
 from urllib2 import urlopen
+from vendor.models import Driver, Vendor
+from vendor.models import Cab as vendor_cab
 
 
 def index(request):
@@ -51,7 +54,7 @@ def dashboard(request):
 			Date_return = cab.Date_return
 			distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
 			distance_json = urlopen(distance_url)
-			distance = int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
+			distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) #int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
 			fare = cab.price*distance*1.609 #distance*cab.price
 			book_cab.append({'cab_type': cab_type, 'route': route, 'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'fare': fare})
 	
@@ -84,7 +87,7 @@ def summary(request):
 	cab_date_return = cab.Date_return
 	distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
 	distance_json = urlopen(distance_url)
-	distance = distance_json['rows'][0]['elements'][0]['distance']['text'] #google api call
+	distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) #int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
 	price = cab.price*distance #distance*cab.price
 	service_tax = float(.06*price)
 	total_price = price+service_tax
@@ -137,6 +140,9 @@ def bookcab(request):
 		b_cab.To = request.POST['To']
 		b_cab.Date = request.POST['Date']
 		b_cab.Date_return = request.POST['Date_return']
+		distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(b_cab.From, b_cab.To)
+		distance_json = urlopen(distance_url)
+		distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) 
 		# b_cab.Time = request.POST['Time']
 		if request.POST['OneWay'] == 'One Way':
 			b_cab.OneWay = True
@@ -182,7 +188,7 @@ def bookcab(request):
 					D_pcabuserp = UserProfile.objects.get(user = D_pcab)
 					D_name.append(D_pcabuserp.name)
 					D_phone.append(D_pcabuserp.phone)
-					Price.append(p_cabs.price)
+					Price.append(p_cabs.price*distance)
 					# price_pcab = p_cabs.price
 					# type_c = cab.Type 
 					type_cab.append(p_cabs.type)
@@ -260,7 +266,7 @@ def bookcab(request):
 			for cab in cabs:# try:
 				D_name.append(cab.DriverName)
 				D_phone.append('9982312111')
-				Price.append(200*cab.price)
+				Price.append(distance*cab.price)
 				# price_pcab = p_cab.price
 				type_cab.append(cab.Type) 
 				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
@@ -294,7 +300,7 @@ def bookcab(request):
 			# days = request.POST['Days']
 				D_name.append(cab.DriverName)
 				D_phone.append('9982312111')
-				Price.append(cab.price)
+				Price.append(distance*cab.price)
 				# price_pcab = p_cab.price
 				type_cab.append(cab.Type) 
 				cab_id.append(cab.cab_id) # not for display to users only for returning in the post request to backend
@@ -316,13 +322,20 @@ def bookcab(request):
 				# cab_response_dict['cab_id': name]
 				# cab_response_dict['cust_names': name]
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			master_cab_suv = Cab.objects.get(cab_id = 'MSUV')
+			master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
+			master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
+
+			cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+			cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+			cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
 			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			print 4
 			return render(request, 'cab/search.html', resp) #JsonResponse(resp)
 @login_required(login_url='/#login-reg')
 @csrf_exempt
-def booknow(request,user):
+def booknow(request):
 	if request.POST:
 		# time space seperated string: 09 30 AM
 		pickup_time = request.POST['pickup_time']
@@ -352,24 +365,26 @@ def booknow(request,user):
 		Driver/Owner name: Reddy Kumar Simha
 		Driver/Owner number: 8890605392
 		Cab Type: %s
-		''' % (user_p.name, From, To, cab_b.Type)
-			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body_cust)
+		''' % (user_p.name, cab_b.From, cab_b.To, cab_b.Type)
+			user_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal''' % (phone, sms_body_cust)
+			requests.get(user_sms_url)
 			
 			sms_body_simha = '''%s has requested a cab from %s to %s.
 		Customer name: %s
 		Customer number: %s
 		Cab Type: %s
 		Follow the link to confirm the booking: http://cabme.in/vendor/dashboard/confirm_booking
-		''' % (user_p.name, From, To, user_p.name, user_p.phone, cab_b.Type)
-			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=8890605392&text=%s&priority=dnd&stype=normal') % (sms_body_simha)
+		''' % (user_p.name, cab_b.From, cab_b.To, user_p.name, user_p.phone, cab_b.Type)
+			simha_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=8890605392&text=%s&priority=dnd&stype=normal''' % (sms_body_simha)
+			requests.get(simha_sms_url)	
 			b_cab = BookCab()
 			b_cab.From = cab_b.From #request.POST['From']
 			b_cab.To = cab_b.To #request.POST['To']
 			b_cab.Date = cab_b.Date #request.POST['Date']
 			b_cab.Date_return = cab_b.Date_return #request.POST['Date_return']
 			# b_cab.Time = request.POST['Time']
-			b_cab.OneWay = cab_b.OneWay #request.POST['OneWay']
-			b_cab.Sharing = request.POST['Sharing']
+			b_cab.OneWay = request.POST['OneWay']
+			b_cab.Sharing = request.POST['sharing']
 
 			b_cab.save()
 

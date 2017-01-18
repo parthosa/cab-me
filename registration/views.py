@@ -209,10 +209,11 @@ def social_login_fb(request):
 			else:
 				request.session['fbid'] = fbid
 				key = request.session['fbid']
-				cache.set(key,
+				prev_cache = cache.set(key,
 					{'name': name,
 					 'fbid': fbid,
 					})
+				print prev_cache
 
 				return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 		
@@ -229,49 +230,54 @@ def social_login_fb(request):
 				{'name': name,
 				 'fbid': fbid,
 				})
+			print prev_cache
 
 			return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 
 @cache_page(60*10)
 def social_contact(request):
-	contact = request.POST['phone']
-	email = request.POST['Email']
-	registered_members = User.objects.all()	
-	list_of_registered_emails = [x.username for x in registered_members] + [x.email_id for x in UserProfile.objects.all()]
-	registered_contacts = UserProfile.objects.all()
-	list_of_registered_contacts = [x.phone for x in registered_contacts]
+	if request.POST:
+		contact = request.POST['phone']
+		email = request.POST['Email']
+		registered_members = User.objects.all()	
+		list_of_registered_emails = [x.username for x in registered_members] + [x.email_id for x in UserProfile.objects.all()]
+		registered_contacts = UserProfile.objects.all()
+		list_of_registered_contacts = [x.phone for x in registered_contacts]
+		print 'done yahan tak'
 
-	if len(str(contact)) != 10: 
-		resp = {"status": 0, "message": 'Please enter a valid contact number'}	
-		return JsonResponse(resp)					
-	# user_c = User()
-	elif contact in list_of_registered_contacts:
-		status = { "status" : 0 , "message" : "This phone number is already registered! Please Refresh the page to register with another contact number . " }
-		return JsonResponse(status)
-	elif email in list_of_registered_emails:
-		status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another email . " }
-		return JsonResponse(status)
-	else:
-		send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
-		send_otp = requests.get(send_otp_url)
-		otp_id = send_otp.text.split(',')[1][11:-2]
-		prev_cache = cache.get(request.session['fbid'])
-		print prev_cache
-		request.session['contact'] = contact
-		name = prev_cache['name']
-		fbid = prev_cache['fbid']
+		if len(str(contact)) != 10: 
+			resp = {"status": 0, "message": 'Please enter a valid contact number'}	
+			return JsonResponse(resp)					
+		# user_c = User()
+		elif not contact in list_of_registered_contacts:
+			print 'contact exists'
+			status = { "status" : 0 , "message" : "This phone number is already registered! Please Refresh the page to register with another contact number . " }
+			return JsonResponse(status)
+		elif not email in list_of_registered_emails:
+			status = { "status" : 0 , "message" : "This email is already registered! Please Refresh the page to register with another email . " }
+			return JsonResponse(status)
+		else:
+			send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
+			send_otp = requests.get(send_otp_url)
+			otp_id = send_otp.text.split(',')[1][11:-2]
+			prev_cache = cache.get(request.session['fbid'])
+			print prev_cache
+			request.session['contact'] = contact
+			name = prev_cache['name']
+			fbid = prev_cache['fbid']
 
-		key = request.session['contact']
-		cust_cache = cache.set(key,
-			{'name': name,
-			 'email_id': email,
-			 'phone': contact,
-			 'otp_id': otp_id,
-			 'fbid': fbid
-			})
+			key = request.session['contact']
+			cust_cache = cache.set(key,
+				{'name': name,
+				 'email_id': email,
+				 'phone': contact,
+				 'otp_id': otp_id,
+				 'fbid': fbid
+				})
+			print cust_cache
 
-		# return JsonResponse(status)
-		return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/verify_otp'})
+			# return JsonResponse(status)
+			return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/verify_otp'})
 
 def user_login_app(request):
 
@@ -293,7 +299,8 @@ def user_login_app(request):
 						return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 
 				else:
-					user_p.refer_stage == '1'
+					user_p.refer_stage = '1'
+					user_p.app_downloaded = True
 					user_p.save()
 					if cache.get(request.user.id) is not None:
 						login(request, user)
@@ -321,6 +328,7 @@ def social_login_fb_app(request):
 			user_p = User.objects.get(fbid=fbid)
 			if user_p.refer_stage < 1:
 				user_p.refer_stage = '1'
+				user_p.app_downloaded = True
 				user_p.save()
 			else:
 				pass
