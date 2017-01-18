@@ -160,7 +160,9 @@ function sendData(data,url){
 	form.submit();
 }
 
-
+// var user_name="";
+// if($('#user_name').html()!='')
+// 	$('#user_name').html(user_name);
 function sendDataAjax(data,url,updateElement='') {
 	data['csrfmiddlewaretoken']=getCookie('csrftoken');
 	$(updateElement).html('');
@@ -172,6 +174,7 @@ function sendDataAjax(data,url,updateElement='') {
 			if(url=='/accounts/login/'){
 				if(response.status ==1){
 					openTab('earn-money')
+					// user_name='{{name}}'
 					
 				}
 				else if(response.status==0){
@@ -282,7 +285,11 @@ function lightbox_trigger(lightbox_name,show_temp=false){
 
 $('.cab-select-submit').click(function(){
 	var data={
-		'cab_id':$(this).closest('.search-results').attr('cab-id')
+		'cab_id':$(this).closest('.search-results').attr('cab-id'),
+		'From':$(this).closest('.search-results').attr('From'),
+		'To':$(this).closest('.search-results').attr('To'),
+		'Date':$(this).closest('.search-results').attr('Date'),
+		'Date_return':$(this).closest('.search-results').attr('Date_return'),
 	};
 	sendData(data,'../summary/');
 })

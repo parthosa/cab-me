@@ -179,7 +179,7 @@ def user_login(request):
 					return HttpResponseRedirect('../../feedback/')	
 				else:
 					login(request, user)
-					return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
+					return JsonResponse({'status': 1, 'message': 'Successfully logged in','name': UserProfile.objects.get(user=user).name})
 			else:
 				return JsonResponse({'status': 0, 'message': 'Kindly complete your registration first by verifying your contact number'})
 		else:
@@ -290,7 +290,7 @@ def user_login_app(request):
 		user_p = UserProfile.objects.get(user = user)
 		if user:
 			if user.is_active:
-				if user_p.refer_stage > 0:
+				if int(user_p.refer_stage) > 0:
 					if cache.get(request.user.id) is not None:
 						login(request, user)
 						return HttpResponseRedirect('../../feedback/')	

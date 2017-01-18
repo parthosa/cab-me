@@ -7,12 +7,15 @@ from django.contrib.auth.decorators import login_required
 import requests
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
+from django.contrib.auth import authenticate
 import random
 import string
 import json
 from urllib2 import urlopen
 from vendor.models import Driver, Vendor
 from vendor.models import Cab as vendor_cab
+import uuid
+import re
 
 
 def index(request):
@@ -80,14 +83,17 @@ def search(request):
 
 @csrf_exempt
 def summary(request):
-	print request.POST['cab_id']
+	print request.POST
+	print request.session['uid']
+	print cache.get(request.session['uid'])
 	cab_id = request.POST['cab_id']
 	cab = Cab.objects.get(cab_id = cab_id)
 	cab_type = cab.Type
-	cab_from = cab.From
-	cab_to = cab.To
-	cab_date = cab.Date
-	cab_date_return = cab.Date_return
+	cab_cache = cache.get(request.session['uid'])
+	cab_from = cab_cache['From']
+	cab_to = cab_cache['To']
+	cab_date = cab_cache['Date']
+	cab_date_return = cab_cache['Date_return']
 	distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
 	distance_json = urlopen(distance_url)
 	distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) #int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
@@ -138,14 +144,28 @@ def cab_cities(request):
 @csrf_exempt
 def bookcab(request):
 	if request.POST:
+		cache.clear()
+		tempuidlist = str(uuid.uuid1()).split('-')
+		request.session['uid'] = str(('').join(tempuidlist))
+		key = request.session['uid']
 		b_cab = BookCab()
 		b_cab.From = request.POST['From']
 		b_cab.To = request.POST['To']
 		b_cab.Date = request.POST['Date']
 		b_cab.Date_return = request.POST['Date_return']
+
 		distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(b_cab.From, b_cab.To)
 		distance_json = urlopen(distance_url)
 		distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) 
+		cust_cache = cache.set(key,
+			{'From': b_cab.From,
+			 'To': b_cab.To,
+			 'Date': b_cab.Date,
+			 'Date_return': b_cab.Date_return,
+			 'OneWay': request.POST['OneWay'],
+			 'distance': distance
+			}
+			)
 		# b_cab.Time = request.POST['Time']
 		if request.POST['OneWay'] == 'One Way':
 			b_cab.OneWay = True
@@ -257,11 +277,26 @@ def bookcab(request):
 					# cab_response_dict['cab_id': name]
 					# cab_response_dict['cust_names': name]
 				# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+				master_cab_suv = Cab.objects.get(cab_id = 'MSUV')
+				master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
+				master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
+
+				cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price*distance, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+				cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price*distance, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+				cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price*distance, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
+
 				resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 				print 1
 				return render(request, 'cab/search.html', resp)
 			except:
-				resp = {'status': 'No cabs Found', 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
+				master_cab_suv = Cab.objects.get(cab_id = 'MSUV')
+				master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
+				master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
+
+				cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price*distance, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+				cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price*distance, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+				cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price*distance, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
+				resp = {'cabs': cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 				print 2
 				return render(request, 'cab/search.html', resp)
 
@@ -290,6 +325,14 @@ def bookcab(request):
 				# cab_response_dict['cab_id': name]
 				# cab_response_dict['cust_names': name]
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id, 'cust_names': cust_names ,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
+			master_cab_suv = Cab.objects.get(cab_id = 'MSUV')
+			master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
+			master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
+
+			cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price*distance, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+			cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price*distance, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+			cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price*distance, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
+
 			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}			
 			# resp = {'Driver_name': D_name, 'D_phone': D_phone, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			print resp
@@ -329,13 +372,14 @@ def bookcab(request):
 			master_cab_sedan = Cab.objects.get(cab_id = 'MSEDAN')
 			master_cab_hatch = Cab.objects.get(cab_id = 'MHATCH')
 
-			cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
-			cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
-			cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
+			cab_response.append({'Driver_name': master_cab_suv.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_suv.price*distance, 'Cab_type': master_cab_suv.Type, 'cab_id': master_cab_suv.cab_id})
+			cab_response.append({'Driver_name': master_cab_sedan.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_sedan.price*distance, 'Cab_type': master_cab_sedan.Type, 'cab_id': master_cab_sedan.cab_id})
+			cab_response.append({'Driver_name': master_cab_hatch.DriverName, 'Driver_phone': '9982312111', 'Price': master_cab_hatch.price*distance, 'Cab_type': master_cab_hatch.Type, 'cab_id': master_cab_hatch.cab_id})
 			resp = {'cabs':cab_response, 'From': b_cab.From, 'To': b_cab.To, 'Date': b_cab.Date, 'Date_return': b_cab.Date_return, 'OneWay': b_cab.OneWay, 'Sharing': b_cab.Sharing}
 			# resp = {'Driver_name': D_name, 'Price': Price, 'Cab_type': type_cab, 'cab_id': cab_id,'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'OneWay': OneWay, 'Sharing': Sharing}
 			print 4
 			return render(request, 'cab/search.html', resp) #JsonResponse(resp)
+
 @login_required(login_url='/#login-reg')
 @csrf_exempt
 def booknow(request):
@@ -346,6 +390,19 @@ def booknow(request):
 		phone = request.POST['phone']
 		driver_phone_list = Driver.objects.all().values('contact')
 		vendor_phone_list = Vendor.objects.all().values('contact')
+		cab_cache = cache.get(request.session['uid'])
+
+		print cab_cache['From']
+		try:
+			city_from = City.objects.get(name = cab_cache['From'].lower())
+		except:
+			city_from = City.objects.create(name = cab_cache['From'].lower())
+		print city_from.name
+		try:
+			city_to = City.objects.get(name = cab_cache['From'].lower())
+		except:
+			city_to = City.objects.create(name = cab_cache['From'].lower())
+		print city_to.name
 
 		if request.POST['sharing'] == 'Yes':
 			sharing = True
@@ -368,7 +425,7 @@ def booknow(request):
 		Driver/Owner name: Reddy Kumar Simha
 		Driver/Owner number: 8890605392
 		Cab Type: %s
-		''' % (user_p.name, cab_b.From, cab_b.To, cab_b.Type)
+		''' % (user_p.name, city_from, city_to, cab_b.Type)
 			user_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal''' % (phone, sms_body_cust)
 			requests.get(user_sms_url)
 			
@@ -377,17 +434,21 @@ def booknow(request):
 		Customer number: %s
 		Cab Type: %s
 		Follow the link to confirm the booking: http://cabme.in/vendor/dashboard/confirm_booking
-		''' % (user_p.name, cab_b.From, cab_b.To, user_p.name, user_p.phone, cab_b.Type)
+		''' % (user_p.name, city_from, city_to, user_p.name, phone, cab_b.Type)
 			simha_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=8890605392&text=%s&priority=dnd&stype=normal''' % (sms_body_simha)
 			requests.get(simha_sms_url)	
 			b_cab = BookCab()
-			b_cab.From = cab_b.From #request.POST['From']
-			b_cab.To = cab_b.To #request.POST['To']
-			b_cab.Date = cab_b.Date #request.POST['Date']
-			b_cab.Date_return = cab_b.Date_return #request.POST['Date_return']
+
+			b_cab.From = city_from #request.POST['From']
+			b_cab.To = city_to #request.POST['To']
+			b_cab.Date = cab_cache['Date'] #request.POST['Date']
+			b_cab.Date_return = cab_cache['Date_return'] #request.POST['Date_return']
 			# b_cab.Time = request.POST['Time']
-			b_cab.OneWay = request.POST['OneWay']
+			b_cab.OneWay = cab_cache['OneWay']
 			b_cab.Sharing = request.POST['sharing']
+			b_cab.Type = cab_b.Type
+			b_cab.Time = pickup_time
+			b_cab.Price = cab_b.price*cab_cache['distance']
 
 			b_cab.save()
 
@@ -401,20 +462,22 @@ def booknow(request):
 		Driver/Owner name: %s
 		Driver/Owner number: %s
 		Cab Type: %s
-		''' % (user_p.name,userpro_driver.name, From, To, userpro_driver.name, userpro_driver.phone, cab_b.Type)
-			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body_cust)
+		''' % (user_p.name,userpro_driver.name, city_from, city_to, userpro_driver.name, userpro_driver.phone, cab_b.Type)
+			user_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal''' % (phone, sms_body_cust)
+			requests.get(user_sms_url)
 			
 			confirm_url = 'http://cabme.in/dashboard/confirm_booking'
 			sms_body_driver = '''Hi %s,
 			%s has requested to pool in your car from %s to %s.
 			Kindly confirm his request by following the url %s, or logging in cabme portal.
 			User Contact Number: %s
-			''' % (userpro_driver.name, user_p.name, From, To, confirm_url ,user_p.phone)
-			requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (userpro_driver.phone, sms_body_driver)
+			''' % (userpro_driver.name, user_p.name, city_from, city_to, confirm_url ,user_p.phone)
+			vendor_sms_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal''' % (userpro_driver.phone, sms_body_driver)
+			requests.get(vendor_sms_url)
 
-		user_p.bookedcabs.add(cab_b) 
+		user_p.bookedcabs.add(b_cab) 
 		#request.session['feedback'] = cab_b
-		key =  vendor + request.user.id
+		key =  vendor + str(request.user.id)
 		# b_cab = BookCab()
 		# b_cab.From = request.POST['From']
 		# b_cab.To = request.POST['To']
@@ -428,8 +491,8 @@ def booknow(request):
 			'key': key,
 			 'name': user_p.name,
 			 'contact': user_p.phone,
-			 'From': From,
-			 'To': To,
+			 'From': city_from,
+			 'To': city_to,
 			 'pickup_time': pickup_time,
 			 'pickup_address':pickup_address})
 		# sms_body = '''Hi %s,
@@ -440,6 +503,7 @@ def booknow(request):
 		# ''' % (user_p.name, From, To, cab_b.Type)
 		# requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body)
 		resp = {'status': 'success', 'message': 'Your cab has been booked'}
+		return JsonResponse(resp)
 
 @login_required(login_url='/#login-reg')
 @csrf_exempt
@@ -521,24 +585,27 @@ def forgot_password(request):
 		forgot_password_body = '''Hi %s,
 	You requested a new password.
 	New password: %s
-	'''(user.name, password)
-		requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user.phone, forgot_password_body)
-		return JsonResponse({'status': '1', 'message': 'Your new password has been sent to your registered phone number'})
-	except:
-		return JsonResponse({'status': '1', 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
+	''' % (user.name, password)
+		req_url = '''http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal''' % (user.phone, forgot_password_body)
+		requests.get(req_url) 
+		request.user.password = password
+		request.user.save()
+		return JsonResponse({'status': 1, 'message': 'Your new password has been sent to your registered phone number'})
+	except ObjectDoesNotExist:
+		return JsonResponse({'status': 1, 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
 
 @login_required(login_url='/#login-reg')
 def change_password(request):
 	old_password = request.POST['old_password']
 	new_password = request.POST['new_password']
 	new_password_confirm = request.POST['new_password_confirm']
-	if old_password == request.user.password:
+	if not authenticate(username = request.user.username, password = old_password) is None:
 		if new_password == new_password_confirm:
-			request.user.password = old_password
+			request.user.password = new_password
 			request.user.save()
-			return JsonResponse({'status': 'Success', 'message': 'Your password has been successfully changed'})
+			return JsonResponse({'status': 1, 'message': 'Your password has been successfully changed'})
 		else: 
-			return JsonResponse({'status': 'Failed', 'message': 'Your passwords do not match'})
+			return JsonResponse({'status': 1, 'message': 'Your passwords do not match'})
 	else:
 		return JsonResponse({'status': 'Failed', 'message': 'The password enetered is incorrect'})
 
@@ -548,8 +615,18 @@ def edit_profile(request):
 	user_pro = UserProfile.objects.get(user = user)
 	email = request.POST['email_id']
 	name = request.POST['name']
-	user_pro.email_id = email
-	user_pro.name = name
-	user_pro.save()
-	return JsonResponse({'status': 'Successful', 'message': 'Your details have been saved'})
+	registered_members = User.objects.all()	
+	list_of_registered_emails = [x.username for x in registered_members]
+	if not email in list_of_registered_emails:
+		if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
+			user.username = email
+			user.save()
+			user_pro.email_id = email
+			user_pro.name = name
+			user_pro.save()
+			return JsonResponse({'status': 1, 'message': 'Your details have been saved'})
+		else:
+			return JsonResponse({'status': 0, 'message': 'Please enter a valid email address'})
+	else:
+		return JsonResponse({'status': 0, 'message': 'This email is already registered'})
 

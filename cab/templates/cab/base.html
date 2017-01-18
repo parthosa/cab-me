@@ -118,7 +118,7 @@ Logs:<br/>
              </ul>
                <ul class="account-menu">
                  {% if user.is_authenticated == 1 %}
-                   <li id="view-account-menu">Hi {{name}} </li>
+                   <li id="view-account-menu">Hi <span id="user_name">{{name}}</span> </li>
                  {% else %}   
                    <li id="sign-in-trigger">Sign In</li>
                  {% endif %}
