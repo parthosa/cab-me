@@ -9,6 +9,8 @@ from . import views
 
 
 urlpatterns = [
+    url(r'^register_app/$', views.register_app, name='register_app'),
+    url(r'^login_app/', views.login_app, name='login_app'),
     url(r'^register/', views.Init_Reg, name='initreg'),
     url(r'^login/', views.user_login, name='login'),
     url(r'^logout/', views.user_logout, name = 'logout'),

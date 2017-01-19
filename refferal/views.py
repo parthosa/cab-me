@@ -9,12 +9,9 @@ from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
 import requests
 
-def register(request):
-	return render(request, 'cab/refer_register.html')
-
 
 @csrf_exempt
-@login_required
+@login_required(login_url='/accounts/login/')
 def create_invite_code(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	if user_p.refer_stage == '0':
@@ -175,7 +172,7 @@ def verify_otp(request):
 
 	return JsonResponse(resp)
 
-@login_required
+@login_required(login_url='/accounts/login/')
 @csrf_exempt
 def wallet(request):
 	user_p = UserProfile.objects.get(user = request.user)

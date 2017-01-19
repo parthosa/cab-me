@@ -12,6 +12,14 @@ from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
 
 
+def register_app(request):
+	return render(request, 'registration/register.html')
+
+def login_app(request):
+	return render(request, 'registration/login.html')
+
+
+
 def register_success(request):
 	return render(request, 'registration/register_success.html')		
 
@@ -109,7 +117,7 @@ def Init_Reg(request):
 			return JsonResponse(status)
 			# return HttpResponseRedirect('../../../register')
 	else:
-		return render(request, 'registration/register.html')		
+		return render(request, 'cab/register.html')		
 
 
 
@@ -187,7 +195,7 @@ def user_login(request):
 			return JsonResponse(context) #render(request, 'main/login.html', context)
 	else:
 		print 1
-		return render(request, 'registration/login.html')		
+		return render(request, 'cab/login.html')		
 
 def user_logout(request):
 	logout(request)

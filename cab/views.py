@@ -37,7 +37,7 @@ def index(request):
 		context = {'name': name, 'login': 1}
 		return render(request, 'cab/index.html', context)
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def dashboard(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	name = user_p.name
@@ -82,7 +82,7 @@ def bus(request):
 def search(request):
 	return render(request, 'cab/search.html')
 
-@login_required
+@login_required(login_url='/accounts/login/')
 @csrf_exempt
 def summary(request):
 	print request.POST
@@ -386,7 +386,7 @@ def bookcab(request):
 			print 4
 			return render(request, 'cab/search.html', resp) #JsonResponse(resp)
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 @csrf_exempt
 def booknow(request):
 	if request.POST:
@@ -508,10 +508,10 @@ def booknow(request):
 		# Cab Type: %s
 		# ''' % (user_p.name, From, To, cab_b.Type)
 		# requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body)
-		resp = {'status': 'success', 'message': 'Your cab has been booked'}
+		resp = {'status': '1', 'message': 'Your cab has been booked'}
 		return JsonResponse(resp)
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 @csrf_exempt
 def postcab(request):
 	print request.user
@@ -536,7 +536,7 @@ def postcab(request):
 	resp = {'status': 'Done'}
 	return JsonResponse(resp)
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def feedback(request):
 	travelled = cache.get(request.user.id)  #request.session['feedback']
 	# if travelled is not None:
@@ -548,7 +548,7 @@ def feedback(request):
 
 	return HttpResponseRedirect('../dashboard/')
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def confirm_booking_user(request):
 	if not request.POST:
 		book_cache_keys = cache.keys("p*")
@@ -600,7 +600,7 @@ def forgot_password(request):
 	except ObjectDoesNotExist:
 		return JsonResponse({'status': 1, 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def change_password(request):
 	old_password = request.POST['old_password']
 	new_password = request.POST['new_password']
@@ -615,7 +615,7 @@ def change_password(request):
 	else:
 		return JsonResponse({'status': 'Failed', 'message': 'The password enetered is incorrect'})
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def edit_profile(request):
 	user = request.user
 	user_pro = UserProfile.objects.get(user = user)
