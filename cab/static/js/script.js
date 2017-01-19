@@ -358,7 +358,7 @@ $('#sign-up').click(function (ev) {
 $('#refer-sign-up').click(function (ev) {
 	ev.preventDefault();
 	var data={
-		Name:$(this).closest('#register-form').find('input[name=name]').val(),
+		Name:$(this).closest('#register-form').find('input[name=Name]').val(),
 		Contact:$(this).closest('#register-form').find('input[name=phone]').val(),
 		Email:$(this).closest('#register-form').find('input[name=email]').val(),
 		Password:$(this).closest('#register-form').find('input[name=password]').val(),
