@@ -451,6 +451,7 @@ def booknow(request):
 			b_cab.Type = cab_b.Type
 			b_cab.Time = pickup_time
 			b_cab.Price = cab_b.price*cab_cache['distance']
+			b_cab.Cust.add(user_p)
 
 			b_cab.save()
 
