@@ -1693,6 +1693,21 @@ form#login-form{
     align-items: center;
 }
 
+h2.earn-money-status {
+    font-family: sans-serif;
+     color: #212f4c; 
+    font-size: 1em;
+    /* text-align: center; */
+    /*font-weight: normal;*/
+}
+
+.earn-money-details-wrapper .wallet-amount-inner {
+    justify-content: flex-start;
+}
+
+.earn-money-details-wrapper .wallet-amount-inner h3 {
+    margin-left: 0;
+}
 .col-s2.content-display {
     display: flex;
     justify-content: center;
@@ -2065,7 +2080,7 @@ div.sm-info p {
 }
 
 
-.wallet-amount-wrap h3 {
+.wallet-amount-inner h3 {
     font-family: sans-serif;
     color: #212f4c;
     margin: 0.7em 0.9em;
@@ -2073,7 +2088,7 @@ div.sm-info p {
     font-weight: normal;
 }
 
-.wallet-amount-wrap p {
+.wallet-amount-inner p {
     font-size: 1.6em;
     color: #212f4c;
     font-weight: normal;
@@ -2173,7 +2188,8 @@ p.input-label {
 
 /*START EARN MONEY  */
 .earn-money-details-wrapper{
-  /*margin-top:24px;*/
+  justify-content: center;
+  align-items: center;
 }
 
 .earn-money-details {
