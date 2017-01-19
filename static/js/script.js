@@ -256,10 +256,10 @@ function sendDataAjax(data,url,updateElement='') {
 					if(response.status==1){
 						$('.personal-info-block').hide();
 						$('.booking-confirm').show().attr('style', 'display:flex !important');
-						
-						$('pickup-detail.time').html(response.time);
-						$('pickup-detail.address').html(response.address);
-						$('pickup-detail.phone').html(response.phone);
+						console.log(response)
+						$('.pickup-detail.time').html(response.time);
+						$('.pickup-detail.address').html(response.address);
+						$('.pickup-detail.phone').html(response.phone);
 
 					}
 					else
