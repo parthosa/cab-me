@@ -37,7 +37,7 @@ def index(request):
 		context = {'name': name, 'login': 1}
 		return render(request, 'cab/index.html', context)
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def dashboard(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	name = user_p.name
@@ -45,28 +45,30 @@ def dashboard(request):
 	contact = user_p.phone
 	book_cab = []
 	bookedcabs = user_p.bookedcabs.all()
-	try:
+	if len(bookedcabs) == 0:
 		book_cab = 0
-	except len(bookedcabs)!=0:
-		for cab in user_p.bookedcabs:
+	else:
+		for cab in bookedcabs:
 			cab_type = cab.Type
-			route = 'Oneway' if cab.OneWay == True else 'RoundTrip'
+			route = 'Oneway' if cab.Oneway == True else 'RoundTrip'
 			From = cab.From
 			To = cab.To
 			Date = cab.Date
 			Date_return = cab.Date_return
-			distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
+			distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(From, To)
 			distance_json = urlopen(distance_url)
 			distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) #int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
-			fare = cab.price*distance*1.609 #distance*cab.price
-			book_cab.append({'cab_type': cab_type, 'route': route, 'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'fare': fare})
+			fare = cab.Price*distance*1.609 #distance*cab.price
+			time = cab.Time
+			book_cab.append({'cab_type': cab_type, 'route': route, 'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'fare': fare,'time':time})
 	
 	context = {'name': name, 'email': email, 'contact': contact, 'book_cab': book_cab}
 
 	return render(request, 'cab/dashboard.html', context)
 
 def earn_money(request):
-	return render(request, 'cab/earn_money.html')
+	resp = {'refer_stage':UserProfile.objects.get(user=request.user).refer_stage}
+	return render(request, 'cab/earn_money.html',resp)
 
 def hotels(request):
 	return render(request, 'cab/hotels.html')
@@ -81,17 +83,20 @@ def bus(request):
 def search(request):
 	return render(request, 'cab/search.html')
 
+@login_required(login_url='/accounts/login/')
 @csrf_exempt
 def summary(request):
 	print request.POST
 	print request.session['uid']
 	print cache.get(request.session['uid'])
+	# user = UserProfile.objects.get(user = request.user)
+
 	cab_id = request.POST['cab_id']
 	cab = Cab.objects.get(cab_id = cab_id)
 	cab_type = cab.Type
 	cab_cache = cache.get(request.session['uid'])
 	print cab_cache
-	print cab_cache['From']
+	# print cab_cache['From']
 	cab_from = cab_cache['From']
 	cab_to = cab_cache['To']
 	cab_date = cab_cache['Date']
@@ -102,7 +107,7 @@ def summary(request):
 	price = cab.price*distance #distance*cab.price
 	service_tax = float(.06*price)
 	total_price = price+service_tax
-	resp = {'cab_id': cab_id, 'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price}
+	resp = {'cab_id': cab_id, 'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price,'Phone':UserProfile.objects.get(user=request.user).phone}
 	return render(request, 'cab/summary.html', resp)
 
 def blog(request):
@@ -382,7 +387,7 @@ def bookcab(request):
 			print 4
 			return render(request, 'cab/search.html', resp) #JsonResponse(resp)
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 @csrf_exempt
 def booknow(request):
 	if request.POST:
@@ -505,10 +510,10 @@ def booknow(request):
 		# Cab Type: %s
 		# ''' % (user_p.name, From, To, cab_b.Type)
 		# requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body)
-		resp = {'status': 'success', 'message': 'Your cab has been booked'}
+		resp = {'status': '1', 'message': 'Your cab has been booked','time':pickup_time,'address':pickup_address,'phone':phone}
 		return JsonResponse(resp)
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 @csrf_exempt
 def postcab(request):
 	print request.user
@@ -533,7 +538,7 @@ def postcab(request):
 	resp = {'status': 'Done'}
 	return JsonResponse(resp)
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def feedback(request):
 	travelled = cache.get(request.user.id)  #request.session['feedback']
 	# if travelled is not None:
@@ -545,7 +550,7 @@ def feedback(request):
 
 	return HttpResponseRedirect('../dashboard/')
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def confirm_booking_user(request):
 	if not request.POST:
 		book_cache_keys = cache.keys("p*")
@@ -597,7 +602,7 @@ def forgot_password(request):
 	except ObjectDoesNotExist:
 		return JsonResponse({'status': 1, 'message': 'No user with this phone number exists. Kindly check the number you have enetered'})
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def change_password(request):
 	old_password = request.POST['old_password']
 	new_password = request.POST['new_password']
@@ -612,7 +617,7 @@ def change_password(request):
 	else:
 		return JsonResponse({'status': 'Failed', 'message': 'The password enetered is incorrect'})
 
-@login_required(login_url='/#login-reg')
+@login_required(login_url='/accounts/login/')
 def edit_profile(request):
 	user = request.user
 	user_pro = UserProfile.objects.get(user = user)

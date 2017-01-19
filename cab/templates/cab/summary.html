@@ -1,125 +1,158 @@
 {% extends 'cab/base.html' %}
 {% block content %}
- {% load staticfiles %}
-  <div class="back-drop"> </div>
-  <div class="card type-1">
-      <div class="row">
-        <h3 class="card-label">Booking Summary <span class="caret">></span></h3>
-    </div>
-    <div class="row">
-        <div class="col-s1 summary-headers" id="outstation-summary" cab-id="{{cab_id}}">
-            <div class="col">
-                <img src="/static/img/cabs/INDIGO_OR_EQUIVALENT.png" alt="">
+{% load staticfiles %}
+<div class="back-drop"> </div>
+<div class="card type-1">
+  <div class="row">
+    <h3 class="card-label">Booking Summary <span class="caret">></span></h3>
+</div>
+<div class="row">
+    <div class="col-s1 summary-headers" id="outstation-summary" cab-id="{{cab_id}}">
+        <div class="col">
+            <img src="/static/img/cabs/INDIGO_OR_EQUIVALENT.png" alt="">
 
-                <h4 class="cab-type">
-                    {{cab_type}}
-                </h4>
-            </div> 
-            <div class="col">
-
-                <h4 class="search-data">
-                    {{From}}
-                </h4>
-                <p> {{Date}}</p>
-            </div>
-            <div class="arrow col-s6">
-
-                <h4 class="search-data">&#8644;</h4>
-
-            </div><div class="col">
-            <h4 class="search-data">
-                {{To}}
+            <h4 class="cab-type">
+                {{cab_type}}
             </h4>
-            <p> {{Date_return}}</p>
-        </div> <div class="col-s4">
-        <div class="fare-detail">
-            <h3>Fare Detail</h3>
-            <div class="row"> <div class="col-s2">Car Category:</div><div class="col-s2">Indigo Or Equivalent</div></div>
+        </div> 
+        <div class="col">
+
+            <h4 class="search-data">
+                {{From}}
+            </h4>
+            <p> {{Date}}</p>
+        </div>
+        <div class="arrow col-s6">
+
+            <h4 class="search-data">&#8644;</h4>
+
+        </div><div class="col">
+        <h4 class="search-data">
+            {{To}}
+        </h4>
+        <p> {{Date_return}}</p>
+    </div> <div class="col-s4">
+    <div class="fare-detail">
+        <h3>Fare Detail</h3>
+        <div class="row"> <div class="col-s2">Car Category:</div><div class="col-s2"> {{cab_type}}</div></div>
+        <div class="row">
+            <div class="col-s2">Distance:</div>
+            <div class="col-s2">{{Distance}}&nbsp;km</div></div>
             <div class="row">
-                <div class="col-s2">Distance:</div>
-                <div class="col-s2">{{Distance}}&nbsp;km</div></div>
-             <div class="row">
                 <div class="col-s2">Base Fare:</div>
                 <div class="col-s2"><span>&#8377; </span>&nbsp;{{Price}}</div></div>
-            <div class="row">
+                <div class="row">
                     <div class="col-s2">Service Tax(6%):</div>
                     <div class="col-s2"><span>&#8377; </span>&nbsp;{{Service_Tax}}</div>
-            </div>
-            <div class="row"> 
-                <div class="col-s2">Total Price:</div>
-                    <div class="col-s2"><span>&#8377; </span>&nbsp;{{Total_Price}}</div>
-            </div>
-             </div>
-
                 </div>
+                <div class="row"> 
+                    <div class="col-s2">Total Price:</div>
+                    <div class="col-s2"><span>&#8377; </span>&nbsp;{{Total_Price}}</div>
+                </div>
+            </div>
+
+        </div>
 
 
+    </div>
+</div>
+</div>
+<div class="card type-2 personal-info-block">
+ <div class="row">
+    <h3 class="card-label">Personal Information <span class="caret">></span></h3>
+</div>
+<div class="row">
+ <div class="form-opts personal-info">
+    
+    <div class="form-data">
+        <div class="input-row col-s2">
+            <div class="input-wrap-2 summary-input-opts">
+                <p class="p-label" name="">Do you want to share cab?</p>
+                <div class="input-radio-opts">
+                    <input type="radio" class="input-field from-data " name="Sharing" value="True" placeholder="" >Yes</input>
+                    <input type="radio" class="input-field from-data " name="Sharing" value="False" placeholder="" checked="" >No</input>
+                </div>
+            </div>
+            
+            <div class="input-wrap-2">
+                <label class="p-label" name="">Phone</label>
+                <input type="text" class="input-field phone-data ui-autocomplete-input" placeholder="" autocomplete="off" value="{{Phone}}">
             </div>
         </div>
-    </div>
-    <div class="card type-2">
-       <div class="row">
-        <h3 class="card-label">Personal Information <span class="caret">></span></h3>
-    </div>
-    <div class="row">
-   <div class="form-opts personal-info">
-                
-                    <div class="form-data">
-                        <div class="input-row col-s2">
-                            <div class="input-wrap-2 summary-input-opts">
-                                <p class="p-label" name="">Do you want to share cab?</p>
-                                <div class="input-radio-opts">
-                                <input type="radio" class="input-field from-data " name="Sharing" value="True" placeholder="" >Yes</input>
-                                <input type="radio" class="input-field from-data " name="Sharing" value="False" placeholder="" >No</input>
-                                </div>
-                            </div>
-                            
-                            <div class="input-wrap-2">
-                                <label class="p-label" name="">Phone</label>
-                                <input type="text" class="input-field phone-data ui-autocomplete-input" placeholder="" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="input-row col-s2">
-                            <div class="input-wrap-2">
-                                <label class="p-label" name="">Pickup Time</label>
-                               <select class="input-field time-hr-data ui-autocomplete-input" placeholder="" autocomplete="off">
-                                    <option value="00">00</option>
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                                <select class="input-field time-min-data ui-autocomplete-input" placeholder="" autocomplete="off">
-                                    <option value="00">00</option>
-                                    <option value="15">15</option>
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
-                                </select>
-                                <select class="input-field time-type-data ui-autocomplete-input" placeholder="" autocomplete="off">
-                                    <option value="AM">AM</option>
-                                    <option value="PM">PM</option>
-                                </select>
-                            </div>
-                            <div class="input-wrap-2">
-                                <label class="p-label" name="">Pickup Address</label>
-                                <textarea type="text" class="input-field pickup-address-data ui-autocomplete-input" placeholder="" rows="3" cols="35"></textarea>
-                            </div>
-                        </div>
-                            <div class="input-wrap-3" style="margin-left:25px;">
-                                <button type="submit" class="form-submit" id="final-submit">Proceed</button>
-                            </div>
+        <div class="input-row col-s2">
+            <div class="input-wrap-2">
+                <label class="p-label" name="">Pickup Time</label>
+                <select class="input-field time-hr-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <select class="input-field time-min-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <select class="input-field time-type-data ui-autocomplete-input" placeholder="" autocomplete="off">
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
+            </div>
+            <div class="input-wrap-2">
+                <label class="p-label" name="">Pickup Address</label>
+                <textarea type="text" class="input-field pickup-address-data ui-autocomplete-input" placeholder="" rows="3" cols="35"></textarea>
+            </div>
+        </div>
+        <div class="input-wrap-3" style="margin-left:25px;">
+            <button type="submit" class="form-submit" id="final-submit">Proceed</button>
+        </div>
+       
                             <!-- <div class="input-row-3">
-                    </div> -->
-                    </div>
+                        </div> -->
+            </div>
+             <div class="message-box">
+            <p id="message"></p>
+        </div>
+        </div>
     </div>
+</div>
+<div class="card type-2 booking-confirm">
+ <div class="row">
+    <h3 class="card-label">Booking Confirmation <span class="caret">></span></h3>
+</div>
+<div class="row">
+<div class="col-s2">
+  <div class="booking-confirm-wrap">
+    <div class="booking-confirm-wrap-inner">
+      <h3>Your Cab has been book Successfully</h3>
+      <div class="pickup-details">
+      <p class="pickup-label">Pickup Time</p>
+      <p class="pickup-detail time">5:30 PM </p>
+      </div>
+       <div class="pickup-details">
+      <p class="pickup-label">Pickup Address</p>
+      <p class="pickup-detail address">BUDH Bhavan BITS Pilani </p>
+      </div>
+       <div class="pickup-details">
+      <p class="pickup-label">Phone</p>
+      <p class="pickup-detail phone">9999461307 </p>
+      </div>
+    </div>
+  </div>
+    </div>
+<div class="col-s2">
+<h3 style="text-align: center;">For any modification call us at 8890605392</h3>
+</div>
     </div>
 </div>
 {% endblock %}

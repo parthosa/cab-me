@@ -1,0 +1,63 @@
+{% extends 'cab/base.html' %}
+{% block content %}
+ {% load staticfiles %}
+ <div class="back-drop"> </div>
+<div class="row dashboard-panel">
+  <div class="card type-1">
+  <div class="refer-wrap">
+  	 <div class="refer-title">
+     <h3>Login</h3>
+    </div>
+    <div class="row">
+    <div class="col-s2 refer-img">
+    <img src="{% static 'img/refer_side.png'%}">
+    </div>
+    <div class="col-s2 form-wrap">
+     <form id="register-form">
+                            {% csrf_token %}
+                          
+                           
+                            <div class="input-wrap-2">
+                            <p class="input-label">Email</p>
+                               <input class="input-field" type="email"  name="email" required=""></input>
+                            </div>
+                            <div class="input-wrap-2">
+                            <p class="input-label">Password</p>
+                                <input class="input-field" type="password"  name="password" required=""></input>
+                            </div>
+                           
+                            <div class="input-wrap-2">
+                            <button type="submit" id="refer-sign-in">Sign In</button>
+                            </div>
+                            <div class="foot-note">
+                                <p class="message-login success">
+                                </p>
+                                 <p class="message-login fail">
+                                </p>
+                                <!-- <p class="forgot-pass">Forgot Password?</p> -->
+                            </div>
+
+                        </form>
+                        <div class="refer-social social-wrapper">
+                            <p>OR</p>
+                            <div class="social-button-wrapper">
+                                <div class="facebook-login social-button">
+                                <a href="javascript:Login()">
+                                    <img src="{% static 'img/login-fb.png' %}">
+                                    </a>
+                                </div>
+                                <div class="google-login social-button">
+                                <a href="/accounts/social/google/login/">
+                                    <img src="{% static 'img/login-google.png' %}">
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
+                        </div>
+
+                        </div>
+                        </div>
+  </div>
+  </div>
+
+ {% endblock%}

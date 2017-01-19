@@ -4,6 +4,11 @@ html,body{
   overflow-x: hidden;
 }
 
+a{
+  text-decoration: none !important;
+  color: inherit !important; 
+}
+
 .landing-wrapper{
   width: 100vw;
   margin: 0;
@@ -1073,6 +1078,9 @@ p.p-label {
 .form-opts.personal-info {
     margin: 0 auto;
     margin-bottom: 6%;
+        flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -1084,6 +1092,52 @@ p.p-label {
 .personal-info .form-submit {
     background: #212f4c;
 }
+
+.booking-confirm{
+  display: none !important;
+}
+
+.booking-confirm h3 {
+    font-family: sans-serif;
+    color: #212f4c;
+    font-size: 1.4em;
+    margin-bottom: 1.1em;
+}
+
+.pickup-details {
+    display: flex;
+    font-family: sans-serif;
+}
+
+.booking-confirm-wrap {
+    margin: 1em 2em;
+}
+
+p.pickup-label {
+    margin: 0;
+    width: 130px;
+    /* width: 100px; */
+    /* line-height: 30px; */
+    margin-top: 4px;
+    margin-right: 9px;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
+    font-weight: bold;
+    color: #282727;
+}
+
+p.pickup-detail {
+    margin-top: 4px;
+    margin-right: 9px;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
+    font-weight: b;
+    color: #282727;
+}
+
+.personal-info-block p#message {
+    font-family: sans-serif;
+    color: #282727;
+}
+
 /*    END SUMMARY PAGE  */
 
 
@@ -1879,6 +1933,9 @@ p.message-login.success{
 
 .booking-item{
   height: 30vh;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  margin: 0 3em;
 }
 
 .booking-info-wrapper{
@@ -2059,7 +2116,7 @@ p.input-label {
     align-items: center;
     margin: 10px 0px;
 }
-.refer-wrap button#refer-sign-up {
+.refer-wrap button {
     background: #212f4c;
     color: white;
     border: none;
@@ -2074,12 +2131,11 @@ p.input-label {
     font-family: sans-serif;
     font-size: 1.9em;
     margin: 0.7em;
-
 }
 
 .refer-wrap .col-s2 {
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     align-items: center;
     flex-direction: column;
 }
@@ -2092,6 +2148,15 @@ p.input-label {
 
 .refer-img img{
   width:100%;
+}
+
+.refer-wrap p.message-login {
+    color: #212f4c;
+    text-align: center;
+}
+
+.refer-wrap form#register-form {
+    width: 80%;
 }
 
 .refer-social .social-button-wrapper{
@@ -2130,5 +2195,14 @@ p.input-label {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.earn-money-panel.inner-dash .headers ul li.active {
+    color: #212f4c;
+}
+
+.earn-money-panel.inner-dash .headers ul li {
+    color: #aaa;
+    /*cur*/
 }
 /*END EARN MONEY*/

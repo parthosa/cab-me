@@ -4,6 +4,11 @@ html,body{
   overflow-x: hidden;
 }
 
+a{
+  text-decoration: none !important;
+  color: inherit !important; 
+}
+
 .landing-wrapper{
   width: 100vw;
   margin: 0;
@@ -91,7 +96,7 @@ ul.account-menu {
   background: white;
   height: auto;
   margin: 0 auto;
-  box-shadow: -6px 7px 16px -4px black;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
   margin-top: 6vh;
   top: -12vh;
 }
@@ -342,39 +347,39 @@ button.form-submit {
 
 
 .cab-offers .row:nth-of-type(1) .col-s2:nth-of-type(1){
-  background:url('../img/hotel1.jpg');
+  background:url('../img/slider/Scroll-IconsArtboard-3.png');
       background-position: center;
     background-size: cover;
     background-repeat:no-repeat;
 }
 .cab-offers .row:nth-of-type(1) .col-s2:nth-of-type(2){
-  background:url('../img/hotel2.jpg');
+  background:url('../img/slider/Scroll-IconsArtboard-7.png');
       background-position: center;
     background-size: cover;
     background-repeat:no-repeat;
 }
 
 .cab-offers .row:nth-of-type(2) .col-s2:nth-of-type(1){
-  background:url('../img/hotel2.jpg');
+  background:url('../img/slider/Scroll-IconsArtboard-5.png');
       background-position: center;
     background-size: cover;
     background-repeat:no-repeat;
 }
 .cab-offers .row:nth-of-type(2) .col-s2:nth-of-type(2){
-  background:url('../img/hotel3.jpg');
+  background:url('../img/slider/Scroll-IconsArtboard-10.png');
       background-position: center;
     background-size: cover;
     background-repeat:no-repeat;
 }
 
 .cab-offers .row:nth-of-type(3) .col-s2:nth-of-type(1){
-  background:url('../img/hotel3.jpg');
+  background:url('../img/slider/Scroll-IconsArtboard-6.png');
       background-position: center;
     background-size: cover;
     background-repeat:no-repeat;
 }
 .cab-offers .row:nth-of-type(3) .col-s2:nth-of-type(2){
-  background:url('../img/hotel1.jpg');
+  background:url('../img/slider/Scroll-IconsArtboard-8.png');
       background-position: center;
     background-size: cover;
     background-repeat:no-repeat;
@@ -1073,6 +1078,9 @@ p.p-label {
 .form-opts.personal-info {
     margin: 0 auto;
     margin-bottom: 6%;
+        flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -1084,6 +1092,52 @@ p.p-label {
 .personal-info .form-submit {
     background: #212f4c;
 }
+
+.booking-confirm{
+  display: none !important;
+}
+
+.booking-confirm h3 {
+    font-family: sans-serif;
+    color: #212f4c;
+    font-size: 1.4em;
+    margin-bottom: 1.1em;
+}
+
+.pickup-details {
+    display: flex;
+    font-family: sans-serif;
+}
+
+.booking-confirm-wrap {
+    margin: 1em 2em;
+}
+
+p.pickup-label {
+    margin: 0;
+    width: 130px;
+    /* width: 100px; */
+    /* line-height: 30px; */
+    margin-top: 4px;
+    margin-right: 9px;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
+    font-weight: bold;
+    color: #282727;
+}
+
+p.pickup-detail {
+    margin-top: 4px;
+    margin-right: 9px;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
+    font-weight: b;
+    color: #282727;
+}
+
+.personal-info-block p#message {
+    font-family: sans-serif;
+    color: #282727;
+}
+
 /*    END SUMMARY PAGE  */
 
 
@@ -1847,10 +1901,23 @@ input.dashboard-info-input.editable {
     cursor: pointer;
 }
 
+.dashboard-details .message {
+    font-family: sans-serif;
+    color: #212f4c;
+    /* text-align: center; */
+}
+
+.message_box {
+    margin-top: 14px;
+    margin-left: 100px;
+}
+
 p.message-login {
-    margin: 0;
+   margin: 0;
     font-family: Open Sans,arial,tahoma,verdana,sans-serif;
-    font-size: 0.9em;
+    font-size: 0.8em;
+    color: #cccccc;
+    text-align: justify;
 }
 
 p.message-login.success{
@@ -1866,6 +1933,9 @@ p.message-login.success{
 
 .booking-item{
   height: 30vh;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  margin: 0 3em;
 }
 
 .booking-info-wrapper{
@@ -2046,7 +2116,7 @@ p.input-label {
     align-items: center;
     margin: 10px 0px;
 }
-.refer-wrap button#refer-sign-up {
+.refer-wrap button {
     background: #212f4c;
     color: white;
     border: none;
@@ -2061,12 +2131,11 @@ p.input-label {
     font-family: sans-serif;
     font-size: 1.9em;
     margin: 0.7em;
-
 }
 
 .refer-wrap .col-s2 {
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     align-items: center;
     flex-direction: column;
 }
@@ -2081,6 +2150,15 @@ p.input-label {
   width:100%;
 }
 
+.refer-wrap p.message-login {
+    color: #212f4c;
+    text-align: center;
+}
+
+.refer-wrap form#register-form {
+    width: 80%;
+}
+
 .refer-social .social-button-wrapper{
   display: flex;
 }
@@ -2090,3 +2168,41 @@ p.input-label {
 
 /*   END REFERAL REGISTER*/
 
+
+
+
+/*START EARN MONEY  */
+.earn-money-details-wrapper{
+  /*margin-top:24px;*/
+}
+
+.earn-money-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.earn-money-details img{
+  width: 70%;
+  margin: 2% 0;
+}
+
+.earn-money-details:not(.step-1){
+  display: none;
+}
+
+.earn-money-details .col-s1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.earn-money-panel.inner-dash .headers ul li.active {
+    color: #212f4c;
+}
+
+.earn-money-panel.inner-dash .headers ul li {
+    color: #aaa;
+    /*cur*/
+}
+/*END EARN MONEY*/
