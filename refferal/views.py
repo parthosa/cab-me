@@ -15,7 +15,7 @@ import requests
 def create_invite_code(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	if user_p.refer_stage == '0':
-		resp = {'status': 1, 'message': 'Kindly download and login through the android application to get your invite code.'}
+		resp = {'status': 1, 'message': 'Kindly download and login through the android application to get your invite code.','refer_stage':UserProfile.objects.get(user=request.user).refer_stage}
 		return render(request, 'cab/earn_money.html',resp)
 	else:
 		invite_code = str(user_p.name[0]) + str(user_p.id) + str(user_p.phone)
@@ -23,11 +23,11 @@ def create_invite_code(request):
 		user_p.save()
 		invite_url = '''http://cabme.in/refferal/invite/%s''' % (invite_code)
 
-		response = {'status': 1, 'message': 'Your invite url is <a href=' + invite_url + '>'+ invite_url+'</a>'}
+		response = {'status': 1, 'message': 'Your invite url is <a href=' + invite_url + '>'+ invite_url+'</a>','refer_stage':UserProfile.objects.get(user=request.user).refer_stage}
 		return render(request, 'cab/earn_money.html',response)
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 @csrf_exempt
 def refer_registration(request, invite_code):
 	#test
@@ -119,7 +119,7 @@ def refer_registration(request, invite_code):
 			# return HttpResponseRedirect('../../../register')
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 @csrf_exempt
 def verify_otp(request):
 
@@ -182,9 +182,9 @@ def wallet(request):
 	if user_p.refer_stage == '0':
 		response = {'cabme_cash': cash, 'message': 'Kindly download our application and login with it to get Rs 200 in you cabme wallet.'}
 
-	elif user_p.invites < 5:
-		user_p.refer_stage == '1'
-		user_p.save()
+	elif user_p.refer_stage == '1':
+		# user_p.refer_stage == '1'
+		# user_p.save()
 		invites_left = 5-user_p.inivtes
 		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 
@@ -211,7 +211,7 @@ def wallet(request):
 	print user_p.invites
 	return JsonResponse(response)
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_login_fb(request):
 	if request.POST:
 		cache.clear()
@@ -239,7 +239,7 @@ def social_login_fb(request):
 
 		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_contact(request):
 	contact = request.POST['phone']
 	send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)

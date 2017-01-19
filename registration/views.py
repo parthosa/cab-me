@@ -8,7 +8,7 @@ from .models import *
 from cab.models import *
 import requests
 import json
-from django.views.decorators.cache import cache_page
+# from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -27,7 +27,7 @@ def login_success(request):
 	return render(request, 'registration/login_success.html')		
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def Init_Reg(request):
 	if request.POST:
 
@@ -121,7 +121,7 @@ def Init_Reg(request):
 
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def verify_otp(request):
 	cust_cache = cache.get(request.session['contact'])
 	print cust_cache
@@ -201,7 +201,7 @@ def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect('../../')
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_login_fb(request):
 	if request.POST:
 		fbid = request.POST['fbid']
@@ -241,7 +241,7 @@ def social_login_fb(request):
 
 			return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_contact(request):
 	if request.POST:
 		contact = request.POST['phone']
@@ -327,7 +327,7 @@ def user_login_app(request):
 	else:
 		return render(request, 'main/login.html')	
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_login_fb_app(request):
 	if request.POST:
 		cache.clear()
