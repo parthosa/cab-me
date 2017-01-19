@@ -63,7 +63,7 @@
     
   <script type="text/javascript">
     var stage = parseInt('{{refer_stage}}')+1
-    // console.log(stage_block);
+    console.log('{{refer_stage}}');
     $('.earn-money-details').hide();
      $('.step-'+stage).css({
       'display':'flex'
@@ -75,6 +75,10 @@
     
   </div>
   <div class="col-s2">
+  <div class="wallet-amount-inner">
+       <h3>Wallet</h3>
+       <p>₹&nbsp;<span id="wallet_amount"></span></p>
+       </div>
   <h2 class="earn-money-status">{{message}}</h2>
   </div>
   </div>
