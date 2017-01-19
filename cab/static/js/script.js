@@ -171,106 +171,39 @@ function sendDataAjax(data,url,updateElement='') {
 		url:url,
 		data:data,
 		success:function (response) {
-			if(url=='/accounts/login/'){
-				if(response.status ==1){
+			$(updateElement).html(response.message);
+
+			if(url=='/accounts/login/' && response.status ==1)
 					openTab('wallet')
-					// location.href='/earn_money/'
-					// user_name='{{name}}'
-					
-				}
-				else if(response.status==0){
-					$(updateElement+'.fail').html(response.message);
-				}
-			}
-			else if(url=='/accounts/logout/'){
-				if(response.status ==1)
+			else if(url=='/accounts/logout/' && response.status ==1)
 					location.href='/main/'
-			}
-			else if(url=='/accounts/register/'){
-				if(response.status == 1){
-					$(updateElement+'.success').html(response.message);
+			else if(url=='/accounts/register/' && response.status == 1)
 					setTimeout(lightbox_trigger('verify_otp'),200);
-				}
-				else if(response.status == 0)
-					$(updateElement+'.fail').html(response.message);
-			}
-			else if(url=='/accounts/reset_password/')
-			{
-				if(response.status == 1)
-					$(updateElement+'.success').html(response.message);
-				else if(response.status == 0)
-					$(updateElement+'.fail').html(response.message);
-			}
 			else if(url == '/accounts/social/facebook/login/')
 			{
 				if(response.status == 2)
 					lightbox_trigger('additional-info')
 				else
-					openTab('earn-money')
-				$(updateElement).html(response.message);
+					openTab('wallet')
 
-					// var data;
-					//  FB.api('/me', function(response) {
-					//  	data = {
-					// 		'Email': response.email,
-					// 		'Name': response.name,
-					// 		'fbid': response.id
-					// 	}
-					// });
-					// console.log(data)
-				}
-				else if(url == '/accounts/social/contact/' && response.status == 1)
-				{
-					lightbox_trigger('verify_otp')
-					$(updateElement).html(response.message);
-
-				}
-				
-				else if(url == '/accounts/verify_otp/' && response.status == 1)
-				{
-					setTimeout(function(){
-						lightbox_trigger('login-reg')
-					},1000);
-					$(updateElement).html(response.message);
-				}
-				else if(url.includes('/refferal/invite')){
-					if(response.status == 1){
-						$(updateElement+'.success').html(response.message);
-						setTimeout(lightbox_trigger('verify_otp'),200);
-					}
-					else if(response.status == 0)
-						$(updateElement+'.fail').html(response.message);
-				}
-				else if(url == '/refferal/wallet/'){
-					$('#wallet_amount').html(response.cabme_cash);
-					$(updateElement).html(response.message);
-				}
-				
-				else if(url == '../edit_profile/' && response.status == "1")
-				{
-					$(updateElement).html(response.message);
-					$('#cancel_profile').click();
-				}
-				else if(url == '../booknow/')
-				{
-					if(response.status==1){
-						$('.personal-info-block').hide();
-						$('.booking-confirm').show().attr('style', 'display:flex !important');
-						console.log(response)
-						$('.pickup-detail.time').html(response.time);
-						$('.pickup-detail.address').html(response.address);
-						$('.pickup-detail.phone').html(response.phone);
-
-					}
-					else
-					$(updateElement).html(response.message);
-
-
-				}
-				else{
-					$(updateElement).html(response.message);
-				}
-					
+			}
+			else if(url == '/accounts/social/contact/' && response.status == 1)
+				lightbox_trigger('verify_otp')
+			else if(url == '/accounts/verify_otp/' && response.status == 1)
+				setTimeout(function(){
+					lightbox_trigger('login-reg')
+				},1000);
+			else if(url == '/refferal/wallet/')
+				$('#wallet_amount').html(response.cabme_cash);
+			else if(url == '../edit_profile/' && response.status == "1")
+				$('#cancel_profile').click();
+			else if(url == '../booknow/' &&response.status==1){
+					$('.personal-info-block').hide();
+					$('.booking-confirm').show().attr('style', 'display:flex !important');
+					$('.pickup-detail.time').html(response.time);
+					$('.pickup-detail.address').html(response.address);
+					$('.pickup-detail.phone').html(response.phone);
+			}
 				
 			},
 			error:function(response){
@@ -338,7 +271,7 @@ $('#sign-in').click(function (ev) {
 		email:$(this).closest('#login-form').find('input[name=email]').val(),
 		password:$(this).closest('#login-form').find('input[name=password]').val()
 	}
-	sendDataAjax(data,'/accounts/login/','.message-login');
+	sendDataAjax(data,'/accounts/login/','#login-form .message-login');
 })
 
 
@@ -351,14 +284,14 @@ $('#sign-up').click(function (ev) {
 		Password:$(this).closest('#register-form').find('input[name=password]').val(),
 		Password_confirm:$(this).closest('#register-form').find('input[name=password_confirm]').val()
 	}
-	sendDataAjax(data,'/accounts/register/','.message-login');
+	sendDataAjax(data,'/accounts/register/','#register-form .message-login');
 })
 
 
 $('#refer-sign-up').click(function (ev) {
 	ev.preventDefault();
 	var data={
-		Name:$(this).closest('#register-form').find('input[name=name]').val(),
+		Name:$(this).closest('#register-form').find('input[name=Name]').val(),
 		Contact:$(this).closest('#register-form').find('input[name=phone]').val(),
 		Email:$(this).closest('#register-form').find('input[name=email]').val(),
 		Password:$(this).closest('#register-form').find('input[name=password]').val(),
@@ -478,11 +411,11 @@ $('.login-reg .headers li').click(function () {
 	$(this).addClass('active');
 	if($(this).html()=='Sign In'){
 		$('.form-inner form').hide();
-		$('form#login-form').show().css('display','flex');
+		$('.form-inner form#login-form').show().css('display','flex');
 	}
 	else{
 		$('.form-inner form').hide();
-		$('form#register-form').show().css('display','flex');
+		$('.form-inner form#register-form').show().css('display','flex');
 	}
 })
 
