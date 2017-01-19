@@ -45,21 +45,22 @@ def dashboard(request):
 	contact = user_p.phone
 	book_cab = []
 	bookedcabs = user_p.bookedcabs.all()
-	try:
+	if len(bookedcabs) == 0:
 		book_cab = 0
-	except len(bookedcabs)!=0:
-		for cab in user_p.bookedcabs:
+	else:
+		for cab in bookedcabs:
 			cab_type = cab.Type
-			route = 'Oneway' if cab.OneWay == True else 'RoundTrip'
+			route = 'Oneway' if cab.Oneway == True else 'RoundTrip'
 			From = cab.From
 			To = cab.To
 			Date = cab.Date
 			Date_return = cab.Date_return
-			distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
+			distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(From, To)
 			distance_json = urlopen(distance_url)
 			distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) #int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
-			fare = cab.price*distance*1.609 #distance*cab.price
-			book_cab.append({'cab_type': cab_type, 'route': route, 'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'fare': fare})
+			fare = cab.Price*distance*1.609 #distance*cab.price
+			time = cab.Time
+			book_cab.append({'cab_type': cab_type, 'route': route, 'From': From, 'To': To, 'Date': Date, 'Date_return': Date_return, 'fare': fare,'time':time})
 	
 	context = {'name': name, 'email': email, 'contact': contact, 'book_cab': book_cab}
 
@@ -508,7 +509,7 @@ def booknow(request):
 		# Cab Type: %s
 		# ''' % (user_p.name, From, To, cab_b.Type)
 		# requests.get('http://bhashsms.com/api/sendmsg.php?user=8890605392&pass=narasimha132&sender=CabMee&phone=%s&text=%s&priority=dnd&stype=normal') % (user_p.phone, sms_body)
-		resp = {'status': '1', 'message': 'Your cab has been booked'}
+		resp = {'status': '1', 'message': 'Your cab has been booked','time':pickup_time,'address':pickup_address,'phone':phone}
 		return JsonResponse(resp)
 
 @login_required(login_url='/accounts/login/')

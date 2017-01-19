@@ -85,13 +85,13 @@
                     <div class="info-data">
                       <p class="lg-info">{{cab.From}}</p>
                       <p class="sm-info">{{cab.Date}}</p>
-                      <p class="sm-info">03:15 AM</p>
+                      <p class="sm-info">{{cab.time}}</p>
                     </div>
                     <h4 class="search-data">&#8644;</h4>
                     <div class="info-data">
                       <p class="lg-info">{{cab.To}}</p>
                       <p class="sm-info">{{cab.Date_return}}</p>
-                      <p class="sm-info">03:15 AM</p>
+                      <!-- <p class="sm-info">03:15 AM</p> -->
                     </div>
                   </div>
                   <div class="minor-info">
@@ -105,7 +105,7 @@
               <div class="col-s5">
                 <div class="price-wrapper">
                   <p>Fare</p>
-                  <p>&#8377;&nbsp;{{fare}}</p>
+                  <p>&#8377;&nbsp;{{cab.fare}}</p>
                 </div>
               </div>
             </div>

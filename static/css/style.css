@@ -1092,6 +1092,52 @@ p.p-label {
 .personal-info .form-submit {
     background: #212f4c;
 }
+
+.booking-confirm{
+  display: none !important;
+}
+
+.booking-confirm h3 {
+    font-family: sans-serif;
+    color: #212f4c;
+    font-size: 1.4em;
+    margin-bottom: 1.1em;
+}
+
+.pickup-details {
+    display: flex;
+    font-family: sans-serif;
+}
+
+.booking-confirm-wrap {
+    margin: 1em 2em;
+}
+
+p.pickup-label {
+    margin: 0;
+    width: 130px;
+    /* width: 100px; */
+    /* line-height: 30px; */
+    margin-top: 4px;
+    margin-right: 9px;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
+    font-weight: bold;
+    color: #282727;
+}
+
+p.pickup-detail {
+    margin-top: 4px;
+    margin-right: 9px;
+    font-family: Open Sans,arial,tahoma,verdana,sans-serif;
+    font-weight: b;
+    color: #282727;
+}
+
+.personal-info-block p#message {
+    font-family: sans-serif;
+    color: #282727;
+}
+
 /*    END SUMMARY PAGE  */
 
 
@@ -2067,7 +2113,7 @@ p.input-label {
     align-items: center;
     margin: 10px 0px;
 }
-.refer-wrap button#refer-sign-up {
+.refer-wrap button {
     background: #212f4c;
     color: white;
     border: none;

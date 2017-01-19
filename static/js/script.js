@@ -165,7 +165,7 @@ function sendData(data,url){
 // 	$('#user_name').html(user_name);
 function sendDataAjax(data,url,updateElement='') {
 	data['csrfmiddlewaretoken']=getCookie('csrftoken');
-	$(updateElement).html('');
+	$(updateElement).html('Please Wait');
 	$.ajax({
 		type:'POST',
 		url:url,
@@ -246,14 +246,31 @@ function sendDataAjax(data,url,updateElement='') {
 					$(updateElement).html(response.message);
 				}
 				
-				else if(url == '../edit_profile/' && response.status == "Successful")
+				else if(url == '../edit_profile/' && response.status == "1")
 				{
 					$(updateElement).html(response.message);
 					$('#cancel_profile').click();
 				}
+				else if(url == '../booknow/')
+				{
+					if(response.status==1){
+						$('.personal-info-block').hide();
+						$('.booking-confirm').show().attr('style', 'display:flex !important');
+						
+						$('pickup-detail.time').html(response.time);
+						$('pickup-detail.address').html(response.address);
+						$('pickup-detail.phone').html(response.phone);
+
+					}
+					else
+					$(updateElement).html(response.message);
+
+
+				}
 				else{
 					$(updateElement).html(response.message);
 				}
+					
 				
 			},
 			error:function(response){
@@ -305,7 +322,7 @@ $('#final-submit').click(function () {
 		'pickup_time':$(this).closest('.form-data').find('.time-hr-data').val() + ' '+ $(this).closest('.form-data').find('.time-min-data').val() +' '+$(this).closest('.form-data').find('.time-type-data').val(),
 		'pickup_address':$(this).closest('.form-data').find('.pickup-address-data').val(),
 	}	
-	sendDataAjax(data,'../booknow/');
+	sendDataAjax(data,'../booknow/','.personal-info-block p#message');
 })
 
 
@@ -348,6 +365,15 @@ $('#refer-sign-up').click(function (ev) {
 		Password_confirm:$(this).closest('#register-form').find('input[name=password_confirm]').val()
 	}
 	sendDataAjax(data,'/accounts/register/','.refer-wrap .message-login');
+})
+
+$('#refer-sign-in').click(function (ev) {
+	ev.preventDefault();
+	var data={
+		email:$(this).closest('#register-form').find('input[name=email]').val(),
+		password:$(this).closest('#register-form').find('input[name=password]').val(),
+	}
+	sendDataAjax(data,'/accounts/login/','.refer-wrap .message-login');
 })
 
 

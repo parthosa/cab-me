@@ -1933,6 +1933,9 @@ p.message-login.success{
 
 .booking-item{
   height: 30vh;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  margin: 0 3em;
 }
 
 .booking-info-wrapper{
