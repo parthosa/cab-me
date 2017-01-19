@@ -173,7 +173,8 @@ function sendDataAjax(data,url,updateElement='') {
 		success:function (response) {
 			if(url=='/accounts/login/'){
 				if(response.status ==1){
-					openTab('earn-money')
+					openTab('wallet')
+					// location.href='/earn_money/'
 					// user_name='{{name}}'
 					
 				}
@@ -304,7 +305,7 @@ $('#final-submit').click(function () {
 		'pickup_time':$(this).closest('.form-data').find('.time-hr-data').val() + ' '+ $(this).closest('.form-data').find('.time-min-data').val() +' '+$(this).closest('.form-data').find('.time-type-data').val(),
 		'pickup_address':$(this).closest('.form-data').find('.pickup-address-data').val(),
 	}	
-	sendData(data,'../booknow/');
+	sendDataAjax(data,'../booknow/');
 })
 
 
@@ -346,7 +347,7 @@ $('#refer-sign-up').click(function (ev) {
 		Password:$(this).closest('#register-form').find('input[name=password]').val(),
 		Password_confirm:$(this).closest('#register-form').find('input[name=password_confirm]').val()
 	}
-	sendDataAjax(data,location.pathname,'.message-login');
+	sendDataAjax(data,'/accounts/register/','.refer-wrap .message-login');
 })
 
 
@@ -383,21 +384,21 @@ $('.dashboard-panel .inner-dash ul li').click(function () {
 	});
 })
 
-$('.earn-money-panel .inner-dash ul li').click(function () {
-	$('.inner-dash ul li').removeClass('active');
-	$(this).addClass('active');
-	var block=$(this).attr('data-block');
+// $('.earn-money-panel .inner-dash ul li').click(function () {
+// 	$('.inner-dash ul li').removeClass('active');
+// 	$(this).addClass('active');
+// 	var block=$(this).attr('data-block');
 
-	// if(block == 'earn-money')
-	// 	sendDataAjax({},'/refferal/get_invite_url/','#invite_message')
-	// if(block == 'wallet')
-	// 	sendDataAjax({},'/refferal/wallet/','#wallet_status')
-	location.hash=block;
-	$('.earn-money-details').hide();
-	$('.' + block).show().css({
-		'display':'flex'
-	});
-})
+// 	// if(block == 'earn-money')
+// 	// 	sendDataAjax({},'/refferal/get_invite_url/','#invite_message')
+// 	// if(block == 'wallet')
+// 	// 	sendDataAjax({},'/refferal/wallet/','#wallet_status')
+// 	location.hash=block;
+// 	$('.earn-money-details').hide();
+// 	$('.' + block).show().css({
+// 		'display':'flex'
+// 	});
+// })
 
 
 
@@ -547,6 +548,7 @@ function Logout()
 }
 
 if(location.pathname.includes('dashboard')){
+	console.log('hi')
 	var tab = location.hash.substr(1);
 	if(tab=="")
 		tab="personal-info"
@@ -568,9 +570,9 @@ if(location.pathname.includes('dashboard')){
 	});
 }
 
-$('.add_money').click(function(){
-	$('.inner-dash ul li[data-block="earn-money"]').click();
-})
+// $('.add_money').click(function(){
+// 	$('.inner-dash ul li[data-block="earn-money"]').click();
+// })
 
 
 // $('.dash-trigger').click(function(){

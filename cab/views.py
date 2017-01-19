@@ -66,7 +66,8 @@ def dashboard(request):
 	return render(request, 'cab/dashboard.html', context)
 
 def earn_money(request):
-	return render(request, 'cab/earn_money.html')
+	resp = {'refer_stage':UserProfile.objects.get(user=request.user).refer_stage}
+	return render(request, 'cab/earn_money.html',resp)
 
 def hotels(request):
 	return render(request, 'cab/hotels.html')
@@ -87,12 +88,14 @@ def summary(request):
 	print request.POST
 	print request.session['uid']
 	print cache.get(request.session['uid'])
+	# user = UserProfile.objects.get(user = request.user)
+
 	cab_id = request.POST['cab_id']
 	cab = Cab.objects.get(cab_id = cab_id)
 	cab_type = cab.Type
 	cab_cache = cache.get(request.session['uid'])
 	print cab_cache
-	print cab_cache['From']
+	# print cab_cache['From']
 	cab_from = cab_cache['From']
 	cab_to = cab_cache['To']
 	cab_date = cab_cache['Date']
@@ -103,7 +106,7 @@ def summary(request):
 	price = cab.price*distance #distance*cab.price
 	service_tax = float(.06*price)
 	total_price = price+service_tax
-	resp = {'cab_id': cab_id, 'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price,'Phone':UserProfile.objects.get(user=user).phone}
+	resp = {'cab_id': cab_id, 'cab_type': cab_type, 'From': cab_from, 'To': cab_to, 'Date': cab_date, 'Date_return': cab_date_return, 'Distance': distance, 'Price': price, 'Service_Tax': service_tax, 'Total_Price': total_price,'Phone':UserProfile.objects.get(user=request.user).phone}
 	return render(request, 'cab/summary.html', resp)
 
 def blog(request):

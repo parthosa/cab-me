@@ -97,16 +97,21 @@ Logs:<br/>
           </div>
           <div class="menu">
               <ul class="nav-menu">
-                 <li class="dash-trigger"><a href="/earn_money/" style="
-                 text-decoration: none;color: inherit;" target="_blank"> Earn Money</a> </li>
+
                {%  if user.is_authenticated == 1 %}
 
-
+                 <li class="dash-trigger">
+                   <a href="/earn_money/" style="
+                 text-decoration: none;color: inherit;" target="_blank"> Earn Money</a> 
+                 </li>
                  <li class="dash-trigger" onclick="openTab('wallet')">C Cash</li>
 
                  {% else %}   
                  
-
+                   <li class="dash-trigger">
+                     <a href="/refferal/register/" style="
+                   text-decoration: none;color: inherit;" target="_blank"> Earn Money</a> 
+                   </li>
                    <li class="dash-trigger" onclick="lightbox_trigger('login-reg')"> Wallet </li>
                  {% endif %}
 
