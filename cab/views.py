@@ -66,9 +66,9 @@ def dashboard(request):
 
 	return render(request, 'cab/dashboard.html', context)
 
-def earn_money(request):
-	resp = {'refer_stage':UserProfile.objects.get(user=request.user).refer_stage}
-	return render(request, 'cab/earn_money.html',resp)
+# def earn_money(request):
+# 	resp = {'refer_stage':UserProfile.objects.get(user=request.user).refer_stage, }
+# 	return render(request, 'cab/earn_money.html',resp)
 
 def hotels(request):
 	return render(request, 'cab/hotels.html')

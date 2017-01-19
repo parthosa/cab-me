@@ -238,7 +238,6 @@ def social_login_fb(request):
 				{'name': name,
 				 'fbid': fbid,
 				})
-			print prev_cache
 
 			return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 
@@ -299,6 +298,7 @@ def user_login_app(request):
 		if user:
 			if user.is_active:
 				if int(user_p.refer_stage) > 0:
+					print 1
 					if cache.get(request.user.id) is not None:
 						login(request, user)
 						return HttpResponseRedirect('../../feedback/')	
@@ -307,9 +307,11 @@ def user_login_app(request):
 						return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 
 				else:
+					print user_p.refer_stage
 					user_p.refer_stage = '1'
 					user_p.app_downloaded = True
 					user_p.save()
+					print user_p.refer_stage
 					if cache.get(request.user.id) is not None:
 						login(request, user)
 						return HttpResponseRedirect('../../feedback/')	
