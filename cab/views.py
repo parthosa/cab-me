@@ -95,6 +95,8 @@ def summary(request):
 	cab = Cab.objects.get(cab_id = cab_id)
 	cab_type = cab.Type
 	cab_cache = cache.get(request.session['uid'])
+	while cab_cache == None:
+		cab_cache = cache.get(request.session['uid'])
 	print cab_cache
 	# print cab_cache['From']
 	cab_from = cab_cache['From']
@@ -398,6 +400,8 @@ def booknow(request):
 		driver_phone_list = Driver.objects.all().values('contact')
 		vendor_phone_list = Vendor.objects.all().values('contact')
 		cab_cache = cache.get(request.session['uid'])
+		while cab_cache == None:
+			cab_cache = cache.get(request.session['uid'])
 
 		print cab_cache['From']
 		try:
