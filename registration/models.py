@@ -39,13 +39,13 @@ class UserProfile(models.Model):
         if self.app_downloaded == False:
             self.refer_stage = '0'
         else:
-            if self.invites < 5:
+            if len(self.invites.all()) < 5:
                 self.refer_stage = '1'
-            elif self.invites < 25:
+            elif len(self.invites.all()) < 25:
                 self.refer_stage = '2'
-            elif self.invites < 65:
+            elif len(self.invites.all()) < 65:
                 self.refer_stage = '3'
-            elif self.invites < 125:
+            elif len(self.invites.all()) < 125:
                 self.refer_stage = '4'
             else:
                 self.refer_stage = '5'
