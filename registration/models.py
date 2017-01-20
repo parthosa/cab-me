@@ -38,16 +38,17 @@ class UserProfile(models.Model):
     def save(self, *args, **kwargs):
         if self.app_downloaded == False:
             self.refer_stage = '0'
-        elif self.invites < 5:
-            self.refer_stage = '1'
-        elif self.invites < 25:
-            self.refer_stage = '2'
-        elif self.invites < 65:
-            self.refer_stage = '3'
-        elif self.invites < 125:
-            self.refer_stage = '4'
         else:
-            self.refer_stage = '5'
+            if self.invites < 5:
+                self.refer_stage = '1'
+            elif self.invites < 25:
+                self.refer_stage = '2'
+            elif self.invites < 65:
+                self.refer_stage = '3'
+            elif self.invites < 125:
+                self.refer_stage = '4'
+            else:
+                self.refer_stage = '5'
         self.cabme_cash = 200*(int(self.refer_stage)+1)
         super(UserProfile, self).save(*args, **kwargs)
 
