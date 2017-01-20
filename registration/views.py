@@ -126,10 +126,12 @@ def verify_otp(request):
 	# cust_cache = cache.get(request.session['contact'])
 	# while cust_cache == None:
 	# 	cust_cache = cache.get(request.session['contact'])
-	print cust_cache
 	print request.session['contact']
 	otp = request.POST['otp']
-	print cust_cache['otp_id']
+	cust_cache = cache.get(request.session['contact'])
+	while cust_cache == None:
+		cust_cache = cache.get(request.session['contact'])
+	# print cust_cache['otp_id']
 	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
@@ -139,9 +141,7 @@ def verify_otp(request):
 			user.save()
 
 			member = UserProfile()
-			cust_cache = cache.get(request.session['contact'])
-			while cust_cache == None:
-				cust_cache = cache.get(request.session['contact'])
+
 			member.name = cust_cache['name']
 			member.email_id = cust_cache['email_id']
 			member.phone = cust_cache['phone']

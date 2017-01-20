@@ -187,26 +187,26 @@ def wallet(request):
 	elif user_p.refer_stage == '1':
 		# user_p.refer_stage == '1'
 		# user_p.save()
-		invites_left = 5-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
+		invites_left = 5-user_p.invites.all().count()
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ str(invites_left)+ ' more people to earn Rs 200 more.'}
 
 	elif user_p.invites == '2':
 		# user_p.refer_stage == '2'
 		# user_p.save()
-		invites_left = 25-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
+		invites_left = 25-user_p.invites.all().count()
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ str(invites_left)+ ' more people to earn Rs 200 more.'}
 
 	elif user_p.invites == '3':
 		# user_p.refer_stage == '3'
 		# user_p.save()
-		invites_left = 65-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
+		invites_left = 65-user_p.invites.all().count()
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ str(invites_left)+ ' more people to earn Rs 200 more.'}
 	
 	elif user_p.invites == '4':
 		# user_p.refer_stage == '4'
 		# user_p.save()
-		invites_left = 125-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
+		invites_left = 125-user_p.invites.all().count()
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ str(invites_left)+ ' more people to earn Rs 200 more.'}
 	
 	else:
 		pass

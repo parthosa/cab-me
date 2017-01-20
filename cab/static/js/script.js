@@ -454,7 +454,7 @@ $('#otp-submit').click(function(ev){
 	var data = {
 		'otp':$(this).closest('form').find('input[name=otp]').val(),
 	}
-	sendDataAjax(data,'/accounts/verify_otp/','.message.fail')
+	sendDataAjax(data,'/accounts/verify_otp/','.verify_otp .message')
 })
 
 

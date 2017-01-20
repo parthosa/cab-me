@@ -2227,3 +2227,8 @@ p.input-label {
     /*cur*/
 }
 /*END EARN MONEY*/
+
+p.message {
+    font-family: sans-serif;
+    color: #ddd;
+}
