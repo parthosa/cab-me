@@ -15,7 +15,7 @@ import requests
 def create_invite_code(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	if user_p.refer_stage == '0':
-		resp = {'status': 1, 'message': 'Kindly download and login through the android application to get your invite code.','refer_stage':user_p.refer_stage}
+		resp = {'status': 1, 'message': 'Kindly download and login through the android application to get your invite code.','refer_stage':user_p.refer_stage,'wallet':user_p.cabme_cash}
 		return render(request, 'cab/earn_money.html',resp)
 	else:
 		invite_code = str(user_p.name[0]) + str(user_p.id) + str(user_p.phone)
@@ -23,7 +23,7 @@ def create_invite_code(request):
 		user_p.save()
 		invite_url = '''http://cabme.in/refferal/invite/%s''' % (invite_code)
 
-		response = {'status': 1, 'message': 'Your invite url is '+ invite_url,'refer_stage':user_p.refer_stage}
+		response = {'status': 1, 'message': 'Your invite url is '+ invite_url,'refer_stage':user_p.refer_stage,'wallet':user_p.cabme_cash}
 		return render(request, 'cab/earn_money.html',response)
 
 
@@ -115,7 +115,7 @@ def refer_registration(request, invite_code):
 
 			return JsonResponse(status)
 	else:
-		return render(request, 'cab/refer_register.html')
+		return render(request, 'cab/register.html')
 			# return HttpResponseRedirect('../../../register')
 
 
