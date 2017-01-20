@@ -37,7 +37,7 @@ class UserProfile(models.Model):
 
     def save(self, *args, **kwargs):
         if self.app_downloaded == False:
-            self.refer_stage = '1'
+            self.refer_stage = '0'
         elif self.invites < 5:
             self.refer_stage = '1'
         elif self.invites < 25:
