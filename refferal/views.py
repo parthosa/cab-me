@@ -27,7 +27,7 @@ def create_invite_code(request):
 		return render(request, 'cab/earn_money.html',response)
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 @csrf_exempt
 def refer_registration(request, invite_code):
 	#test
@@ -119,12 +119,14 @@ def refer_registration(request, invite_code):
 			# return HttpResponseRedirect('../../../register')
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 @csrf_exempt
 def verify_otp(request):
 
 
 	cust_cache = cache.get(request.session['contact'])
+	while cust_cache == None:
+		cust_cache = cache.get(request.session['contact'])
 	user_i = UserProfile.objects.get(invite_id = cust_cache['invite_code'])
 	otp = request.POST['otp']
 	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
@@ -182,28 +184,28 @@ def wallet(request):
 	if user_p.refer_stage == '0':
 		response = {'cabme_cash': cash, 'message': 'Kindly download our application and login with it to get Rs 200 in you cabme wallet.'}
 
-	elif user_p.invites < 5:
-		user_p.refer_stage == '1'
-		user_p.save()
+	elif user_p.refer_stage == '1':
+		# user_p.refer_stage == '1'
+		# user_p.save()
 		invites_left = 5-user_p.inivtes
 		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 
-	elif user_p.invites < 20:
-		user_p.refer_stage == '2'
-		user_p.save()
-		invites_left = 20-user_p.inivtes
+	elif user_p.invites == '2':
+		# user_p.refer_stage == '2'
+		# user_p.save()
+		invites_left = 25-user_p.inivtes
 		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 
-	elif user_p.invites < 40:
-		user_p.refer_stage == '3'
-		user_p.save()
-		invites_left = 40-user_p.inivtes
+	elif user_p.invites == '3':
+		# user_p.refer_stage == '3'
+		# user_p.save()
+		invites_left = 65-user_p.inivtes
 		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 	
-	elif user_p.invites < 60:
-		user_p.refer_stage == '4'
-		user_p.save()
-		invites_left = 60-user_p.inivtes
+	elif user_p.invites == '4':
+		# user_p.refer_stage == '4'
+		# user_p.save()
+		invites_left = 125-user_p.inivtes
 		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
 	
 	else:
@@ -211,7 +213,7 @@ def wallet(request):
 	print user_p.invites
 	return JsonResponse(response)
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_login_fb(request):
 	if request.POST:
 		cache.clear()
@@ -239,14 +241,16 @@ def social_login_fb(request):
 
 		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_contact(request):
 	contact = request.POST['phone']
 	send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
 	send_otp = requests.get(send_otp_url)
 	otp_id = send_otp.text.split(',')[1][11:-2]
-	prev_cache = cache.get(request.session['fbid'])
 	request.session['contact'] = contact
+	prev_cache = cache.get(request.session['fbid'])
+	while prev_cache == None:
+		prev_cache = cache.get(request.session['fbid'])
 
 	name = prev_cache['name']
 	email = prev_cache['email']

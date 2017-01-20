@@ -8,7 +8,7 @@ from .models import *
 from cab.models import *
 import requests
 import json
-from django.views.decorators.cache import cache_page
+# from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -27,7 +27,7 @@ def login_success(request):
 	return render(request, 'registration/login_success.html')		
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def Init_Reg(request):
 	if request.POST:
 
@@ -121,9 +121,11 @@ def Init_Reg(request):
 
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def verify_otp(request):
-	cust_cache = cache.get(request.session['contact'])
+	# cust_cache = cache.get(request.session['contact'])
+	# while cust_cache == None:
+	# 	cust_cache = cache.get(request.session['contact'])
 	print cust_cache
 	print request.session['contact']
 	otp = request.POST['otp']
@@ -137,6 +139,9 @@ def verify_otp(request):
 			user.save()
 
 			member = UserProfile()
+			cust_cache = cache.get(request.session['contact'])
+			while cust_cache == None:
+				cust_cache = cache.get(request.session['contact'])
 			member.name = cust_cache['name']
 			member.email_id = cust_cache['email_id']
 			member.phone = cust_cache['phone']
@@ -153,6 +158,8 @@ def verify_otp(request):
 			user.save()
 
 			member = UserProfile()
+			while cust_cache == None:
+				cust_cache = cache.get(request.session['contact'])
 			member.name = cust_cache['name']
 			member.email_id = cust_cache['email_id']
 			member.phone = cust_cache['phone']
@@ -201,7 +208,7 @@ def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect('../../')
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_login_fb(request):
 	if request.POST:
 		fbid = request.POST['fbid']
@@ -241,7 +248,7 @@ def social_login_fb(request):
 
 			return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_contact(request):
 	if request.POST:
 		contact = request.POST['phone']
@@ -268,6 +275,8 @@ def social_contact(request):
 			send_otp = requests.get(send_otp_url)
 			otp_id = send_otp.text.split(',')[1][11:-2]
 			prev_cache = cache.get(request.session['fbid'])
+			while prev_cache == None:
+				prev_cache = cache.get(request.session['fbid'])
 			print prev_cache
 			request.session['contact'] = contact
 			name = prev_cache['name']
@@ -281,7 +290,7 @@ def social_contact(request):
 				 'otp_id': otp_id,
 				 'fbid': fbid
 				})
-			print cust_cache
+			# print cache.get(request.session['contact'])
 
 			# return JsonResponse(status)
 			return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/verify_otp'})
@@ -327,7 +336,7 @@ def user_login_app(request):
 	else:
 		return render(request, 'main/login.html')	
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def social_login_fb_app(request):
 	if request.POST:
 		cache.clear()
