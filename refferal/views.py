@@ -140,12 +140,15 @@ def verify_otp(request):
 			member = UserProfile()
 			member.email_id = cust_cache['email_id']
 			member.phone = cust_cache['phone']
+			print user_i.user
 			member.invited_by = user_i.user
 			member.user = user
 			member.save()
+			print member.invited_by.username
 
 			user_i.invites.add(user)
 			user_i.save()
+			print user_i.invites.all()
 
 			cache.delete(request.session['contact'])
 
