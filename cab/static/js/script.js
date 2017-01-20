@@ -191,7 +191,7 @@ function sendDataAjax(data,url,updateElement='') {
 			}
 			else if(url == '/accounts/social/contact/' && response.status == 1)
 				lightbox_trigger('verify_otp')
-			else if(url == '/accounts/verify_otp/' && response.status == 1)
+			else if(url.includes('verify_otp') && response.status == 1)
 				setTimeout(function(){
 					lightbox_trigger('login-reg')
 				},1000);
@@ -454,7 +454,10 @@ $('#otp-submit').click(function(ev){
 	var data = {
 		'otp':$(this).closest('form').find('input[name=otp]').val(),
 	}
-	sendDataAjax(data,'/accounts/verify_otp/','.verify_otp .message')
+	if(location.href.includes('invite'))
+		sendDataAjax(data,'/refferal/verify_otp/','.verify_otp .message')
+	else
+		sendDataAjax(data,'/accounts/verify_otp/','.verify_otp .message')
 })
 
 
