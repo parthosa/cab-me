@@ -179,6 +179,8 @@ function sendDataAjax(data,url,updateElement='') {
 					location.href='/main/'
 			else if(url=='/accounts/register/' && response.status == 1)
 					setTimeout(lightbox_trigger('verify_otp'),200);
+			else if(url.includes('invite') && response.status == 1)
+					setTimeout(lightbox_trigger('verify_otp'),200);
 			else if(url == '/accounts/social/facebook/login/')
 			{
 				if(response.status == 2)
@@ -297,6 +299,10 @@ $('#refer-sign-up').click(function (ev) {
 		Password:$(this).closest('#register-form').find('input[name=password]').val(),
 		Password_confirm:$(this).closest('#register-form').find('input[name=password_confirm]').val()
 	}
+	if(location.href.includes('invite')){
+		sendDataAjax(data,location.pathname,'.refer-wrap .message-login');
+	}
+	else
 	sendDataAjax(data,'/accounts/register/','.refer-wrap .message-login');
 })
 
