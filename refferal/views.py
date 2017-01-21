@@ -35,19 +35,15 @@ def create_invite_code(request):
 @csrf_exempt
 def refer_registration(request, invite_code):
 	#test
-	user_i = UserProfile.objects.get(invite_id = invite_code)
 	if request.POST:
-
+		user_i = UserProfile.objects.get(invite_id = invite_code)
 		name = request.POST['Name']
 		# last_name = request.POST['Lname']
 		email = request.POST['Email']
 		contact = int(request.POST['Contact'])
 		password = request.POST['Password']
 		password_confirm = request.POST['Password_confirm']
-		try:
-			cache.clear()
-		except:
-			pass
+
 		if (password == password_confirm):
 
 			registered_members = User.objects.all()	
@@ -68,6 +64,11 @@ def refer_registration(request, invite_code):
 					request.session['contact'] = contact
 					print request.session['contact']
 					key = request.session['contact']
+					request.session['name'] = name
+					request.session['email_id'] = email
+					request.session['phone']= contact
+					request.session['otp_id'] = otp_id
+					request.session['invite_code'] = invite_code
 					cust_cache = cache.set(key,
 						{'name': name,
 						 'email_id': email,
@@ -104,6 +105,11 @@ def refer_registration(request, invite_code):
 					otp_id = send_otp.text.split(',')[1][11:-2]	
 					request.session['contact'] = contact
 					key = request.session['contact']
+					request.session['name'] = name
+					request.session['email_id'] = email
+					request.session['phone']= contact
+					request.session['otp_id'] = otp_id
+					request.session['invite_code'] = invite_code
 					cust_cache = cache.set(key,
 						{'name': name,
 						 'email_id': email,
@@ -128,25 +134,25 @@ def refer_registration(request, invite_code):
 @csrf_exempt
 def verify_otp(request):
 
-
-	cust_cache = cache.get(request.session['contact'])
-	while cust_cache == None:
-		cust_cache = cache.get(request.session['contact'])
-	print cust_cache
-	user_i = UserProfile.objects.get(invite_id = cust_cache['invite_code'])
+	print 1
+	# cust_cache = cache.get(request.session['contact'])
+	# while cust_cache == None:
+	# 	cust_cache = cache.get(request.session['contact'])
+	# print cust_cache
+	user_i = UserProfile.objects.get(invite_id = request.session['invite_code'])
 	otp = request.POST['otp']
-	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
+	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(request.session['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
-		if not 'fbid' in cust_cache:
-			user = User.objects.get(username = cust_cache['email_id'])
+		if not 'fbid' in request.session:
+			user = User.objects.get(username = request.session['email_id'])
 			user.is_active = True
 			user.save()
 
 			member = UserProfile()
-			member.name = cust_cache['name']
-			member.email_id = cust_cache['email_id']
-			member.phone = cust_cache['phone']
+			member.name = request.session['name']
+			member.email_id = request.session['email_id']
+			member.phone = request.session['phone']
 			print user_i.user
 			member.invited_by = user_i.user
 			member.user = user
@@ -157,18 +163,18 @@ def verify_otp(request):
 			user_i.save()
 			print user_i.invites.all()
 
-			cache.delete(request.session['contact'])
+			cache.delete(request.session)
 
 			resp = {'status': 1 , 'message': 'You have successfully verified your phone number. You can login now'}
 		else:
-			user = User.objects.get(username = cust_cache['fbid'])
+			user = User.objects.get(username = request.session['fbid'])
 			user.is_active = True
 			user.save()
 
 			member = UserProfile()
-			member.email_id = cust_cache['email_id']
-			member.phone = cust_cache['phone']
-			member.fbid = cust_cache['fbid']
+			member.email_id = request.session['email_id']
+			member.phone = request.session['phone']
+			member.fbid = request.session['fbid']
 			member.invited_by = user_i.user
 			member.user = user
 			member.save()
@@ -176,7 +182,7 @@ def verify_otp(request):
 			user_i.invites.add(user)
 			user_i.save()
 
-			cache.delete(request.session['contact'])
+			cache.delete(request.session)
 
 			resp = {'status': 1 , 'message': 'You have successfully verified your phone number. You can login now'}
 
@@ -243,6 +249,9 @@ def social_login_fb(request):
 			user.is_active = False
 			user.save()
 			key = request.session['fbid']
+			request.session['fbid']['name'] = name
+			request.session['fbid']['email'] = email
+			request.session['fbid']['invite_code'] = invite_code
 			cache.set(key,
 				{'name': name,
 				 'fbid': fbid,
@@ -258,18 +267,24 @@ def social_contact(request):
 	send_otp = requests.get(send_otp_url)
 	otp_id = send_otp.text.split(',')[1][11:-2]
 	request.session['contact'] = contact
-	prev_cache = cache.get(request.session['fbid'])
-	while prev_cache == None:
-		prev_cache = cache.get(request.session['fbid'])
+	# prev_cache = cache.get(request.session['fbid'])
+	# while prev_cache == None:
+	# 	prev_cache = cache.get(request.session['fbid'])
 
-	name = prev_cache['name']
-	email = prev_cache['email']
-	fbid = prev_cache['fbid']
-	invite_code = prev_cache['invite_code']
+	name = request.session['fbid']['name']
+	email = request.session['fbid']['email']
+	fbid = request.session['fbid']
+	invite_code = request.session['fbid']['invite_code']
 	cache.clear()
 
 	key = request.session['contact']
-	cust_cache = cache.set(key,
+	request.session['contact']['name'] = name
+	request.session['contact']['email_id'] = email
+	request.session['contact']['phone'] = contact
+	request.session['contact']['otp_id'] = otp_id
+	request.session['contact']['fbid'] = fbid
+	request.session['contact']['invite_code'] = invite_code
+	cache.set = cache.set(key,
 		{'name': name,
 		 'email_id': email,
 		 'phone': contact,
