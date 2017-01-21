@@ -11,8 +11,8 @@ import requests
 import json
 
 
-def login(request):
-	return render(request,'cab/login.html')
+# def login(request):
+# 	return render(request,'cab/login.html')
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
@@ -144,6 +144,7 @@ def verify_otp(request):
 			user.save()
 
 			member = UserProfile()
+			member.name = cust_cache['name']
 			member.email_id = cust_cache['email_id']
 			member.phone = cust_cache['phone']
 			print user_i.user

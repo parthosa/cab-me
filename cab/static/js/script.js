@@ -177,7 +177,7 @@ function sendDataAjax(data,url,updateElement='') {
 			$(updateElement).html(response.message);
 
 			if(url=='/accounts/login/' && response.status ==1)
-					openTab('wallet')
+					location.href='/refferal/earn_money/'
 			else if(url=='/accounts/logout/' && response.status ==1)
 					location.href='/main/'
 			else if(url=='/accounts/register/' && response.status == 1)
@@ -194,9 +194,9 @@ function sendDataAjax(data,url,updateElement='') {
 					openTab('wallet')
 
 			}
-			
-			else if(url == '/refferal/verify_otp/' && response.status == 1)
-				location.href='/refferal/login'
+			// ajax per
+			// else if(url == '/refferal/verify_otp/' && response.status == 1)
+			// 	location.href='/refferal/login'
 			else if(url == '/accounts/social/contact/' && response.status == 1)
 				lightbox_trigger('verify_otp')
 			else if(url.includes('verify_otp') && response.status == 1)
@@ -320,20 +320,7 @@ $('#refer-sign-in').click(function (ev) {
 		email:$(this).closest('#register-form').find('input[name=email]').val(),
 		password:$(this).closest('#register-form').find('input[name=password]').val(),
 	}
-	if(location.href.includes('refferal/login')){
-		data['csrfmiddlewaretoken']=getCookie('csrftoken');
-		$('.refer-wrap .message-login').html('Please Wait');
-		$.ajax({
-			type:'POST',
-			url:'/accounts/login/',
-			data:data,
-			success:function (response) {
-				$('.refer-wrap .message-login').html(response.message);
-				if(response.status == 1)
-					location.href='/refferal/earn_money/'
-			}
-		});
-	}
+
 	sendDataAjax(data,'/accounts/login/','.refer-wrap .message-login');
 })
 
