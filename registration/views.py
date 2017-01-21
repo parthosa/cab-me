@@ -140,9 +140,7 @@ def verify_otp(request):
 			user.save()
 
 			member = UserProfile()
-			# cust_cache = cache.get(request.session['contact'])
-			# while cust_cache == None:
-			# 	cust_cache = cache.get(request.session['contact'])
+
 			member.name = cust_cache['name']
 			member.email_id = cust_cache['email_id']
 			member.phone = cust_cache['phone']

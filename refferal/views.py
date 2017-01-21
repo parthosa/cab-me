@@ -15,7 +15,7 @@ import requests
 def create_invite_code(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	if user_p.refer_stage == '0':
-		resp = {'status': 1, 'message': 'Kindly download and login through the android application to get your invite code.','refer_stage':user_p.refer_stage}
+		resp = {'status': 1, 'message': 'Kindly download and login through the android application to get your invite code.','refer_stage':user_p.refer_stage,'wallet':user_p.cabme_cash}
 		return render(request, 'cab/earn_money.html',resp)
 	else:
 		invite_code = str(user_p.name[0]) + str(user_p.id) + str(user_p.phone)
@@ -23,7 +23,7 @@ def create_invite_code(request):
 		user_p.save()
 		invite_url = '''http://cabme.in/refferal/invite/%s''' % (invite_code)
 
-		response = {'status': 1, 'message': 'Your invite url is '+ invite_url,'refer_stage':user_p.refer_stage}
+		response = {'status': 1, 'message': 'Your invite url is '+ invite_url,'refer_stage':user_p.refer_stage,'wallet':user_p.cabme_cash}
 		return render(request, 'cab/earn_money.html',response)
 
 
@@ -115,7 +115,7 @@ def refer_registration(request, invite_code):
 
 			return JsonResponse(status)
 	else:
-		return render(request, 'cab/refer_register.html')
+		return render(request, 'cab/register.html')
 			# return HttpResponseRedirect('../../../register')
 
 
@@ -140,12 +140,15 @@ def verify_otp(request):
 			member = UserProfile()
 			member.email_id = cust_cache['email_id']
 			member.phone = cust_cache['phone']
+			print user_i.user
 			member.invited_by = user_i.user
 			member.user = user
 			member.save()
+			print member.invited_by.username
 
 			user_i.invites.add(user)
 			user_i.save()
+			print user_i.invites.all()
 
 			cache.delete(request.session['contact'])
 
@@ -187,26 +190,26 @@ def wallet(request):
 	elif user_p.refer_stage == '1':
 		# user_p.refer_stage == '1'
 		# user_p.save()
-		invites_left = 5-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
+		invites_left = 5-user_p.invites.all().count()
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ str(invites_left)+ ' more people to earn Rs 200 more.'}
 
 	elif user_p.invites == '2':
 		# user_p.refer_stage == '2'
 		# user_p.save()
-		invites_left = 25-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
+		invites_left = 25-user_p.invites.all().count()
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ str(invites_left)+ ' more people to earn Rs 200 more.'}
 
 	elif user_p.invites == '3':
 		# user_p.refer_stage == '3'
 		# user_p.save()
-		invites_left = 65-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
+		invites_left = 65-user_p.invites.all().count()
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ str(invites_left)+ ' more people to earn Rs 200 more.'}
 	
 	elif user_p.invites == '4':
 		# user_p.refer_stage == '4'
 		# user_p.save()
-		invites_left = 125-user_p.inivtes
-		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ invites_left+ ' more people to earn Rs 200 more.'}
+		invites_left = 125-user_p.invites.all().count()
+		response = {'cabme_cash': cash, 'message': 'Kindly invite '+ str(invites_left)+ ' more people to earn Rs 200 more.'}
 	
 	else:
 		pass

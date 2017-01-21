@@ -1701,6 +1701,11 @@ h2.earn-money-status {
     /*font-weight: normal;*/
 }
 
+.earn-money-details h1 {
+    font-family: sans-serif;
+    color: #212f4c;
+}
+
 .earn-money-details-wrapper .wallet-amount-inner {
     justify-content: flex-start;
 }
@@ -2222,3 +2227,8 @@ p.input-label {
     /*cur*/
 }
 /*END EARN MONEY*/
+
+p.message {
+    font-family: sans-serif;
+    color: #ddd;
+}

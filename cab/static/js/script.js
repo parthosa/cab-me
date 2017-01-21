@@ -179,6 +179,8 @@ function sendDataAjax(data,url,updateElement='') {
 					location.href='/main/'
 			else if(url=='/accounts/register/' && response.status == 1)
 					setTimeout(lightbox_trigger('verify_otp'),200);
+			else if(url.includes('invite') && response.status == 1)
+					setTimeout(lightbox_trigger('verify_otp'),200);
 			else if(url == '/accounts/social/facebook/login/')
 			{
 				if(response.status == 2)
@@ -189,7 +191,7 @@ function sendDataAjax(data,url,updateElement='') {
 			}
 			else if(url == '/accounts/social/contact/' && response.status == 1)
 				lightbox_trigger('verify_otp')
-			else if(url == '/accounts/verify_otp/' && response.status == 1)
+			else if(url.includes('verify_otp') && response.status == 1)
 				setTimeout(function(){
 					lightbox_trigger('login-reg')
 				},1000);
@@ -297,6 +299,10 @@ $('#refer-sign-up').click(function (ev) {
 		Password:$(this).closest('#register-form').find('input[name=password]').val(),
 		Password_confirm:$(this).closest('#register-form').find('input[name=password_confirm]').val()
 	}
+	if(location.href.includes('invite')){
+		sendDataAjax(data,location.pathname,'.refer-wrap .message-login');
+	}
+	else
 	sendDataAjax(data,'/accounts/register/','.refer-wrap .message-login');
 })
 
@@ -448,7 +454,10 @@ $('#otp-submit').click(function(ev){
 	var data = {
 		'otp':$(this).closest('form').find('input[name=otp]').val(),
 	}
-	sendDataAjax(data,'/accounts/verify_otp/','.message.fail')
+	if(location.href.includes('invite'))
+		sendDataAjax(data,'/refferal/verify_otp/','.verify_otp .message')
+	else
+		sendDataAjax(data,'/accounts/verify_otp/','.verify_otp .message')
 })
 
 

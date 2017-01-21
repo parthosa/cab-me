@@ -24,6 +24,7 @@
     </div>
     <div class="row earn-money-details-wrapper">
     <div class="col-s2">
+ 
       <div class="earn-money-details step-1 row">
   
         <div class="col-s1">
@@ -32,15 +33,15 @@
 
 
     </div>
-  
-      <div class="earn-money-details step-2 row">
+       <div class="earn-money-details step-2 row">
   
         <div class="col-s1">
-            <img src="{% static 'img/earn_money/step-2.png'%}">
+           <h1>Invite 5 people to earn Rs 200</h1>
         </div>
 
 
     </div>
+  
   
     <div class="earn-money-details step-3 row">
   
@@ -55,6 +56,14 @@
   
         <div class="col-s1">
             <img src="{% static 'img/earn_money/step-4.png'%}">
+        </div>
+
+
+    </div>
+     <div class="earn-money-details step-5 row">
+  
+        <div class="col-s1">
+            <img src="{% static 'img/earn_money/step-5.png'%}">
         </div>
 
 
@@ -77,7 +86,7 @@
   <div class="col-s2">
   <div class="wallet-amount-inner">
        <h3>Wallet</h3>
-       <p>₹&nbsp;<span id="wallet_amount"></span></p>
+       <p>₹&nbsp;<span id="wallet_amount">{{wallet}}</span></p>
        </div>
   <h2 class="earn-money-status">{{message}}</h2>
   </div>
