@@ -99,7 +99,7 @@ def refer_registration(request, invite_code):
 					otp_id = send_otp.text.split(',')[1][11:-2]	
 					request.session['contact'] = contact
 					key = request.session['contact']
-					cache.set(key,
+					cust_cache = cache.set(key,
 						{'name': name,
 						 'email_id': email,
 						 'phone': contact,
