@@ -160,6 +160,9 @@ function sendData(data,url){
 	form.submit();
 }
 
+
+
+var fbOb={}
 // var user_name="";
 // if($('#user_name').html()!='')
 // 	$('#user_name').html(user_name);
@@ -183,12 +186,17 @@ function sendDataAjax(data,url,updateElement='') {
 					setTimeout(lightbox_trigger('verify_otp'),200);
 			else if(url == '/accounts/social/facebook/login/')
 			{
+				fbOb['fbid']=data['fbid'];
+				fbOb['flag']=1
 				if(response.status == 2)
 					lightbox_trigger('additional-info')
 				else
 					openTab('wallet')
 
 			}
+			
+			else if(url == '/refferal/verify_otp/' && response.status == 1)
+				location.href='/refferal/login'
 			else if(url == '/accounts/social/contact/' && response.status == 1)
 				lightbox_trigger('verify_otp')
 			else if(url.includes('verify_otp') && response.status == 1)
@@ -311,6 +319,20 @@ $('#refer-sign-in').click(function (ev) {
 	var data={
 		email:$(this).closest('#register-form').find('input[name=email]').val(),
 		password:$(this).closest('#register-form').find('input[name=password]').val(),
+	}
+	if(location.href.includes('refferal/login')){
+		data['csrfmiddlewaretoken']=getCookie('csrftoken');
+		$('.refer-wrap .message-login').html('Please Wait');
+		$.ajax({
+			type:'POST',
+			url:'/accounts/login/',
+			data:data,
+			success:function (response) {
+				$('.refer-wrap .message-login').html(response.message);
+				if(response.status == 1)
+					location.href='/refferal/earn_money/'
+			}
+		});
 	}
 	sendDataAjax(data,'/accounts/login/','.refer-wrap .message-login');
 })

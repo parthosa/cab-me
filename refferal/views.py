@@ -8,7 +8,11 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
 import requests
+import json
 
+
+def login(request):
+	return render(request,'cab/login.html')
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
@@ -68,7 +72,8 @@ def refer_registration(request, invite_code):
 						{'name': name,
 						 'email_id': email,
 						 'phone': contact,
-						 'otp_id': otp_id
+						 'otp_id': otp_id,
+						 'invite_code': invite_code
 						})
 
 					# return JsonResponse(status)
@@ -127,6 +132,7 @@ def verify_otp(request):
 	cust_cache = cache.get(request.session['contact'])
 	while cust_cache == None:
 		cust_cache = cache.get(request.session['contact'])
+	print cust_cache
 	user_i = UserProfile.objects.get(invite_id = cust_cache['invite_code'])
 	otp = request.POST['otp']
 	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
