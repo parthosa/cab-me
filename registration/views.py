@@ -296,10 +296,10 @@ def social_contact(request):
 
 			key = request.session['contact']
 			request.session['name'] = name
-			equest.session['email'] = email
-			equest.session['phone'] = contact
-			equest.session['otp_id'] = otp_id
-			equest.session['fbid'] = fbid
+			request.session['email'] = email
+			request.session['phone'] = contact
+			request.session['otp_id'] = otp_id
+			request.session['fbid'] = fbid
 			cust_cache = cache.set(key,
 				{'name': name,
 				 'email_id': email,
