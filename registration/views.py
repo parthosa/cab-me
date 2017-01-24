@@ -144,7 +144,7 @@ def verify_otp(request):
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
 		if not 'fbid' in request.session:
-			user = User.objects.get(username = cust_cache['email_id'])
+			user = User.objects.get(username = request.session['email_id'])
 			user.is_active = True
 			user.save()
 
@@ -161,7 +161,7 @@ def verify_otp(request):
 			resp = {'status': 1 , 'message': 'You have successfully verified your phone number. You can login now'}
 
 		else:
-			user = User.objects.get(username = cust_cache['fbid'])
+			user = User.objects.get(username = request.session['fbid'])
 			user.is_active = True
 			user.save()
 
