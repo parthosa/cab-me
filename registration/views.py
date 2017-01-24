@@ -144,14 +144,14 @@ def verify_otp(request):
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
 		if not 'fbid' in request.session:
-			user = User.objects.get(username = request.session['email_id'])
+			user = User.objects.get(username = request.session['email'])
 			user.is_active = True
 			user.save()
 
 			member = UserProfile()
 
 			member.name = request.session['name']
-			member.email_id = request.session['email_id']
+			member.email_id = request.session['email']
 			member.phone = request.session['phone']
 			member.user = user
 			member.save()
