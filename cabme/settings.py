@@ -20,7 +20,7 @@ from email_config import *
 SECRET_KEY = 's1no3l6mxm=rasgm*8y+02s6uere(+3djy*!u21qga(#al(h5^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = False
 
