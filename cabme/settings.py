@@ -20,9 +20,9 @@ from email_config import *
 SECRET_KEY = 's1no3l6mxm=rasgm*8y+02s6uere(+3djy*!u21qga(#al(h5^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'cabme.in']
 
