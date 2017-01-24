@@ -63,6 +63,10 @@ def Init_Reg(request):
 					request.session['contact'] = contact
 					print request.session['contact']
 					key = request.session['contact']
+					request.session['name'] = name
+					request.session['email'] = email
+					request.session['phone'] = contact
+					request.session['otp_id'] = otp_id
 					cust_cache = cache.set(key,
 						{'name': name,
 						 'email_id': email,
@@ -102,6 +106,10 @@ def Init_Reg(request):
 					request.session['contact'] = contact
 					print request.session['contact']
 					key = request.session['contact']
+					request.session['name'] = name
+					request.session['email'] = email
+					request.session['phone'] = contact
+					request.session['otp_id'] = otp_id
 					cust_cache = cache.set(key,
 						{'name': name,
 						 'email_id': email,
@@ -127,24 +135,24 @@ def verify_otp(request):
 	# print cust_cache
 	print request.session['contact']
 	otp = request.POST['otp']
-	cust_cache = cache.get(request.session['contact'])
-	while cust_cache == None:
-		cust_cache = cache.get(request.session['contact'])
+	# cust_cache = cache.get(request.session['contact'])
+	# while cust_cache == None:
+	# 	cust_cache = cache.get(request.session['contact'])
 
 	# print cust_cache['otp_id']
-	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
+	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(request.session['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
-		if not 'fbid' in cust_cache:
+		if not 'fbid' in request.session:
 			user = User.objects.get(username = cust_cache['email_id'])
 			user.is_active = True
 			user.save()
 
 			member = UserProfile()
 
-			member.name = cust_cache['name']
-			member.email_id = cust_cache['email_id']
-			member.phone = cust_cache['phone']
+			member.name = request.session['name']
+			member.email_id = request.session['email_id']
+			member.phone = request.session['phone']
 			member.user = user
 			member.save()
 
@@ -160,10 +168,10 @@ def verify_otp(request):
 			member = UserProfile()
 			# while cust_cache == None:
 			# 	cust_cache = cache.get(request.session['contact'])
-			member.name = cust_cache['name']
-			member.email_id = cust_cache['email_id']
-			member.phone = cust_cache['phone']
-			member.fbid = cust_cache['fbid']
+			member.name = request.session['name']
+			member.email_id = request.session['email']
+			member.phone = request.session['phone']
+			member.fbid = request.session['fbid']
 			member.user = user
 			member.save()
 
@@ -224,6 +232,8 @@ def social_login_fb(request):
 			else:
 				request.session['fbid'] = fbid
 				key = request.session['fbid']
+				request.session['name'] = name
+				request.session['fbid'] = fbid
 				prev_cache = cache.set(key,
 					{'name': name,
 					 'fbid': fbid,
@@ -241,6 +251,8 @@ def social_login_fb(request):
 			user.is_active = False
 			user.save()
 			key = request.session['fbid']
+			request.session['name'] = name
+			request.session['fbid'] = fbid
 			prev_cache = cache.set(key,
 				{'name': name,
 				 'fbid': fbid,
@@ -274,15 +286,20 @@ def social_contact(request):
 			send_otp_url = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/%s/AUTOGEN'''%(contact)
 			send_otp = requests.get(send_otp_url)
 			otp_id = send_otp.text.split(',')[1][11:-2]
-			prev_cache = cache.get(request.session['fbid'])
-			while prev_cache == None:
-				prev_cache = cache.get(request.session['fbid'])
+			# prev_cache = cache.get(request.session['fbid'])
+			# while prev_cache == None:
+			# 	prev_cache = cache.get(request.session['fbid'])
 			print prev_cache
 			request.session['contact'] = contact
-			name = prev_cache['name']
-			fbid = prev_cache['fbid']
+			name = request.session['name']
+			fbid = request.session['fbid']
 
 			key = request.session['contact']
+			request.session['name'] = name
+			equest.session['email'] = email
+			equest.session['phone'] = contact
+			equest.session['otp_id'] = otp_id
+			equest.session['fbid'] = fbid
 			cust_cache = cache.set(key,
 				{'name': name,
 				 'email_id': email,
@@ -345,7 +362,7 @@ def social_login_fb_app(request):
 		email = request.POST['Email']
 		try:
 			user_p = User.objects.get(fbid=fbid)
-			if user_p.refer_stage < 1:
+			if int(user_p.refer_stage) == 0:
 				user_p.refer_stage = '1'
 				user_p.app_downloaded = True
 				user_p.save()
@@ -362,6 +379,9 @@ def social_login_fb_app(request):
 			user.is_active = False
 			user.save()
 			key = request.session['fbid']
+			request.session['name'] = name
+			request.session['fbid'] = fbid
+			request.session['email'] = email
 			cache.set(key,
 				{'name': name,
 				 'fbid': fbid,
@@ -370,20 +390,20 @@ def social_login_fb_app(request):
 
 		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})	
 
-def test_cache_set(request):
-	request.session['contact'] = 569841
-	key = request.session['contact']
-	name = 'af'
-	email = 'hthr'
-	contact = 7689768
-	otp_id = 'dhdtrh'
-	fbid = 780797
-	cust_cache = cache.set(key,
-		{'name': name,
-		 'email_id': email,
-		 'phone': contact,
-		 'otp_id': otp_id,
-		 'fbid': fbid
-		})
-	print cache.get(request.session['contact'])
-	return JsonResponse({'status':'done'})
+# def test_cache_set(request):
+# 	request.session['contact'] = 569841
+# 	key = request.session['contact']
+# 	name = 'af'
+# 	email = 'hthr'
+# 	contact = 7689768
+# 	otp_id = 'dhdtrh'
+# 	fbid = 780797
+# 	cust_cache = cache.set(key,
+# 		{'name': name,
+# 		 'email_id': email,
+# 		 'phone': contact,
+# 		 'otp_id': otp_id,
+# 		 'fbid': fbid
+# 		})
+# 	print cache.get(request.session['contact'])
+# 	return JsonResponse({'status':'done'})

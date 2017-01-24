@@ -2110,6 +2110,7 @@ p.add_money {
     margin: 0;
     cursor: pointer;
     margin-bottom: 12px;
+    font-family: sans-serif;
 }
 
 /* END DASHBOARD*/
@@ -2216,6 +2217,7 @@ p.input-label {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .earn-money-panel.inner-dash .headers ul li.active {
@@ -2225,6 +2227,32 @@ p.input-label {
 .earn-money-panel.inner-dash .headers ul li {
     color: #aaa;
     /*cur*/
+}
+
+.earn-money-details p {
+    font-family: sans-serif;
+    color: #212f4c;
+}
+
+
+.checkout-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 2.2em 0;
+}
+
+p.checkout_message {
+    margin: 0;
+    font-family: sans-serif;
+    color: #333;
+}
+
+p#checkout_paytm {
+    text-transform: uppercase;
+    /* font-family: sans-serif; */
+    background: #aaa;
 }
 /*END EARN MONEY*/
 
