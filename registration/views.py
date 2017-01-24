@@ -10,6 +10,7 @@ import requests
 import json
 # from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
+import redis
 
 
 def register_app(request):
@@ -70,7 +71,7 @@ def Init_Reg(request):
 						})
 
 					# return JsonResponse(status)
-					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
+					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard', 'otp_id': otp_id})
 				# return HttpResponseRedirect('../../../register')
 
 			except ObjectDoesNotExist:
@@ -109,7 +110,7 @@ def Init_Reg(request):
 						})
 
 					# return JsonResponse(status)
-					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
+					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard', 'otp_id': otp_id})
 
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
@@ -123,14 +124,14 @@ def Init_Reg(request):
 
 # @cache_page(60*10)
 def verify_otp(request):
-	cust_cache = cache.get(request.session['contact'])
-	while cust_cache == None:
-		cust_cache = cache.get(request.session['contact'])
 	# print cust_cache
 	print request.session['contact']
 	otp = request.POST['otp']
-	# print cust_cache['otp_id']
 	cust_cache = cache.get(request.session['contact'])
+	while cust_cache == None:
+		cust_cache = cache.get(request.session['contact'])
+
+	# print cust_cache['otp_id']
 	verify_otp_api = '''http://2factor.in/API/V1/b5dfcd4a-cf26-11e6-afa5-00163ef91450/SMS/VERIFY/%s/%s'''%(cust_cache['otp_id'], otp)
 	verify_otp = requests.get(verify_otp_api)
 	if json.loads(verify_otp.text)['Status'] == 'Success':
@@ -368,3 +369,21 @@ def social_login_fb_app(request):
 				})
 
 		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})	
+
+def test_cache_set(request):
+	request.session['contact'] = 569841
+	key = request.session['contact']
+	name = 'af'
+	email = 'hthr'
+	contact = 7689768
+	otp_id = 'dhdtrh'
+	fbid = 780797
+	cust_cache = cache.set(key,
+		{'name': name,
+		 'email_id': email,
+		 'phone': contact,
+		 'otp_id': otp_id,
+		 'fbid': fbid
+		})
+	print cache.get(request.session['contact'])
+	return JsonResponse({'status':'done'})

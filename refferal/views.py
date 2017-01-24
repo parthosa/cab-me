@@ -72,7 +72,7 @@ def refer_registration(request, invite_code):
 						})
 
 					# return JsonResponse(status)
-					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
+					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard', 'otp_id': otp_id})
 				# return HttpResponseRedirect('../../../register')
 			except ObjectDoesNotExist:
 				if len(str(contact)) != 10: 
@@ -108,7 +108,7 @@ def refer_registration(request, invite_code):
 						})
 
 					# return JsonResponse(status)
-					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard'})
+					return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/dashboard', 'otp_id': otp_id, 'invite_code': invite_code})
 
 		else:
 			status = { "status": 0 , "message": "Passwords do not match"}
@@ -122,7 +122,6 @@ def refer_registration(request, invite_code):
 # @cache_page(60*10)
 @csrf_exempt
 def verify_otp(request):
-
 
 	cust_cache = cache.get(request.session['contact'])
 	while cust_cache == None:

@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^social/contact/', views.social_contact, name='social_contact'),
     url(r'^social/facebook/login/', views.social_login_fb, name = 'social_login_fb'),
     url(r'^app/login/', views.user_login_app, name='login'),
-    url(r'^app/social/facebook/login/', views.social_login_fb_app, name = 'social_login_fb')
+    url(r'^app/social/facebook/login/', views.social_login_fb_app, name = 'social_login_fb'),
+    url(r'^test_cache_set/', views.test_cache_set, name='test_pub'),
 ]
 
