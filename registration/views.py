@@ -390,20 +390,20 @@ def social_login_fb_app(request):
 
 		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})	
 
-# def test_cache_set(request):
-# 	request.session['contact'] = 569841
-# 	key = request.session['contact']
-# 	name = 'af'
-# 	email = 'hthr'
-# 	contact = 7689768
-# 	otp_id = 'dhdtrh'
-# 	fbid = 780797
-# 	cust_cache = cache.set(key,
-# 		{'name': name,
-# 		 'email_id': email,
-# 		 'phone': contact,
-# 		 'otp_id': otp_id,
-# 		 'fbid': fbid
-# 		})
-# 	print cache.get(request.session['contact'])
-# 	return JsonResponse({'status':'done'})
+def test_cache_set(request):
+	request.session['contact'] = 569841
+	key = request.session['contact']
+	name = 'af'
+	email = 'hthr'
+	contact = 7689768
+	otp_id = 'dhdtrh'
+	fbid = 780797
+	cust_cache = cache.set(key,
+		{'name': name,
+		 'email_id': email,
+		 'phone': contact,
+		 'otp_id': otp_id,
+		 'fbid': fbid
+		})
+	print cache.get(request.session['contact'])
+	return JsonResponse({'status':'done'})
