@@ -10,7 +10,7 @@ import requests
 import json
 # from django.views.decorators.cache import cache_page
 from django.core.exceptions import ObjectDoesNotExist
-import redis
+# import redis
 
 
 def register_app(request):
