@@ -289,7 +289,7 @@ def social_contact(request):
 			# prev_cache = cache.get(request.session['fbid'])
 			# while prev_cache == None:
 			# 	prev_cache = cache.get(request.session['fbid'])
-			print prev_cache
+			# print prev_cache
 			request.session['contact'] = contact
 			name = request.session['name']
 			fbid = request.session['fbid']
