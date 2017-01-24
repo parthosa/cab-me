@@ -295,4 +295,3 @@ def social_contact(request):
 
 	# return JsonResponse(status)
 	return JsonResponse({'status': 1, 'message': 'You have Successfully registered, you will be now redirected to verify your otp.', 'location_redirection': '/verify_otp'})
-
