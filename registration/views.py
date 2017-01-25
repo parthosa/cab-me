@@ -361,7 +361,7 @@ def social_login_fb_app(request):
 		name = request.POST['Name']
 		
 		try:
-			user_p = User.objects.get(fbid=fbid)
+			user_p = UserProfile.objects.get(fbid=fbid)
 			if int(user_p.refer_stage) == 0:
 				user_p.refer_stage = '1'
 				user_p.app_downloaded = True
