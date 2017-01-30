@@ -7,6 +7,7 @@ from refferal import views
 
 urlpatterns = [
     url(r'^bookcab/', bookcab, name='bookcab'),
+    url(r'^cab_app/', cab_app, name='cab_app'),
     url(r'^booknow/', booknow, name='booknow'),
     url(r'^postcab/', postcab, name = 'postcab'),
     url(r'^$', index, name='index'),

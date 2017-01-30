@@ -73,6 +73,9 @@ def dashboard(request):
 def hotels(request):
 	return render(request, 'cab/hotels.html')
 
+def cab_app(request):
+	return render(request, 'cab/cab-app.html')
+
 def flights(request):
 	return render(request, 'cab/flights.html')
 

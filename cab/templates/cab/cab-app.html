@@ -1,0 +1,168 @@
+ {% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register Vendor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/cab-app.css' %}">
+</head>
+<body>
+<div class="container-wrap">
+<form id="cab-search" >
+  {% csrf_token %}
+  <div class="input-wrap">
+  	<p class="label">STARTING LOCATION</p>
+  	<input class="input-field" type="text" name="From" required="" placeholder=" From"></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">DESTINATION LOCATION</p>
+  	<input class="input-field" name="To" type="text" placeholder=" To"></input>
+  </div>
+   <div class="input-wrap">
+  	<p class="label">TRAVEL OPTIONS</p>
+    <div class="input-wrap">
+          <input class="input-field radio" type="radio" name="OneWay" value="ONE WAY"><span class="radio-label">TWO WAY</span><br>
+  <input class="input-field radio" type="radio" name="OneWay" value="TWO WAY"><span class="radio-label">ONE WAY</span>
+  <hr>
+      <input class="input-field radio" type="radio" name="Sharing" value="NO SHARING"><span class="radio-label">NO SHARING</span><br>
+  <input class="input-field radio" type="radio" name="Sharing" value="SHARING"><span class="radio-label">SHARING</span>
+    </div>
+
+  </div>
+
+   <div class="input-wrap">
+    <p class="label">DEPART &amp; RETURN DATES</p>
+          <input class="input-field" type="date" name="Date" required="" placeholder=" Depart"></input>
+          <input class="input-field" type="date" name="Date_return" required="" placeholder=" Return"></input>
+  </div>
+
+
+<!--    <div class="input-wrap">
+    <p class="label">DEPART &amp; RETURN TIME</p>
+          <input class="input-field" type="time" name="departtime" required="" placeholder=" Depart"></input>
+          
+  </div> -->
+
+  <div class="button-wrap">
+    <button  class="submit" id="cab-search-btn">SUBMIT</button>
+  </div>
+  <div class="message">
+  	<p  id="message_box"></p>
+  </div>
+</form>
+
+  <div class="cabs-available">
+    <p class="label">AVAILABLE CABS</p>
+    <div class="cab-list-wrap">
+          <div class="cab-list" cab-id="HATCHBACK">
+            <p class="cab-type" style="margin-left:20px">HATCHBACK</p>
+            <button class="cab-choose">&#8377; 3500</h6>
+          </div>
+          <div class="cab-list" cab-id="SEDAN">
+            <p class="cab-type" style="margin-left:20px">SEDAN</p>
+            <button class="cab-choose">&#8377; 4000</h6>
+          </div>
+          <div class="cab-list" cab-id="SUV">
+            <p class="cab-type" style="margin-left:20px">SUV</p>
+            <button class="cab-choose">&#8377; 4700</h6>
+          </div>
+        </div>
+        <div class="message">
+            <p  id="message_box"></p>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="summary">
+  <form id="cab-summary" >
+  {% csrf_token %}
+  <div class="input-wrap">
+    <p class="label">PICKUP LOCATION</p>
+    <input class="input-field" type="text" name="From" required="" placeholder=" Location"></input>
+  </div>
+   <div class="input-wrap">
+    <p class="label">PICKUP TIME</p>
+    <input class="input-field" name="To" type="text" placeholder=" Time"></input>
+  </div>
+   <div class="input-wrap">
+    <p class="label">PHONE</p>
+    <input class="input-field" name="To" type="text" placeholder=" Phone"></input>
+  </div>
+   <div class="input-wrap">
+
+      <input class="input-field radio" type="radio" name="Sharing" value="NO SHARING"><span class="radio-label">NO SHARING</span><br>
+  <input class="input-field radio" type="radio" name="Sharing" value="SHARING"><span class="radio-label">SHARING</span>
+    </div>
+  <div class="button-wrap">
+    <button  class="submit" id="cab-summary-btn">SUBMIT</button>
+  </div>
+  </form>
+
+</div>
+
+<div class="cab-confirm">
+  <div class="">
+</div>
+
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+ <script type="text/javascript">
+   $('#cab-search-btn').click(function () {
+      var data = {
+        'From':$(this).closest('#cab-search').find('input[name=From']).val(),
+        'To':$(this).closest('#cab-search').find('input[name=To']).val(),
+        'Date':$(this).closest('#cab-search').find('input[name=Date']).val(),
+        'Date_return':$(this).closest('#cab-search').find('input[name=Date_return-date']).val(),
+        'OneWay':$(this).closest('#cab-search').find('input[name=OneWay']).val(),
+        'Sharing':$(this).closest('#cab-search').find('input[name=Sharing']).val(),
+
+      }
+
+      sendDataAjax(data,'/app_bookcab/','#cab-search #message_box');
+   })
+
+   $('.cab-choose').click(function(){
+        var data = {
+           'From':$(this).closest('#cab-search').find('input[name=From']).val(),
+        'To':$(this).closest('#cab-search').find('input[name=To']).val(),
+        'Date':$(this).closest('#cab-search').find('input[name=Date']).val(),
+          'Date_return':$(this).closest('#cab-search').find('input[name=Date_return-date']).val(),
+          'cab_id':$(this).closest('#cab-list').attr('cab-id')
+        }
+
+        sendDataAjax(data,'/app_summary/','.cabs-available #message_box');
+   })
+
+   function sendDataAjax(data,url,updateElement='') {
+  data['csrfmiddlewaretoken']=getCookie('csrftoken');
+  $(updateElement).html('Please Wait');
+  $.ajax({
+    type:'POST',
+    url:url,
+    data:data,
+    success:function (response) {
+      $(updateElement).html(response.message)
+      if(url=='/app_bookcab/' && response.status == 1){
+        $('#cab-search').hide();
+        $('#cabs-available').show();
+        var cabs = response.cabs;
+        $('.cab-list:not(.hidden)').remove();
+        for(var i=0;i<cabs.length;i++){
+          var $cabEle = $('.cab-list.hidden').clone();
+          $cabEle.removeClass('hidden');
+          $cabEle.attr('cab-id',cabs[i].cab_id);
+          $cabEle.find('.cab-type').html(cabs[i].cab_type);
+          $cabEle.find('.cab-choose').html(cabs[i].cab_price);
+
+        }
+      }
+      if(url=='/app_summary/' && response.status == 1){
+        $('#cabs-available').hide();
+        $('#cab_summary').show();
+      }
+    }
+  });
+};
+ </script> 
+</body>
+</html>
