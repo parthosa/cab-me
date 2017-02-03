@@ -5,3 +5,5 @@ admin.site.register(BookCab)
 admin.site.register(Cab)
 admin.site.register(PostCab)
 admin.site.register(City)
+admin.site.register(InterCity)
+

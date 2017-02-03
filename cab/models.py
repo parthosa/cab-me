@@ -9,8 +9,8 @@ cities = (
 	)
 class BookCab(models.Model):
 
-	From = models.CharField(max_length = 100, choices=cities, blank = False)
-	To = models.CharField(max_length = 100, choices=cities, blank = False)
+	From = models.ForeignKey('City', null = True, related_name = 'book_from')
+	To = models.ForeignKey('City', null = True, related_name = 'book_to')
 	Date = models.CharField(blank = False, null = False, max_length = 10)
 	Date_return = models.CharField(blank = False, null = False, max_length = 10, default = '')
 	Time = models.CharField(max_length = 10)
@@ -24,8 +24,8 @@ class BookCab(models.Model):
 		return str(self.id)
 
 class Cab(models.Model):
-	From = models.CharField(max_length = 100, choices=cities, null = True ,blank = True)
-	To = models.CharField(max_length = 100, choices=cities, null = True,blank = True)
+	From = models.ForeignKey('City', null = True, related_name = 'cab_from')
+	To = models.ForeignKey('City', null = True, related_name = 'cab_to')
 	DriverName = models.CharField(max_length = 100, blank = False, default = '')
 	Date = models.CharField(null = True, max_length = 10,blank = True)
 	Date_return = models.CharField(null = True, max_length = 10, default = '',blank = True)
@@ -34,12 +34,16 @@ class Cab(models.Model):
 	cab_id = models.CharField(max_length = 1000, default = '')
 	price = models.IntegerField(default = 7, blank = False)
 
+	# def save(self, *args, **kwargs):
+	# 	self.cab_id = str(self.id)
+	# 	super(Cab, self).save(*args, **kwargs)
+	
 	def __unicode__(self):
 		return str(self.cab_id)
 
 class PostCab(models.Model):
-	From = models.CharField(max_length = 100, choices=cities, blank = False)
-	To = models.CharField(max_length = 100, choices=cities, blank = False)
+	From = models.ForeignKey('City', null = True, related_name = 'post_from')
+	To = models.ForeignKey('City', null = True, related_name = 'post_to')
 	Date = models.CharField(blank = False, null = False, max_length = 10)
 	Date_return = models.CharField(blank = False, null = False, max_length = 10, default = '')
 	Time = models.CharField(max_length = 10)
@@ -54,10 +58,26 @@ class PostCab(models.Model):
 
 	def __unicode__(self):
 		return str(self.id)	
+
 class City(models.Model):
 	name = models.CharField(max_length = 100, blank = False)
+	suv_price = models.IntegerField(null = True)
+	sedan_price = models.IntegerField(null = True)
+	hatch_price = models.IntegerField(null = True)
 
 	def __unicode__(self):
 		return self.name
 
-	
+class InterCity(models.Model):
+	From = models.ForeignKey('City', null = True, related_name = 'inter_from')
+	To = models.ForeignKey('City', null = True, related_name = 'inter_to')
+	Price = models.IntegerField(default= 7, null = True)
+	Type = models.CharField(max_length = 50, null = True)
+	cab_id = models.CharField(max_length = 50, null = True)
+
+	def __unicode__(self):
+		return self.From.name + self.To.name + self.Type
+
+	def save(self, *args, **kwargs):
+		self.cab_id = 'i' + str(self.id)
+		super(InterCity, self).save(*args, **kwargs)
