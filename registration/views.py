@@ -289,13 +289,13 @@ def social_contact(request):
 			# prev_cache = cache.get(request.session['fbid'])
 			# while prev_cache == None:
 			# 	prev_cache = cache.get(request.session['fbid'])
-			print prev_cache
+			# print prev_cache
 			request.session['contact'] = contact
 			name = request.session['name']
 			fbid = request.session['fbid']
 
 			key = request.session['contact']
-			request.session['name'] = name
+			request.session['name']	 = name
 			request.session['email'] = email
 			request.session['phone'] = contact
 			request.session['otp_id'] = otp_id
@@ -359,9 +359,9 @@ def social_login_fb_app(request):
 		cache.clear()
 		fbid = request.POST['fbid']
 		name = request.POST['Name']
-		email = request.POST['Email']
+		
 		try:
-			user_p = User.objects.get(fbid=fbid)
+			user_p = user_p.objects.get(fbid=fbid)
 			if int(user_p.refer_stage) == 0:
 				user_p.refer_stage = '1'
 				user_p.app_downloaded = True
@@ -369,7 +369,11 @@ def social_login_fb_app(request):
 			else:
 				pass
 			user_l = authenticate(username = fbid, password = fbid)
+			login(request, user_l)
+
+			return JsonResponse({'status': 1, 'message': 'Successfully logged in'})
 		except ObjectDoesNotExist:
+			email = request.POST['Email']
 			request.session['fbid'] = fbid
 			# user_p = UserProfile.objects.create(fbid = fbid, name = name, email_id = email)
 			user.create(
@@ -388,7 +392,7 @@ def social_login_fb_app(request):
 				 'email': email
 				})
 
-		return JsonResponse({'status': 1, 'message': 'You will be redirected to confirm your contact number'})	
+			return JsonResponse({'status': 2, 'message': 'You will be redirected to confirm your contact number'})	
 
 def test_cache_set(request):
 	request.session['contact'] = 569841

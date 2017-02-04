@@ -527,8 +527,8 @@ def postcab(request):
 	user_p = UserProfile.objects.get(user = request.user)
 	print request.POST
 	postcab = PostCab()
-	postcab.From = request.POST['From']
-	postcab.To = request.POST['To']
+	postcab.From = City.objects.get_or_create((request.POST['From']).lower())
+	postcab.To = City.objects.get_or_create((request.POST['To']).lower())
 	postcab.Date = request.POST['Date']
 	postcab.Time = request.POST['Time']
 	postcab.Type = request.POST['Type']
@@ -539,7 +539,7 @@ def postcab(request):
 	postcab.user = request.user
 	postcab.price = request.POST['Rate']
 	postcab.save()
-	postcab.cab_id = 'p' + postcab.id
+	postcab.cab_id = 'p' + str(postcab.id)
 	postcab.save()
 
 	resp = {'status': 'Done'}
