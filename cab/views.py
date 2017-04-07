@@ -94,6 +94,9 @@ def summary(request):
 	cab_id = request.POST['cab_id']
 	try:
 		cab = Cab.objects.get(cab_id = cab_id)
+		distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
+		distance_json = urlopen(distance_url)
+		distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) #int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
 		price = cab.price*distance
 	except ObjectDoesNotExist:
 		cab = InterCity.objects.get(cab_id = cab_id)	
@@ -108,9 +111,6 @@ def summary(request):
 	cab_to = cab_cache['To']
 	cab_date = cab_cache['Date']
 	cab_date_return = cab_cache['Date_return']
-	distance_url = '''https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=%s&destinations=%s&key=AIzaSyDa8dUK8TSX2Iw-zI9YwLkm5VekKKmkyIQ''' %(cab_from, cab_to)
-	distance_json = urlopen(distance_url)
-	distance = int(json.load(distance_json)['rows'][0]['elements'][0]['distance']['text'][:-3]) #int(distance_json.split('],')[2].split(' : ')[4].split('"')[1][:-3]) #google api call
 	 #distance*cab.price
 	service_tax = float(.06*price)
 	total_price = price+service_tax
