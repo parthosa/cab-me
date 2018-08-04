@@ -32,8 +32,8 @@ SITE_ID = 1
 TEMPPLATE_CONTEXT_PROCESSORS = (
     'django.template.context_processors.request',
     "django.contrib.auth.context_processors.auth",
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
+    # "allauth.account.context_processors.account",
+    # "allauth.socialaccount.context_processors.socialaccount",
 )
 
 
@@ -51,10 +51,10 @@ INSTALLED_APPS = (
     'cab',
     'b_cab',
     'vendor',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.facebook',
 )
 
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
@@ -108,25 +108,25 @@ LOGIN_REDIRECT_URL = '/dashboard'
 # ACCOUNT_SIGNUP_FORM_CLASS = 'registration.forms.SocialForm'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
-SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'SCOPE': ['email'],
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time'],
-        'METHOD': 'js_sdk'  # instead of 'oauth2'
-    }
-}
-LANGUAGE_CODE = 'en-us'
+# SOCIALACCOUNT_PROVIDERS = {
+#     'facebook': {
+#         'SCOPE': ['email'],
+#         'FIELDS': [
+#             'id',
+#             'email',
+#             'name',
+#             'first_name',
+#             'last_name',
+#             'verified',
+#             'locale',
+#             'timezone',
+#             'link',
+#             'gender',
+#             'updated_time'],
+#         'METHOD': 'js_sdk'  # instead of 'oauth2'
+#     }
+# }
+# LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 

@@ -157,6 +157,7 @@ function sendData(data,url){
 		input.type='hidden';
 		form.appendChild(input)
 	}
+	$(document.body).append(form);
 	form.submit();
 }
 
